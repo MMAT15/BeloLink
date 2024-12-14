@@ -19,21 +19,23 @@
   --text-dark: #e0e0e0;
   --primary-dark: #1f4b8e;
   --secondary-dark: #4e9cca;
+
+  /* Nueva variable para mejorar el contraste en hover de botones/enlaces */
+  --hover-bg-color: #f0f8ff;
 }
 
 * {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-  margin: 0;
-  padding: 0;
   font-family: 'Open Sans', sans-serif;
   background-color: var(--background-color);
   color: var(--text-color);
   line-height: 1.6;
   width: 100%;
-  /* box-sizing ya está aplicado con * { box-sizing: border-box; } */
 }
 
 /* =========================================================
@@ -51,6 +53,14 @@ header {
   z-index: 2;
   width: 100%;
 }
+
+/* Cuando el header se hace "sticky" podría mejorarse la navegación
+   (posible futura mejora con position: sticky) */
+/* header {
+  position: sticky;
+  top: 0;
+  ... 
+} */
 
 .logo-container {
   display: flex;
@@ -177,6 +187,12 @@ nav ul li {
   margin: 0;
   padding: 10px 0;
   font-weight: bold;
+}
+
+/* Agregamos :focus-visible para accesibilidad de tab en enlaces */
+nav ul li a:focus-visible {
+  outline: 2px solid var(--secondary-color);
+  outline-offset: 4px;
 }
 
 nav ul li a {
@@ -389,7 +405,7 @@ footer p {
 }
 
 .back-to-top:hover {
-  background-color: #003366;
+  background-color: var(--hover-bg-color);
   transform: scale(1.1);
 }
 
@@ -416,6 +432,13 @@ form textarea {
   width: 100%;
   box-sizing: border-box;
   margin-bottom: 15px;
+  transition: box-shadow 0.3s ease;
+}
+
+form input:focus,
+form textarea:focus {
+  box-shadow: 0 0 0 3px rgba(172, 233, 255, 0.5);
+  outline: none; /* Dejar que el box-shadow maneje el foco */
 }
 
 form button {
@@ -439,7 +462,7 @@ form button:hover {
    ========================================================= */
 a {
   color: #0096c6;
-  text-decoration: none; 
+  text-decoration: none;
   display: block; /* Hace que el enlace ocupe todo el área del contenedor */
 }
 
@@ -485,8 +508,8 @@ a:hover {
    PRODUCTOS Y IMÁGENES COMENTARIOS
    ========================================================= */
 .producto-imagen {
-  width: 300px; 
-  height: 200px; 
+  width: 300px;
+  height: 200px;
   object-fit: cover;
   margin-bottom: 15px;
   border-radius: 8px;
@@ -619,7 +642,7 @@ a:hover {
   font-weight: 600;
   display: flex;
   justify-content: center;
-  align-items: center; /* Centra verticalmente el contenido */
+  align-items: center;
   width: calc(100% - 40px);
   max-width: 50%;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15), inset 0 0 10px rgba(255, 255, 255, 0.2);
@@ -682,10 +705,6 @@ a:hover {
 
 /* ------- Tablets / Móviles (max-width: 768px) ------- */
 @media (max-width: 768px) {
-  body {
-    padding: 0;
-  }
-
   main.content {
     padding: 25px;
   }
@@ -693,7 +712,7 @@ a:hover {
   main.content section {
     padding: 15px;
     max-width: 100%;
-    margin-bottom: 60px; /* Ajusta si necesitas menos o más espacio */
+    margin-bottom: 60px;
   }
 
   .beneficio, .contacto-item {
