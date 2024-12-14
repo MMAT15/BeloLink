@@ -318,8 +318,8 @@ main.content img:hover::after {
 
 .beneficio img,
 .contacto-item img {
-  width: 120px;
-  height: 120px;
+  width: 180px;
+  height: 180px;
   margin-bottom: 20px;
   border-radius: 50%;
   background-color: var(--secondary-color);
