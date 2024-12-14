@@ -1,0 +1,389 @@
+/* =========================================================
+   VARIABLES Y RESETEO
+   ========================================================= */
+
+/* Fallback de color antes de la variable (opcional) */
+/* Nota: Sólo es necesario si te preocupa compatibilidad con navegadores muy antiguos */
+:root {
+  --primary-color: #162b6f;       /* Fallback: #162b6f */
+  --secondary-color: #ace9ff;     /* Fallback: #ace9ff */
+  --highlight-color: #d4af37;     /* Fallback: #d4af37 */
+  --text-color: #333;             /* Fallback: #333 */
+  --background-color: #f4f4f4;    /* Fallback: #f4f4f4 */
+  --white: #fff;                  /* Fallback: #fff */
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  --button-hover-bg: #0096c6;
+  --focus-border: rgba(172, 233, 255, 0.5);
+}
+
+/* Reset básico y estilos globales */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  /* Fallback + variable */
+  background-color: #f8f8f8; 
+  background-color: var(--background-color, #f8f8f8);
+
+  color: #333;
+  color: var(--text-color, #333);
+
+  font-family: 'Open Sans', sans-serif;
+  margin: 0;
+  padding: 0;
+  line-height: 1.6;
+  width: 100%;
+}
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+header {
+  background-color: var(--primary-color);
+  color: var(--white);
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 4px 8px var(--shadow-color);
+}
+
+header h1 {
+  margin: 0;
+  font-size: 2.8rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--white);
+  text-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+  position: relative;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+header h1:hover {
+  color: var(--highlight-color);
+  transform: translateY(-5px); /* Levanta ligeramente el título en hover */
+}
+
+/* =========================================================
+   ENLACES Y BOTONES
+   ========================================================= */
+
+/* Unificamos transiciones: color y transform si quieres animar el hover */
+button, a {
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+  outline: none;
+  cursor: pointer;
+}
+
+/* Estados de foco para accesibilidad */
+button:focus, a:focus {
+  outline: 2px solid var(--highlight-color);
+  outline-offset: 2px;
+}
+
+/* Hover global para botones y enlaces */
+button:hover, a:hover {
+  background-color: var(--secondary-color);
+  color: var(--white);
+}
+
+/* Estilo base para enlaces */
+a {
+  color: var(--primary-color);
+  font-weight: bold;
+  text-decoration: none;
+}
+
+a:hover {
+  text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* =========================================================
+   FLOATING BUTTON
+   ========================================================= */
+.floating-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: var(--primary-color);
+  color: var(--white);
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px var(--shadow-color);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+.floating-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+  background-color: var(--secondary-color);
+}
+
+/* =========================================================
+   FLOATING MENU
+   ========================================================= */
+.floating-menu {
+  position: fixed;
+  bottom: 80px;
+  right: 20px;
+  background-color: var(--primary-color);
+  border-radius: 8px;
+  box-shadow: 0 6px 12px var(--shadow-color);
+  overflow: hidden;
+  display: none;
+  opacity: 0;
+  transition: opacity 0.3s ease, visibility 0.3s;
+  visibility: hidden;
+}
+
+.floating-menu.active {
+  display: block;
+  opacity: 1;
+  visibility: visible;
+}
+
+.floating-menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.floating-menu ul li {
+  padding: 10px 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.floating-menu ul li:last-child {
+  border-bottom: none;
+}
+
+.floating-menu ul li a {
+  color: var(--white);
+  text-decoration: none;
+  display: block;
+  transition: background-color 0.3s ease, padding-left 0.3s ease;
+}
+
+.floating-menu ul li a:hover {
+  background-color: var(--secondary-color);
+  padding-left: 25px; /* Slight padding on hover */
+}
+
+/* =========================================================
+   MAIN Y SECCIONES
+   ========================================================= */
+main {
+  padding: 40px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  background-color: var(--white, #fff);
+  border-radius: 8px;
+  box-shadow: 0 4px 8px var(--shadow-color);
+}
+
+section {
+  margin-bottom: 40px;
+}
+
+section h2 {
+  margin: 0 auto 20px;
+  font-size: 2.2rem;
+  font-weight: 600;
+  color: var(--primary-color);
+  text-align: center;
+  text-transform: uppercase;
+  text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+  position: relative;
+}
+
+section h2::after {
+  content: '';
+  display: block;
+  width: 80px;
+  height: 4px;
+  background: var(--highlight-color);
+  margin: 10px auto 0;
+  border-radius: 2px;
+}
+
+/* Estilo para párrafos */
+section p {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  text-align: justify;
+  color: var(--text-color);
+  margin: 0 auto 20px;
+  max-width: 800px;
+  padding: 0 15px;
+  text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1);
+  position: relative;
+  animation: fadeInUp 0.5s ease both; /* Animación de entrada */
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Listas */
+ul li {
+  margin-bottom: 10px;
+  font-size: 1.1rem;
+  color: var(--text-color);
+  padding: 5px 10px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+ul li:hover {
+  background-color: var(--background-color);
+  color: var(--primary-color);
+  transform: scale(1.02);
+}
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+footer {
+  background-color: var(--primary-color);
+  color: var(--white);
+  text-align: center;
+  padding: 20px;
+  margin-top: 40px;
+  box-shadow: 0 -4px 8px var(--shadow-color);
+}
+
+footer p {
+  margin: 0;
+  font-size: 1rem;
+}
+
+/* =========================================================
+   COOKIE BANNER
+   ========================================================= */
+.cookie-banner {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: var(--primary-color);
+  color: var(--white);
+  padding: 20px;
+  text-align: center;
+  z-index: 1000;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.cookie-banner p {
+  margin: 0;
+  padding: 0 10px;
+  font-size: 1rem;
+}
+
+.cookie-buttons {
+  margin-top: 10px;
+}
+
+.cookie-buttons button {
+  background-color: var(--secondary-color);
+  color: var(--primary-color);
+  border: none;
+  padding: 10px 20px;
+  margin: 5px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.cookie-buttons button:hover {
+  background-color: #003366;
+  transform: scale(1.05);
+}
+
+/* =========================================================
+   PREFERS-REDUCED-MOTION
+   ========================================================= */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0s !important;
+    transition-duration: 0s !important;
+  }
+}
+
+/* =========================================================
+   MEDIA QUERIES
+   ========================================================= */
+@media (max-width: 768px) {
+  header h1 {
+    font-size: 2rem;
+  }
+
+  main {
+    padding: 20px;
+  }
+
+  section h2 {
+    font-size: 1.5rem;
+  }
+
+  section p, ul li {
+    font-size: 1rem;
+  }
+
+  .floating-menu {
+    top: auto;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 5px 5px 0 0;
+    width: 100%;
+    box-shadow: none;
+  }
+
+  .floating-menu ul {
+    display: flex;
+    justify-content: space-around;
+  }
+}
+
+@media (max-width: 480px) {
+  main {
+    padding: 15px;
+  }
+
+  section h2 {
+    font-size: 1.2rem;
+  }
+
+  section p, ul li {
+    font-size: 0.9rem;
+  }
+
+  .cookie-banner p {
+    font-size: 0.9rem;
+  }
+
+  .cookie-buttons button {
+    font-size: 0.9rem;
+  }
+
+  .floating-menu ul {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .floating-menu ul li {
+    margin: 10px 0;
+  }
+}
