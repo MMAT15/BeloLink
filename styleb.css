@@ -214,6 +214,9 @@ form button:hover {
   box-shadow: 0 4px 8px var(--shadow-color);
   overflow: hidden;
   display: none;
+
+  /* Agrega o ajusta el z-index */
+  z-index: 9999; /* o un valor mayor que el resto de elementos */
 }
 
 .floating-menu.active {
