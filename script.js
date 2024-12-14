@@ -1,5 +1,8 @@
+<script>
 document.addEventListener("DOMContentLoaded", function () {
-  // Función para manejar cookies
+  // ==========================================
+  // FUNCIONES PARA MANEJO DE COOKIES
+  // ==========================================
   function setCookie(name, value, days) {
     let expires = "";
     if (days) {
@@ -19,54 +22,86 @@ document.addEventListener("DOMContentLoaded", function () {
     const ca = document.cookie.split(";");
     for (let i = 0; i < ca.length; i++) {
       let c = ca[i].trim();
-      if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+      if (c.indexOf(nameEQ) === 0) {
+        return c.substring(nameEQ.length, c.length);
+      }
     }
     return null;
   }
 
-  // Mostrar el banner de cookies si no se ha aceptado previamente
-  if (!getCookie("cookiesAccepted")) {
+  // ==========================================
+  // CARGAR GOOGLE ANALYTICS SOLO SI ACEPTA COOKIES
+  // ==========================================
+  function loadGoogleAnalytics() {
+    // Inyectar dinámicamente el script de GA
+    const gaScript = document.createElement('script');
+    gaScript.async = true;
+    gaScript.src = "https://www.googletagmanager.com/gtag/js?id=G-WGSGHHHYX5";
+    document.head.appendChild(gaScript);
+
+    gaScript.onload = () => {
+      // Inicializar GA
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-WGSGHHHYX5');
+    };
+  }
+
+  // ==========================================
+  // MOSTRAR/OCULTAR BANNER DE COOKIES
+  // ==========================================
+  // Si 'cookiesAccepted' es distinto de 'true', mostramos el banner.
+  if (getCookie("cookiesAccepted") !== "true") {
     document.getElementById("cookie-banner").style.display = "flex";
+  } else {
+    // Si el usuario ya aceptó cookies previamente, cargamos GA de inmediato
+    loadGoogleAnalytics();
   }
 
   // Aceptar cookies
   document.getElementById("accept-cookies-btn").addEventListener("click", function () {
     setCookie("cookiesAccepted", "true", 365);
     document.getElementById("cookie-banner").style.display = "none";
+    loadGoogleAnalytics(); // Cargar GA únicamente si aceptan
   });
 
-  // Rechazar cookies y eliminar cookies opcionales
+  // Rechazar cookies
   document.getElementById("reject-cookies-btn").addEventListener("click", function () {
     setCookie("cookiesAccepted", "false", 365);
     document.getElementById("cookie-banner").style.display = "none";
+    // Eliminar cookies opcionales si deseas
     deleteCookie("optionalCookie1");
     deleteCookie("optionalCookie2");
   });
 
-  // Ocultar el float de Instagram al cargar la página
+  // ==========================================
+  // INSTAGRAM FLOAT
+  // ==========================================
   const instagramFloat = document.getElementById("instagram-float");
   if (instagramFloat) {
+    // Ocultar al cargar la página
     instagramFloat.style.display = "none";
+    // Mostrar el float de Instagram después de 5 minutos (300000 ms)
+    setTimeout(function () {
+      instagramFloat.style.display = "flex"; 
+    }, 300000); // 5 min
+  }
+  // Cerrar el float de Instagram manualmente
+  const closeFloatBtn = document.getElementById("close-float");
+  if (closeFloatBtn) {
+    closeFloatBtn.addEventListener("click", function () {
+      if (instagramFloat) {
+        instagramFloat.style.display = "none";
+      }
+    });
   }
 
-  // Mostrar el float de Instagram después de 5 minutos (300000 ms)
-  setTimeout(function () {
-    if (instagramFloat) {
-      instagramFloat.style.display = "flex"; // O cambiar a "block" si prefieres
-    }
-  }, 300000); // 5 minutos en milisegundos
-
-  // Funcionalidad para cerrar el float de Instagram
-  document.getElementById("close-float").addEventListener("click", function () {
-    if (instagramFloat) {
-      instagramFloat.style.display = "none";
-    }
-  });
-
-  // Cerrar el menú nav cuando se hace clic fuera
+  // ==========================================
+  // CERRAR MENÚ NAV CUANDO SE HACE CLIC FUERA
+  // ==========================================
   const nav = document.getElementById("nav");
   const menuToggle = document.getElementById("menu-toggle");
-
   if (nav && menuToggle) {
     document.addEventListener("click", function (event) {
       if (!nav.contains(event.target) && !menuToggle.contains(event.target)) {
@@ -76,3 +111,4 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 });
+</script>
