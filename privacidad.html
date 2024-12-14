@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-WGSGHHHYX5"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-WGSGHHHYX5');
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Política de Privacidad</title>
+  <link rel="stylesheet" href="privacidad.css">
+</head>
+<body>
+    <div id="cookie-banner" class="cookie-banner">
+      <p>Este sitio web utiliza cookies para mejorar su experiencia. Aceptar el uso de cookies es opcional. En BeloLink nos tomamos la privacidad en serio. Para más información sobre el uso de sus datos, consultá nuestra <a href="privacidad.html">Política de privacidad</a></p>
+      <div class="cookie-buttons">
+        <button id="accept-cookies-btn">Aceptar</button>
+        <button id="reject-cookies-btn">Rechazar</button>
+      </div>
+    </div>
+    <script src="script.js"></script>
+  <header>
+    <h1>Política de Privacidad🔒</h1>
+  </header>
+  <div class="floating-button" id="floating-button">
+    <span class="menu-text">MENÚ</span>
+  </div>
+  <div class="floating-menu" id="floating-menu">
+    <ul>
+      <li><a href="index.html">Inicio</a></li>
+      <li><a href="productos.html">Nuestras Soluciones</a></li>
+      <li><a href="casos.html">Casos de Éxito</a></li>
+      <li><a href="info.html">Más Info</a></li>
+      <li><a href="empresas.html">Clientes Corporativos</a></li>
+    </ul>
+  </div>
+  <main>
+    <section>
+      <h2>Introducción</h2>
+      <p>En  <span class="belo">Belo</span><span class="link">Link</span> respetamos y valoramos la privacidad de nuestros usuarios. Esta política de privacidad describe cómo manejamos y protegemos la información personal que recibimos de los usuarios de nuestro sitio web.</p>
+    </section>
+    <section>
+      <h2>Uso de Cookies</h2>
+      <p>Nuestro sitio web utiliza cookies para mejorar la experiencia del usuario y proporcionar funcionalidades personalizadas. Las cookies son pequeños archivos de texto que se almacenan en su dispositivo cuando visita nuestro sitio web. Estas cookies no contienen información personal identificable y no se utilizan para recopilar datos personales sin su consentimiento explícito.</p>
+      <h3>Opciones del Usuario:</h3>
+      <ul>
+        <li><strong>Aceptar Cookies:</strong> Si elige aceptar cookies, estas se utilizarán para mejorar su experiencia en nuestro sitio, recordando sus preferencias y proporcionando contenido relevante.</li>
+        <li><strong>Rechazar Cookies:</strong> Si elige rechazar cookies, no almacenaremos ninguna cookie en su dispositivo, excepto las que sean estrictamente necesarias para el funcionamiento del sitio web. Esto puede afectar algunas funcionalidades del sitio, pero respetamos su decisión y no intentaremos recopilar datos adicionales.</li>
+      </ul>
+    </section>
+    <section>
+      <h2>Seguridad y Privacidad</h2>
+      <p>En  <span class="belo">Belo</span><span class="link">Link</span>, tomamos la seguridad y la privacidad de nuestros usuarios muy en serio. Implementamos medidas de seguridad avanzadas, incluyendo el uso de HTTPS, para asegurar que todas las comunicaciones entre su navegador y nuestro servidor estén cifradas y protegidas contra accesos no autorizados.</p>
+      <p>No almacenamos ningún tipo de dato privado del cliente. Somos estrictos en cuanto a la privacidad de los datos y aseguramos que no se recopile información personal sin su consentimiento explícito.</p>
+    </section>
+    <section>
+      <h2>Contacto</h2>
+      <p>Si tiene alguna pregunta o inquietud sobre nuestra política de privacidad, no dude en contactarnos via <a href="mailto:Belolink@proton.me">Mail</a> </p>
+    </section>
+  </main>
+  <footer>
+     <p>© 2024 <span class="highlight-belo">Belo</span><span class="highlight-link">Link</span>.</p>
+  </footer>
+  <script>
+    document.getElementById('floating-button').addEventListener('click', function() {
+      document.getElementById('floating-menu').classList.toggle('active');
+      this.classList.toggle('active');
+    });
+
+    document.addEventListener('click', function(event) {
+      const floatingMenu = document.getElementById('floating-menu');
+      const floatingButton = document.getElementById('floating-button');
+      if (!floatingMenu.contains(event.target) && !floatingButton.contains(event.target)) {
+        floatingMenu.classList.remove('active');
+        floatingButton.classList.remove('active');
+      }
+    });
+
+
+  </script>
+</body>
+</html>

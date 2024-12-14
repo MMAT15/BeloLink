@@ -1,0 +1,410 @@
+/* =========================================================
+   IMPORT FONTS
+   ========================================================= */
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap');
+
+
+/* =========================================================
+   VARIABLES
+   ========================================================= */
+:root {
+  --primary-color: #162b6f;
+  --secondary-color: #ace9ff;
+  --highlight-color: #d4af37;
+  --text-color: #333;
+  --background-color: #f4f4f4;
+  --white: #fff;
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  --button-hover-bg: #0096c6;
+  --focus-border: rgba(172, 233, 255, 0.5);
+}
+
+/* =========================================================
+   GLOBAL RESET / BOX SIZING
+   ========================================================= */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* =========================================================
+   BASE
+   ========================================================= */
+body {
+  font-family: 'Open Sans', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  line-height: 1.6;
+  width: 100%;
+}
+
+/* =========================================================
+   HEADER & FOOTER
+   ========================================================= */
+header,
+footer {
+  background-color: var(--primary-color);
+  color: var(--white);
+  text-align: center;
+  padding: 20px 0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+footer p {
+  margin: 0;
+  text-align: center;
+  line-height: 1.6;
+  font-size: 1rem;
+  color: #ffffff;
+  padding: 10px 20px;
+}
+
+/* =========================================================
+   MAIN CONTENT
+   ========================================================= */
+main {
+  padding: 20px;
+  max-width: 900px;
+  margin: 20px auto;
+  background-color: var(--white);
+  border-radius: 8px;
+  box-shadow: 0 4px 8px var(--shadow-color);
+}
+
+/* Secciones */
+section {
+  margin-bottom: 20px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px var(--shadow-color);
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  border: 1px solid var(--secondary-color); /* Borde celeste */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+section:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+section h2 {
+  color: var(--primary-color);
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-size: 28px;
+  font-weight: bold;
+  text-transform: uppercase;
+  text-align: center;
+  position: relative;
+}
+
+section h2::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 3px;
+  background-color: var(--highlight-color);
+  margin: 10px auto 0;
+}
+
+ul {
+  list-style-type: disc;
+  padding-left: 40px;
+}
+
+ul li {
+  margin-bottom: 10px;
+  font-size: 18px;
+}
+
+p {
+  font-size: 18px;
+  line-height: 1.8;
+}
+
+/* =========================================================
+   FORMULARIO
+   ========================================================= */
+form {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--secondary-color);
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px var(--shadow-color);
+  max-width: 800px;
+  margin: 0 auto 20px; /* Margen inferior para separar de la siguiente sección */
+}
+
+form label {
+  margin-top: 10px;
+  font-size: 16px;
+}
+
+form input,
+form textarea,
+form button {
+  padding: 10px;
+  margin-top: 5px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+form input:focus,
+form textarea:focus {
+  border-color: var(--secondary-color);
+  outline: none;
+  box-shadow: 0 0 8px rgba(172, 233, 255, 0.7);
+}
+
+form button {
+  background-color: var(--secondary-color);
+  color: var(--white);
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  margin-top: 20px;
+  font-size: 18px;
+}
+
+form button:hover {
+  background-color: var(--button-hover-bg);
+  transform: scale(1.05);
+}
+
+/* =========================================================
+   FLOATING BUTTON & MENU
+   ========================================================= */
+.floating-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: var(--primary-color);
+  color: var(--white);
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 8px var(--shadow-color);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.floating-button:hover {
+  background-color: var(--secondary-color);
+  box-shadow: 0 4px 12px rgba(0, 150, 198, 0.4), 0 0 15px rgba(0, 150, 198, 0.5);
+}
+
+.floating-menu {
+  position: fixed;
+  bottom: 80px;
+  right: 20px;
+  background-color: var(--primary-color);
+  border-radius: 8px;
+  box-shadow: 0 4px 8px var(--shadow-color);
+  overflow: hidden;
+  display: none;
+}
+
+.floating-menu.active {
+  display: block;
+}
+
+.floating-menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.floating-menu ul li {
+  padding: 10px 20px;
+}
+
+.floating-menu ul li a {
+  color: var(--white);
+  text-decoration: none;
+  display: block;
+  transition: background-color 0.3s ease;
+}
+
+.floating-menu ul li a:hover {
+  background-color: var(--secondary-color);
+}
+
+/* =========================================================
+   BOTONES Y ENLACES
+   ========================================================= */
+button, a {
+  transition: background-color 0.3s ease, color 0.3s ease;
+  outline: none;
+  cursor: pointer;
+}
+
+/* Estados de foco para accesibilidad */
+button:focus, a:focus {
+  outline: 2px solid var(--focus-border);
+  outline-offset: 3px;
+}
+
+button:hover, a:hover {
+  background-color: var(--secondary-color);
+  color: var(--white);
+}
+
+/* =========================================================
+   LOGO Y CONTENEDOR
+   ========================================================= */
+.logo-container {
+  display: flex;
+  align-items: center;
+  transition: opacity 0.3s ease;
+}
+
+.logo {
+  max-height: 50px;
+  border-radius: 50%;
+  border: 2px solid var(--secondary-color);
+  object-fit: cover;
+  width: 50px;
+  height: 50px;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.logo-container:hover .logo {
+  transform: scale(1.2);
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.25);
+}
+
+/* =========================================================
+   TEXTOS DESTACADOS
+   ========================================================= */
+.highlight-belo {
+  display: inline-block;
+  color: #ace9ff;
+  background-color: #162b6f;
+  border-radius: 4px;
+  transition: transform 0.3s ease;
+}
+
+.highlight-belo:hover {
+  transform: scale(1.1);
+}
+
+.highlight-link {
+  display: inline-block;
+  color: #0096c6;
+  transition: transform 0.3s ease;
+}
+
+.highlight-link:hover {
+  transform: scale(1.1);
+}
+
+/* EFECTO DORADO */
+.exclusive-gold-text,
+.ben-exclusivos {
+  font-size: 32px;
+  font-weight: bold;
+  color: var(--highlight-color);
+  background: linear-gradient(45deg, var(--highlight-color), #ffd700);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  position: relative;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4), 0 0 25px rgba(255, 215, 0, 0.6), 0 0 50px rgba(255, 215, 0, 0.3);
+}
+
+.exclusive-gold-text::after,
+.ben-exclusivos::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.2));
+  transform: skewX(-30deg);
+  transition: all 0.5s ease-in-out;
+  animation: shine-animation 0.5s ease-in-out forwards;
+}
+
+@keyframes shine-animation {
+  0% {
+    left: -100%;
+    opacity: 0;
+  }
+  25% {
+    left: 0%;
+    opacity: 1;
+  }
+  75% {
+    left: 100%;
+    opacity: 1;
+  }
+  100% {
+    left: 200%;
+    opacity: 0;
+  }
+}
+
+/* =========================================================
+   PREFERS-REDUCED-MOTION (Accesibilidad)
+   ========================================================= */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0s !important;
+    transition-duration: 0s !important;
+  }
+}
+
+/* =========================================================
+   MEDIA QUERIES
+   ========================================================= */
+@media (max-width: 768px) {
+  main {
+    margin: 10px auto;
+    padding: 15px;
+  }
+
+  section {
+    padding: 15px;
+  }
+
+  section h2 {
+    font-size: 1.5rem;
+  }
+
+  ul li,
+  p {
+    font-size: 16px;
+  }
+
+  form {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  section h2 {
+    font-size: 1.3rem;
+  }
+
+  ul li,
+  p {
+    font-size: 14px;
+  }
+
+  .logo {
+    width: 40px;
+    height: 40px;
+  }
+}
