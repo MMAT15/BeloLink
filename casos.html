@@ -100,362 +100,468 @@
     }, 3000); // Cambia de vuelta al HTML original después de 3 segundos
   }
 
+ <script>
   function scrollToTop() {
     window.scrollTo({
       top: 0,
       behavior: 'smooth'
     });
   }
+
   document.addEventListener('DOMContentLoaded', function() {
-  const userName = 'Usuario'; // Cambiar por el nombre real del usuario
-  const currentHour = new Date().getHours();
-  const greeting = currentHour < 12 ? 'Buenos días' : (currentHour < 18 ? 'Buenas tardes' : 'Buenas noches');
+    const userName = 'Usuario'; // Cambiar por el nombre real
+    const currentHour = new Date().getHours();
+    const greeting = currentHour < 12 
+      ? 'Buenos días' 
+      : (currentHour < 18 ? 'Buenas tardes' : 'Buenas noches');
 
-  // Crear el contenedor del asistente (inicialmente oculto)
-  const assistant = document.createElement('div');
-  assistant.style.position = 'fixed';
-  assistant.style.bottom = '20px';
-  assistant.style.right = '20px';
-  assistant.style.width = '350px';
-  assistant.style.maxWidth = '90%';
-  assistant.style.padding = '20px';
-  assistant.style.backgroundColor = '#2c3e50';
-  assistant.style.color = '#ecf0f1';
-  assistant.style.borderRadius = '12px';
-  assistant.style.boxShadow = '0 6px 12px rgba(0, 0, 0, 0.3)';
-  assistant.style.fontFamily = "'Open Sans', sans-serif";
-  assistant.style.zIndex = '1000';
-  assistant.style.transition = 'transform 0.3s ease, opacity 0.3s ease';
-  assistant.style.transform = 'scale(0)';
-  assistant.style.opacity = '0';
-  assistant.style.display = 'none';
-  assistant.id = 'assistant';
+    /* =========================================================
+       CONTENEDOR DEL ASISTENTE
+       ========================================================= */
+    const assistant = document.createElement('div');
+    assistant.id = 'assistant';
+    Object.assign(assistant.style, {
+      position: 'fixed',
+      bottom: '20px',
+      right: '20px',
+      width: '340px',
+      maxWidth: '90%',
+      padding: '20px',
+      backgroundColor: 'rgba(44, 62, 80, 0.75)',  // fondo semitransparente
+      color: '#ecf0f1',
+      backdropFilter: 'blur(10px)',               // glass effect
+      borderRadius: '16px',
+      boxShadow: '0 8px 20px rgba(0, 0, 0, 0.3)',
+      fontFamily: "'Open Sans', sans-serif",
+      zIndex: '9999',
+      transition: 'transform 0.3s ease, opacity 0.3s ease',
+      transform: 'scale(0)',
+      opacity: '0',
+      display: 'none',
+      border: '1px solid rgba(255, 255, 255, 0.2)' // sutil borde
+    });
 
-  assistant.innerHTML = `
-    <div style="display: flex; justify-content: space-between; align-items: center;">
-      <p style="margin: 0;">🤖 ${greeting}, ${userName}. ¡Soy tu asistente virtual! (Este es solo un modelo de diversion)</p>
-      <button id="close-assistant" style="background: none; border: none; color: #ecf0f1; font-size: 20px; cursor: pointer;">&times;</button>
-    </div>
-    <div style="margin-top: 15px;">
-      <button id="toggle-light" style="background-color: #3498db; color: #ecf0f1; padding: 12px; width: 100%; border: none; border-radius: 8px; cursor: pointer; margin-bottom: 10px;">Encender Luces</button>
-      <button id="toggle-security" style="background-color: #e74c3c; color: #ecf0f1; padding: 12px; width: 100%; border: none; border-radius: 8px; cursor: pointer; margin-bottom: 10px;">Activar Seguridad</button>
-      <button id="toggle-temperature" style="background-color: #f39c12; color: #2c3e50; padding: 12px; width: 100%; border: none; border-radius: 8px; cursor: pointer; margin-bottom: 10px;">Regular Temperatura</button>
-      <button id="toggle-locks" style="background-color: #2ecc71; color: #ecf0f1; padding: 12px; width: 100%; border: none; border-radius: 8px; cursor: pointer;">Bloquear Puertas</button>
-    </div>
-  `;
+    assistant.innerHTML = `
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <p style="margin: 0; font-size: 16px; font-weight: 600;">🤖 ${greeting}, ${userName}. ¡Bienvenido!</p>
+        <button id="close-assistant" style="
+          background: none; 
+          border: none; 
+          color: #bdc3c7; 
+          font-size: 24px; 
+          cursor: pointer; 
+          font-weight: bold;
+          transition: color 0.3s ease;
+        ">&times;</button>
+      </div>
+      <div style="margin-top: 15px;">
+        <button id="toggle-light" style="
+          background-color: #3498db; 
+          color: #ecf0f1; 
+          padding: 12px; 
+          width: 100%; 
+          border: none; 
+          border-radius: 8px; 
+          cursor: pointer; 
+          margin-bottom: 10px;
+          font-size: 16px;
+          transition: all 0.3s ease;
+        ">Encender Luces</button>
 
-  document.body.appendChild(assistant);
+        <button id="toggle-security" style="
+          background-color: #e74c3c; 
+          color: #ecf0f1; 
+          padding: 12px; 
+          width: 100%; 
+          border: none; 
+          border-radius: 8px; 
+          cursor: pointer; 
+          margin-bottom: 10px;
+          font-size: 16px;
+          transition: all 0.3s ease;
+        ">Activar Seguridad</button>
 
-  // Crear el botón flotante (inicialmente visible)
-  const floatingButton = document.createElement('div');
-  floatingButton.id = 'floating-button';
-  floatingButton.style.position = 'fixed';
-  floatingButton.style.bottom = '20px';
-  floatingButton.style.right = '20px';
-  floatingButton.style.backgroundColor = '#2c3e50';
-  floatingButton.style.color = '#ecf0f1';
-  floatingButton.style.width = '60px';
-  floatingButton.style.height = '60px';
-  floatingButton.style.borderRadius = '50%';
-  floatingButton.style.display = 'flex';
-  floatingButton.style.alignItems = 'center';
-  floatingButton.style.justifyContent = 'center';
-  floatingButton.style.cursor = 'pointer';
-  floatingButton.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.2)';
-  floatingButton.style.transition = 'opacity 0.3s ease';
-  floatingButton.style.opacity = '1';
-  floatingButton.style.zIndex = '1000';
+        <button id="toggle-temperature" style="
+          background-color: #f39c12; 
+          color: #2c3e50; 
+          padding: 12px; 
+          width: 100%; 
+          border: none; 
+          border-radius: 8px; 
+          cursor: pointer; 
+          margin-bottom: 10px;
+          font-size: 16px;
+          transition: all 0.3s ease;
+        ">Regular Temperatura</button>
 
-  floatingButton.innerHTML = `
-    <span>🛠️</span>
-  `;
-  document.body.appendChild(floatingButton);
+        <button id="toggle-locks" style="
+          background-color: #2ecc71; 
+          color: #ffffff; 
+          padding: 12px; 
+          width: 100%; 
+          border: none; 
+          border-radius: 8px; 
+          cursor: pointer;
+          font-size: 16px;
+          transition: all 0.3s ease;
+        ">Bloquear Puertas</button>
+      </div>
+    `;
 
-  let lightsOn = false;
-  let securityOn = false;
-  let temperatureSet = false;
-  let doorsLocked = false;
-  const originalBgColor = window.getComputedStyle(document.body).backgroundColor;
+    document.body.appendChild(assistant);
 
-  // Función para alternar las luces
-  document.getElementById('toggle-light').addEventListener('click', function() {
+    /* =========================================================
+       BOTÓN FLOTANTE
+       ========================================================= */
+    const floatingButton = document.createElement('div');
+    floatingButton.id = 'floating-button';
+    Object.assign(floatingButton.style, {
+      position: 'fixed',
+      bottom: '20px',
+      right: '20px',
+      backgroundColor: '#2c3e50',
+      color: '#ecf0f1',
+      width: '60px',
+      height: '60px',
+      borderRadius: '50%',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      cursor: 'pointer',
+      boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
+      transition: 'opacity 0.3s ease, transform 0.3s ease',
+      opacity: '1',
+      zIndex: '9999',
+      fontSize: '24px',
+      userSelect: 'none'
+    });
+    floatingButton.innerHTML = `<span>🛠️</span>`;
+    document.body.appendChild(floatingButton);
+
+    let lightsOn = false;
+    let securityOn = false;
+    let temperatureSet = false;
+    let doorsLocked = false;
+    const originalBgColor = window.getComputedStyle(document.body).backgroundColor;
+
+    /* =========================================================
+       EVENTOS DE BOTONES
+       ========================================================= */
+    // Luces
+    document.getElementById('toggle-light').addEventListener('click', function() {
       lightsOn = !lightsOn;
-      const message = lightsOn ? "💡 Las luces están encendidas." : "🌙 Las luces están apagadas.";
+      const message = lightsOn 
+        ? "💡 Luces encendidas." 
+        : "🌙 Luces apagadas.";
       assistant.querySelector('p').textContent = message;
-      this.textContent = lightsOn ? "Apagar luces" : "Encender Luces";
+      this.textContent = lightsOn ? "Apagar Luces" : "Encender Luces";
       document.body.style.backgroundColor = lightsOn ? '#fff8e1' : originalBgColor;
-  });
+    });
 
-  // Función para alternar el sistema de seguridad
-  document.getElementById('toggle-security').addEventListener('click', function() {
+    // Seguridad
+    document.getElementById('toggle-security').addEventListener('click', function() {
       securityOn = !securityOn;
-      const message = securityOn ? "🔒 Cámaras activadas, su casa está segura." : "🔓 Cámaras desactivadas, su casa no está segura.";
+      const message = securityOn 
+        ? "🔒 Seguridad activada." 
+        : "🔓 Seguridad desactivada.";
       assistant.querySelector('p').textContent = message;
       this.textContent = securityOn ? "Desactivar Seguridad" : "Activar Seguridad";
+      
       if (securityOn) {
-          createSecurityCameras();
-          createSecurityEffect();
+        createSecurityCameras();
+        createSecurityEffect();
       } else {
-          removeSecurityCameras();
-          removeSecurityEffect();
+        removeSecurityCameras();
+        removeSecurityEffect();
       }
-  });
+    });
 
-  // Función para regular la temperatura
-  document.getElementById('toggle-temperature').addEventListener('click', function() {
+    // Temperatura
+    document.getElementById('toggle-temperature').addEventListener('click', function() {
       temperatureSet = !temperatureSet;
-      const message = temperatureSet ? "🌡️ Temperatura ajustada a 22°C." : "🌡️ Temperatura en modo normal.";
+      const message = temperatureSet 
+        ? "🌡️ Temperatura fijada a 22°C." 
+        : "🌡️ Temperatura en modo normal.";
       assistant.querySelector('p').textContent = message;
-      this.textContent = temperatureSet ? "Restablecer Temperatura" : "Regular Temperatura";
-      temperatureSet ? createTemperatureEffect() : removeTemperatureEffect();
-  });
+      this.textContent = temperatureSet 
+        ? "Restablecer Temperatura" 
+        : "Regular Temperatura";
 
-  // Función para bloquear las puertas
-  document.getElementById('toggle-locks').addEventListener('click', function() {
+      temperatureSet ? createTemperatureEffect() : removeTemperatureEffect();
+    });
+
+    // Bloqueo de puertas
+    document.getElementById('toggle-locks').addEventListener('click', function() {
       doorsLocked = !doorsLocked;
-      const message = doorsLocked ? "🔐 Puertas bloqueadas." : "🚪 Puertas desbloqueadas.";
+      const message = doorsLocked 
+        ? "🔐 Puertas bloqueadas." 
+        : "🚪 Puertas desbloqueadas.";
       assistant.querySelector('p').textContent = message;
       this.textContent = doorsLocked ? "Desbloquear Puertas" : "Bloquear Puertas";
-      if (doorsLocked) {
-          createLockEffect();
-      } else {
-          removeLockEffect();
-      }
-  });
 
-  // Función para cerrar el asistente
-  document.getElementById('close-assistant').addEventListener('click', function() {
+      if (doorsLocked) {
+        createLockEffect();
+      } else {
+        removeLockEffect();
+      }
+    });
+
+    // Cerrar asistente
+    document.getElementById('close-assistant').addEventListener('click', function() {
       assistant.style.transform = 'scale(0)';
       assistant.style.opacity = '0';
       setTimeout(() => {
-          assistant.style.display = 'none';
-          floatingButton.style.opacity = '1';
-          floatingButton.style.pointerEvents = 'auto'; // Habilitar el botón flotante
+        assistant.style.display = 'none';
+        floatingButton.style.opacity = '1';
+        floatingButton.style.pointerEvents = 'auto';
       }, 300);
-  });
+    });
 
-  // Función para abrir el asistente
-  floatingButton.addEventListener('click', function() {
+    // Abrir asistente
+    floatingButton.addEventListener('click', function() {
       assistant.style.display = 'block';
       setTimeout(() => {
-          assistant.style.transform = 'scale(1)';
-          assistant.style.opacity = '1';
+        assistant.style.transform = 'scale(1)';
+        assistant.style.opacity = '1';
       }, 10);
       floatingButton.style.opacity = '0';
       floatingButton.style.pointerEvents = 'none';
-  });
+    });
 
-  // Crear cámaras de seguridad
-  const createSecurityCameras = () => {
+    /* =========================================================
+       FUNCIONES PARA EFECTOS
+       ========================================================= */
+    const createSecurityCameras = () => {
       const cameraUrls = [
-          'https://image.shutterstock.com/image-photo/security-camera-surveillance-on-white-260nw-141942216.jpg',
-          'https://image.shutterstock.com/image-photo/security-camera-surveillance-on-white-260nw-141942216.jpg',
-          'https://image.shutterstock.com/image-photo/security-camera-surveillance-on-white-260nw-141942216.jpg'
+        'https://image.shutterstock.com/image-photo/security-camera-surveillance-on-white-260nw-141942216.jpg',
+        'https://image.shutterstock.com/image-photo/security-camera-surveillance-on-white-260nw-141942216.jpg',
+        'https://image.shutterstock.com/image-photo/security-camera-surveillance-on-white-260nw-141942216.jpg'
       ];
 
       cameraUrls.forEach((url, index) => {
-          const camera = document.createElement('div');
-          camera.classList.add('security-camera');
-          camera.style.position = 'fixed';
-          camera.style.width = '100px';
-          camera.style.height = '60px';
-          camera.style.backgroundImage = `url(${url})`;
-          camera.style.backgroundSize = 'cover';
-          camera.style.zIndex = '998';
-          camera.style.pointerEvents = 'none';
+        const camera = document.createElement('div');
+        camera.classList.add('security-camera');
+        Object.assign(camera.style, {
+          position: 'fixed',
+          width: '100px',
+          height: '60px',
+          backgroundImage: `url(${url})`,
+          backgroundSize: 'cover',
+          zIndex: '999',         // un poco menos que el asistente
+          pointerEvents: 'none'
+        });
 
-          switch (index) {
-              case 0:
-                  camera.style.top = '10px';
-                  camera.style.left = '10px';
-                  break;
-              case 1:
-                  camera.style.top = '10px';
-                  camera.style.right = '10px';
-                  break;
-              case 2:
-                  camera.style.bottom = '10px';
-                  camera.style.left = '10px';
-                  break;
-          }
-          document.body.appendChild(camera);
+        switch (index) {
+          case 0:
+            camera.style.top = '10px';
+            camera.style.left = '10px';
+            break;
+          case 1:
+            camera.style.top = '10px';
+            camera.style.right = '10px';
+            break;
+          case 2:
+            camera.style.bottom = '10px';
+            camera.style.left = '10px';
+            break;
+        }
+        document.body.appendChild(camera);
       });
-  };
+    };
 
-      // Eliminar cámaras de seguridad
-      const removeSecurityCameras = () => {
-          const cameras = document.querySelectorAll('.security-camera');
-          cameras.forEach(camera => camera.remove());
-      };
+    const removeSecurityCameras = () => {
+      const cameras = document.querySelectorAll('.security-camera');
+      cameras.forEach(camera => camera.remove());
+    };
 
-      // Crear efecto de seguridad
-      const createSecurityEffect = () => {
-        const securityOverlay = document.createElement('div');
-        securityOverlay.id = 'security-overlay';
-        securityOverlay.style.position = 'fixed';
-        securityOverlay.style.top = '0';
-        securityOverlay.style.left = '0';
-        securityOverlay.style.width = '100%';
-        securityOverlay.style.height = '100%';
-        securityOverlay.style.backgroundColor = 'rgba(231, 76, 60, 0.5)';
-        securityOverlay.style.zIndex = '999';
-        securityOverlay.style.pointerEvents = 'none';
-        securityOverlay.style.display = 'flex';
-        securityOverlay.style.alignItems = 'center';
-        securityOverlay.style.justifyContent = 'center';
+    // Efecto overlay seguridad
+    const createSecurityEffect = () => {
+      const securityOverlay = document.createElement('div');
+      securityOverlay.id = 'security-overlay';
+      Object.assign(securityOverlay.style, {
+        position: 'fixed',
+        top: '0',
+        left: '0',
+        width: '100%',
+        height: '100%',
+        backgroundColor: 'rgba(231, 76, 60, 0.4)',
+        zIndex: '998',
+        pointerEvents: 'none',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        opacity: '0',
+        transition: 'opacity 0.5s ease'
+      });
+
+      const securityText = document.createElement('div');
+      securityText.style.color = '#fff';
+      securityText.style.fontSize = '24px';
+      securityText.style.fontWeight = 'bold';
+      securityText.textContent = '🔒 Seguridad Activada';
+
+      securityOverlay.appendChild(securityText);
+      document.body.appendChild(securityOverlay);
+
+      // fade in
+      setTimeout(() => {
+        securityOverlay.style.opacity = '1';
+      }, 100);
+    };
+
+    const removeSecurityEffect = () => {
+      const securityOverlay = document.getElementById('security-overlay');
+      if (securityOverlay) {
         securityOverlay.style.opacity = '0';
-        securityOverlay.style.transition = 'opacity 0.5s ease';
-
-        const securityText = document.createElement('div');
-        securityText.style.color = '#fff';
-        securityText.style.fontSize = '24px';
-        securityText.style.fontWeight = 'bold';
-        securityText.textContent = '🔒 Seguridad Activada';
-
-        securityOverlay.appendChild(securityText);
-        document.body.appendChild(securityOverlay);
-
-        // Mostrar la superposición con efecto de desvanecimiento
         setTimeout(() => {
-            securityOverlay.style.opacity = '1';
-        }, 100);
-      };
+          securityOverlay.remove();
+        }, 500);
+      }
+    };
 
-      // Eliminar efecto de seguridad
-      const removeSecurityEffect = () => {
-        const securityOverlay = document.getElementById('security-overlay');
-        if (securityOverlay) {
-            securityOverlay.style.opacity = '0';
-            setTimeout(() => {
-                securityOverlay.remove();
-            }, 500);
-        }
-      };
+    // Efecto temperatura
+    const createTemperatureEffect = () => {
+      const tempEffect = document.createElement('div');
+      tempEffect.id = 'temp-effect';
+      Object.assign(tempEffect.style, {
+        position: 'fixed',
+        top: '10px',
+        right: '10px',
+        width: '120px',
+        height: '120px',
+        borderRadius: '50%',
+        pointerEvents: 'none',
+        zIndex: '997',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        background: 'conic-gradient(from 180deg, #2bbbad, #ace9ff, #2bbbad)',
+        boxShadow: '0 4px 12px rgba(0, 0, 0, 0.2)',
+        transition: 'opacity 0.5s ease',
+        opacity: '0'
+      });
 
-      // Crear efecto de temperatura
-      const createTemperatureEffect = () => {
-        const tempEffect = document.createElement('div');
-        tempEffect.id = 'temp-effect';
-        tempEffect.style.position = 'fixed';
-        tempEffect.style.top = '10px';
-        tempEffect.style.right = '10px';
-        tempEffect.style.width = '120px';
-        tempEffect.style.height = '120px';
-        tempEffect.style.borderRadius = '50%';
-        tempEffect.style.pointerEvents = 'none';
-        tempEffect.style.zIndex = '997';
-        tempEffect.style.display = 'flex';
-        tempEffect.style.alignItems = 'center';
-        tempEffect.style.justifyContent = 'center';
-        tempEffect.style.background = 'conic-gradient(from 180deg, #2bbbad, #ace9ff, #2bbbad)';
-        tempEffect.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.2)';
+      const tempText = document.createElement('div');
+      Object.assign(tempText.style, {
+        color: '#fff',
+        fontSize: '18px',
+        fontWeight: 'bold'
+      });
+      tempText.textContent = '22°C';
 
-        const tempText = document.createElement('div');
-        tempText.style.color = '#fff';
-        tempText.style.fontSize = '18px';
-        tempText.style.fontWeight = 'bold';
-        tempText.textContent = '22°C';
+      tempEffect.appendChild(tempText);
+      document.body.appendChild(tempEffect);
 
-        tempEffect.appendChild(tempText);
-        document.body.appendChild(tempEffect);
-      };
+      // fade in
+      setTimeout(() => {
+        tempEffect.style.opacity = '1';
+      }, 100);
+    };
 
-      // Eliminar efecto de temperatura
-      const removeTemperatureEffect = () => {
-        const tempEffect = document.getElementById('temp-effect');
-        if (tempEffect) {
-            tempEffect.remove();
-        }
-      };
+    const removeTemperatureEffect = () => {
+      const tempEffect = document.getElementById('temp-effect');
+      if (tempEffect) {
+        tempEffect.style.opacity = '0';
+        setTimeout(() => {
+          tempEffect.remove();
+        }, 500);
+      }
+    };
 
-      // Crear efecto de bloqueo de puertas
-      const createLockEffect = () => {
-        const lockOverlay = document.createElement('div');
-        lockOverlay.id = 'lock-overlay';
-        lockOverlay.style.position = 'fixed';
-        lockOverlay.style.top = '0';
-        lockOverlay.style.left = '0';
-        lockOverlay.style.width = '100%';
-        lockOverlay.style.height = '100%';
-        lockOverlay.style.backgroundColor = 'rgba(46, 204, 113, 0.5)';
-        lockOverlay.style.zIndex = '999';
-        lockOverlay.style.pointerEvents = 'none';
-        lockOverlay.style.display = 'flex';
-        lockOverlay.style.alignItems = 'center';
-        lockOverlay.style.justifyContent = 'center';
+    // Efecto bloqueo de puertas
+    const createLockEffect = () => {
+      const lockOverlay = document.createElement('div');
+      lockOverlay.id = 'lock-overlay';
+      Object.assign(lockOverlay.style, {
+        position: 'fixed',
+        top: '0',
+        left: '0',
+        width: '100%',
+        height: '100%',
+        backgroundColor: 'rgba(46, 204, 113, 0.4)',
+        zIndex: '998',
+        pointerEvents: 'none',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        opacity: '0',
+        transition: 'opacity 0.5s ease'
+      });
+
+      const lockText = document.createElement('div');
+      Object.assign(lockText.style, {
+        color: '#fff',
+        fontSize: '24px',
+        fontWeight: 'bold'
+      });
+      lockText.textContent = '🔐 Puertas Bloqueadas';
+
+      lockOverlay.appendChild(lockText);
+      document.body.appendChild(lockOverlay);
+
+      // fade in
+      setTimeout(() => {
+        lockOverlay.style.opacity = '1';
+      }, 100);
+    };
+
+    const removeLockEffect = () => {
+      const lockOverlay = document.getElementById('lock-overlay');
+      if (lockOverlay) {
         lockOverlay.style.opacity = '0';
-        lockOverlay.style.transition = 'opacity 0.5s ease';
-
-        const lockText = document.createElement('div');
-        lockText.style.color = '#fff';
-        lockText.style.fontSize = '24px';
-        lockText.style.fontWeight = 'bold';
-        lockText.textContent = '🔐 Puertas Bloqueadas';
-
-        lockOverlay.appendChild(lockText);
-        document.body.appendChild(lockOverlay);
-
-        // Mostrar la superposición con efecto de desvanecimiento
         setTimeout(() => {
-            lockOverlay.style.opacity = '1';
-        }, 100);
-      };
+          lockOverlay.remove();
+        }, 500);
+      }
+    };
 
-      // Eliminar efecto de bloqueo de puertas
-      const removeLockEffect = () => {
-        const lockOverlay = document.getElementById('lock-overlay');
-        if (lockOverlay) {
-            lockOverlay.style.opacity = '0';
-            setTimeout(() => {
-                lockOverlay.remove();
-            }, 500);
+    // CSS responsivo (media queries)
+    const style = document.createElement('style');
+    style.innerHTML = `
+      @media (max-width: 768px) {
+        #assistant {
+          width: 85%;
+          bottom: 10px;
+          right: 10px;
+          border-radius: 12px;
         }
-      };
-
-      // Añadir CSS necesario para mejorar la visualización en pantallas pequeñas
-      const style = document.createElement('style');
-      style.innerHTML = `
-        @media (max-width: 768px) {
-            #floating-button {
-                width: 50px;
-                height: 50px;
-            }
-            #floating-button span {
-                font-size: 18px;
-            }
-            #assistant {
-                width: 80%;
-                bottom: 10px;
-                right: 10px;
-            }
-            #assistant button {
-                font-size: 14px;
-                padding: 10px;
-            }
+        #assistant button {
+          font-size: 14px;
+          padding: 10px;
         }
-        @media (max-width: 480px) {
-            #floating-button {
-                width: 40px;
-                height: 40px;
-            }
-            #floating-button span {
-                font-size: 16px;
-            }
-            #assistant {
-                width: 100%;
-                bottom: 0;
-                right: 0;
-                border-radius: 0;
-                padding: 15px;
-            }
-            #assistant button {
-                font-size: 12px;
-                padding: 8px;
-            }
+        #assistant p {
+          font-size: 14px;
         }
-      `;
-      document.head.appendChild(style);
-    });
+        #floating-button {
+          width: 50px;
+          height: 50px;
+          font-size: 20px;
+        }
+      }
+      @media (max-width: 480px) {
+        #assistant {
+          width: 100%;
+          bottom: 0;
+          right: 0;
+          border-radius: 0;
+          padding: 15px;
+        }
+        #assistant button {
+          font-size: 14px;
+          padding: 10px;
+        }
+        #assistant p {
+          font-size: 14px;
+        }
+        #floating-button {
+          width: 40px;
+          height: 40px;
+          font-size: 16px;
+        }
+      }
+    `;
+    document.head.appendChild(style);
+  });
 </script>
   <script src="script.js"></script>
 </body>
