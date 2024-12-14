@@ -1,4 +1,3 @@
-<script>
 document.addEventListener("DOMContentLoaded", function () {
   // ==========================================
   // FUNCIONES PARA MANEJO DE COOKIES
@@ -33,14 +32,12 @@ document.addEventListener("DOMContentLoaded", function () {
   // CARGAR GOOGLE ANALYTICS SOLO SI ACEPTA COOKIES
   // ==========================================
   function loadGoogleAnalytics() {
-    // Inyectar dinámicamente el script de GA
     const gaScript = document.createElement('script');
     gaScript.async = true;
     gaScript.src = "https://www.googletagmanager.com/gtag/js?id=G-WGSGHHHYX5";
     document.head.appendChild(gaScript);
 
     gaScript.onload = () => {
-      // Inicializar GA
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
@@ -51,26 +48,21 @@ document.addEventListener("DOMContentLoaded", function () {
   // ==========================================
   // MOSTRAR/OCULTAR BANNER DE COOKIES
   // ==========================================
-  // Si 'cookiesAccepted' es distinto de 'true', mostramos el banner.
   if (getCookie("cookiesAccepted") !== "true") {
     document.getElementById("cookie-banner").style.display = "flex";
   } else {
-    // Si el usuario ya aceptó cookies previamente, cargamos GA de inmediato
     loadGoogleAnalytics();
   }
 
-  // Aceptar cookies
   document.getElementById("accept-cookies-btn").addEventListener("click", function () {
     setCookie("cookiesAccepted", "true", 365);
     document.getElementById("cookie-banner").style.display = "none";
-    loadGoogleAnalytics(); // Cargar GA únicamente si aceptan
+    loadGoogleAnalytics();
   });
 
-  // Rechazar cookies
   document.getElementById("reject-cookies-btn").addEventListener("click", function () {
     setCookie("cookiesAccepted", "false", 365);
     document.getElementById("cookie-banner").style.display = "none";
-    // Eliminar cookies opcionales si deseas
     deleteCookie("optionalCookie1");
     deleteCookie("optionalCookie2");
   });
@@ -80,14 +72,11 @@ document.addEventListener("DOMContentLoaded", function () {
   // ==========================================
   const instagramFloat = document.getElementById("instagram-float");
   if (instagramFloat) {
-    // Ocultar al cargar la página
     instagramFloat.style.display = "none";
-    // Mostrar el float de Instagram después de 5 minutos (300000 ms)
     setTimeout(function () {
       instagramFloat.style.display = "flex"; 
     }, 300000); // 5 min
   }
-  // Cerrar el float de Instagram manualmente
   const closeFloatBtn = document.getElementById("close-float");
   if (closeFloatBtn) {
     closeFloatBtn.addEventListener("click", function () {
@@ -111,4 +100,3 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 });
-</script>
