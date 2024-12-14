@@ -3,7 +3,6 @@
    ========================================================= */
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap');
 
-
 /* =========================================================
    VARIABLES
    ========================================================= */
@@ -198,6 +197,7 @@ form button:hover {
   cursor: pointer;
   box-shadow: 0 4px 8px var(--shadow-color);
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  z-index: 99999; /* Eleva también el botón */
 }
 
 .floating-button:hover {
@@ -214,9 +214,8 @@ form button:hover {
   box-shadow: 0 4px 8px var(--shadow-color);
   overflow: hidden;
   display: none;
-
-  /* Agrega o ajusta el z-index */
-  z-index: 9999; /* o un valor mayor que el resto de elementos */
+  /* Forzar a estar por encima de los textos dorados */
+  z-index: 99999;
 }
 
 .floating-menu.active {
