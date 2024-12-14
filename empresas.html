@@ -7,27 +7,34 @@
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-
     gtag('config', 'G-WGSGHHHYX5');
   </script>
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Clientes corporativos</title>
+  <title>Clientes corporativos</title>
+
+  <!-- Vinculo a la hoja de estilos CSS -->
   <link rel="stylesheet" href="styleb.css">
+  <!-- Iconos de FontAwesome -->
   <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
 <body>
   
   <header>
-  
     <div class="logo-container">
       <img src="principal.PNG" alt="BeloLink Innovations Logo" class="logo">
-       <h1 class="exclusive-gold-text">Clientes Corporativos</h1>
+      <!-- Texto dorado -->
+      <h1 class="exclusive-gold-text">Clientes Corporativos</h1>
     </div>
   </header>
+
+  <!-- Botón flotante -->
   <div class="floating-button" id="floating-button">
     <span class="menu-text">MENÚ</span>
   </div>
+
+  <!-- Menú flotante -->
   <div class="floating-menu" id="floating-menu">
     <ul>
       <li><a href="index.html">Inicio</a></li>
@@ -37,10 +44,13 @@
       <li><a href="empresas.html">Clientes Corporativos</a></li>
     </ul>
   </div>
+
   <main>
     <section>
       <h2>Bienvenido/a a Nuestros <span class="ben-exclusivos">Clientes Corporativos</span></h2>
-      <p>En <span class="highlight-belo">Belo</span><span class="highlight-link">Link</span>, nos enorgullece ofrecer condiciones especiales y servicios exclusivos para empresas y compradores industriales que desean realizar compras de gran volumen. Valoramos profundamente a nuestros clientes corporativos y nos esforzamos por proporcionarles una experiencia de compra excepcional.</p>
+      <p>
+        En <span class="highlight-belo">Belo</span><span class="highlight-link">Link</span>, nos enorgullece ofrecer condiciones especiales y servicios exclusivos para empresas y compradores industriales que desean realizar compras de gran volumen. Valoramos profundamente a nuestros clientes corporativos y nos esforzamos por proporcionarles una experiencia de compra excepcional.
+      </p>
     </section>
     <section>
       <h2>Beneficios <span class="ben-exclusivos">Exclusivos</span></h2>
@@ -52,19 +62,27 @@
     </section>
     <section>
       <h2>Descuentos por Volumen</h2>
-      <p>Nuestros clientes corporativos disfrutan de importantes descuentos por volumen. Este beneficio está diseñado para proporcionar un valor añadido a nuestras asociaciones a largo plazo. Contáctenos para recibir una cotización personalizada y descubra cómo podemos apoyar sus necesidades empresariales.</p>
+      <p>
+        Nuestros clientes corporativos disfrutan de importantes descuentos por volumen. Este beneficio está diseñado para proporcionar un valor añadido a nuestras asociaciones a largo plazo. Contáctenos para recibir una cotización personalizada y descubra cómo podemos apoyar sus necesidades empresariales.
+      </p>
     </section>
     <section>
       <h2>Atención Personalizada</h2>
-      <p>Como un negocio en crecimiento gestionado por dos personas, nos comprometemos a ofrecer un servicio personalizado y directo. Trabajaremos estrechamente con usted para entender sus requisitos y proporcionar soluciones que maximicen el valor de su inversión.</p>
+      <p>
+        Como un negocio en crecimiento gestionado por dos personas, nos comprometemos a ofrecer un servicio personalizado y directo. Trabajaremos estrechamente con usted para entender sus requisitos y proporcionar soluciones que maximicen el valor de su inversión.
+      </p>
     </section>
     <section>
       <h2>Envíos Prioritarios</h2>
-      <p>Entendemos la importancia de la eficiencia y la puntualidad en las operaciones empresariales. Por ello, garantizamos envíos prioritarios para todos nuestros clientes corporativos, asegurando que sus productos lleguen de manera rápida y segura.</p>
+      <p>
+        Entendemos la importancia de la eficiencia y la puntualidad en las operaciones empresariales. Por ello, garantizamos envíos prioritarios para todos nuestros clientes corporativos, asegurando que sus productos lleguen de manera rápida y segura.
+      </p>
     </section>
     <section>
       <h2>Contacto</h2>
-      <p> Utiliza el siguiente formulario si necesitas obtener más información sobre nuestras condiciones especiales para clientes corporativos o para realizar tu pedido.</p>
+      <p>
+        Utiliza el siguiente formulario si necesitas obtener más información sobre nuestras condiciones especiales para clientes corporativos o para realizar tu pedido.
+      </p>
     </section>
     <section id="contacto">
       <h2>Envíanos un Mensaje</h2>
@@ -82,15 +100,19 @@
       </form>
     </section>
   </main>
+
   <footer>
-    <p>&copy; 2024 <span class="highlight-belo">Belo</span><span class="highlight-link">Link</span>. </p>
+    <p>&copy; 2024 <span class="highlight-belo">Belo</span><span class="highlight-link">Link</span>.</p>
   </footer>
+
   <script>
+    // Botón flotante (abre/cierra menú)
     document.getElementById('floating-button').addEventListener('click', function() {
       document.getElementById('floating-menu').classList.toggle('active');
       this.classList.toggle('active');
     });
 
+    // Cerrar el menú al hacer clic fuera
     document.addEventListener('click', function(event) {
       const floatingMenu = document.getElementById('floating-menu');
       const floatingButton = document.getElementById('floating-button');
@@ -99,8 +121,6 @@
         floatingButton.classList.remove('active');
       }
     });
-
-   
   </script>
 </body>
 </html>
