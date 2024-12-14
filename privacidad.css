@@ -341,20 +341,21 @@ footer p {
     font-size: 1rem;
   }
 
-  .floating-menu {
-    top: auto;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    border-radius: 5px 5px 0 0;
-    width: 100%;
-    box-shadow: none;
-  }
+ .floating-menu {
+  position: fixed;                   /* Fijar el menú a la ventana */
+  top: auto;                         /* Quita 'top' si está declarado en otro lado */
+  bottom: 0;                         /* Anclar al fondo */
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 5px 5px 0 0;
+  width: 100%;
+  box-shadow: none;
+  z-index: 99999;                    /* Asegura que esté encima */
+}
 
-  .floating-menu ul {
-    display: flex;
-    justify-content: space-around;
-  }
+.floating-menu ul {
+  display: flex;
+  justify-content: space-around;
 }
 
 @media (max-width: 480px) {
