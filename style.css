@@ -535,9 +535,9 @@ a:hover {
 /* =========================================================
    PRODUCTOS Y IMÁGENES COMENTARIOS
    ========================================================= */
-.producto-imagen {
-  width: 300px;
-  height: 200px;
+ .producto-imagen {
+ width: 400px; /* Ajusta el ancho */
+ height: auto; /* Permite mantener proporción */
   object-fit: cover;
   margin-bottom: 15px;
   border-radius: 8px;
