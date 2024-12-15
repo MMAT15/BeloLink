@@ -349,11 +349,10 @@ main.content img:hover::after {
   width: 180px;
   height: 180px;
   margin-bottom: 20px;
-  border-radius: 50%;
-  background-color: var(--secondary-color);
-  padding: 5px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-radius: 50%; /* Mantiene la forma circular */
+  background-color: transparent; /* Elimina el color de fondo */
+  padding: 0; /* Elimina el espacio interno */
+  box-shadow: none; /* Elimina la sombra */
 }
 
 .beneficio img:hover,
