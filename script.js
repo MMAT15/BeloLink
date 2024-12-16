@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // FUNCIONES PARA MANEJO DE COOKIES
   // ==========================================
   function setCookie(name, value, days) {
+    if (!name || !value) return; // Validación de parámetros
     let expires = "";
     if (days) {
       const date = new Date();
@@ -32,6 +33,9 @@ document.addEventListener("DOMContentLoaded", function () {
   // CARGAR GOOGLE ANALYTICS SOLO SI ACEPTA COOKIES
   // ==========================================
   function loadGoogleAnalytics() {
+    // Evita cargar el script si ya existe
+    if (document.querySelector('script[src*="googletagmanager"]')) return;
+
     const gaScript = document.createElement('script');
     gaScript.async = true;
     gaScript.src = "https://www.googletagmanager.com/gtag/js?id=G-WGSGHHHYX5";
@@ -39,7 +43,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     gaScript.onload = () => {
       window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
+      function gtag() { dataLayer.push(arguments); }
       gtag('js', new Date());
       gtag('config', 'G-WGSGHHHYX5');
     };
@@ -48,24 +52,34 @@ document.addEventListener("DOMContentLoaded", function () {
   // ==========================================
   // MOSTRAR/OCULTAR BANNER DE COOKIES
   // ==========================================
-  if (getCookie("cookiesAccepted") !== "true") {
-    document.getElementById("cookie-banner").style.display = "flex";
-  } else {
-    loadGoogleAnalytics();
+  const cookieBanner = document.getElementById("cookie-banner");
+
+// Verifica existencia del banner y la cookie
+if (cookieBanner && !getCookie("cookiesAccepted")) {
+  cookieBanner.style.display = "flex"; // Muestra el banner si no se ha aceptado/rechazado
+} else if (getCookie("cookiesAccepted") === "true") {
+  loadGoogleAnalytics(); // Carga Google Analytics si las cookies ya están aceptadas
+}
+
+  const acceptCookiesBtn = document.getElementById("accept-cookies-btn");
+  const rejectCookiesBtn = document.getElementById("reject-cookies-btn");
+
+  if (acceptCookiesBtn) {
+    acceptCookiesBtn.addEventListener("click", function () {
+      setCookie("cookiesAccepted", "true", 365);
+      if (cookieBanner) cookieBanner.style.display = "none";
+      loadGoogleAnalytics();
+    });
   }
 
-  document.getElementById("accept-cookies-btn").addEventListener("click", function () {
-    setCookie("cookiesAccepted", "true", 365);
-    document.getElementById("cookie-banner").style.display = "none";
-    loadGoogleAnalytics();
-  });
-
-  document.getElementById("reject-cookies-btn").addEventListener("click", function () {
-    setCookie("cookiesAccepted", "false", 365);
-    document.getElementById("cookie-banner").style.display = "none";
-    deleteCookie("optionalCookie1");
-    deleteCookie("optionalCookie2");
-  });
+  if (rejectCookiesBtn) {
+    rejectCookiesBtn.addEventListener("click", function () {
+      setCookie("cookiesAccepted", "false", 365);
+      if (cookieBanner) cookieBanner.style.display = "none";
+      deleteCookie("optionalCookie1"); // Ejemplo de eliminación de cookies no esenciales
+      deleteCookie("optionalCookie2");
+    });
+  }
 
   // ==========================================
   // INSTAGRAM FLOAT
@@ -74,14 +88,15 @@ document.addEventListener("DOMContentLoaded", function () {
   if (instagramFloat) {
     instagramFloat.style.display = "none";
     setTimeout(function () {
-      instagramFloat.style.display = "flex"; 
+      instagramFloat.style.display = "flex"; // Muestra el botón flotante después de 5 minutos
     }, 300000); // 5 min
   }
+
   const closeFloatBtn = document.getElementById("close-float");
   if (closeFloatBtn) {
     closeFloatBtn.addEventListener("click", function () {
       if (instagramFloat) {
-        instagramFloat.style.display = "none";
+        instagramFloat.style.display = "none"; // Oculta el botón flotante al hacer clic
       }
     });
   }
@@ -94,8 +109,8 @@ document.addEventListener("DOMContentLoaded", function () {
   if (nav && menuToggle) {
     document.addEventListener("click", function (event) {
       if (!nav.contains(event.target) && !menuToggle.contains(event.target)) {
-        nav.classList.remove("active");
-        menuToggle.classList.remove("active");
+        nav.classList.remove("active"); // Cierra el menú
+        menuToggle.classList.remove("active"); // Cambia el estado del botón
       }
     });
   }

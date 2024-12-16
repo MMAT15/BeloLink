@@ -792,7 +792,7 @@ a:hover {
   }
 /* Estilo del GIF */
 .footer-gif {
-  width: 50px; /* Ajusta el tamaño del GIF */
+  width: 100px; /* Ajusta el tamaño del GIF */
   height: auto; /* Mantiene la proporción */
   margin: 0 auto; /* Centrado adicional si es necesario */
   display: block; /* Evita márgenes extra */
