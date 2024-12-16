@@ -346,11 +346,10 @@ main.content img:hover::after {
   width: 180px;
   height: 180px;
   margin-bottom: 20px;
-  border-radius: 50%;
-  background-color: var(--secondary-color);
-  padding: 5px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-radius: 50%; /* Mantiene la forma circular */
+  background-color: transparent; /* Elimina el color de fondo */
+  padding: 0; /* Elimina el espacio interno */
+  box-shadow: none; /* Elimina la sombra */
 }
 
 .beneficio img:hover,
@@ -497,8 +496,8 @@ a:hover {
 
 .highlight-belo {
   display: inline-block;
-  color: var(--secondary-color);
-  background-color: var(--primary-color);
+  color: #ace9ff;
+  background-color: #162b6f;
   border-radius: 4px;
   transition: transform 0.3s ease;
 }
@@ -532,9 +531,9 @@ a:hover {
 /* =========================================================
    PRODUCTOS Y IMÁGENES COMENTARIOS
    ========================================================= */
-.producto-imagen {
-  width: 300px;
-  height: 200px;
+ .producto-imagen {
+ width: 400px; /* Ajusta el ancho */
+ height: auto; /* Permite mantener proporción */
   object-fit: cover;
   margin-bottom: 15px;
   border-radius: 8px;
