@@ -502,9 +502,6 @@ a:hover {
   color: #ace9ff;
   background-color: #162b6f;
   border-radius: 4px;
-  padding: 2px 4px; /* Ajusta el padding (alto y ancho) */
-  line-height: 1.2; /* Reduce la altura de línea */
-  font-size: 1rem; /* Opcional: Asegura un tamaño de texto adecuado */
   transition: transform 0.3s ease;
 }
 
