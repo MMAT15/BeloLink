@@ -411,10 +411,13 @@ footer p {
   margin: 10px 0;
 }
 
-.footer-gif {
-  width: 150px;
-  height: auto;
-  margin: 20px 0;
+/* Contenedor del GIF */
+.gif-container {
+  display: flex; /* Centra el contenido */
+  justify-content: center; /* Centrado horizontal */
+  align-items: center; /* Centrado vertical (si es necesario) */
+  margin: 20px auto; /* Centrado con margen automático */
+  max-width: 100%; /* Asegura que no se desborde */
 }
 
 .back-to-top {
@@ -782,11 +785,13 @@ a:hover {
   .redes-sociales a img {
     margin: 5px;
   }
-
-  .footer-gif {
-    width: 100px;
-  }
-
+/* Estilo del GIF */
+.footer-gif {
+  width: 100px; /* Ajusta el tamaño del GIF */
+  height: auto; /* Mantiene la proporción */
+  margin: 0 auto; /* Centrado adicional si es necesario */
+  display: block; /* Evita márgenes extra */
+}
   .back-to-top {
     padding: 8px 16px;
   }
