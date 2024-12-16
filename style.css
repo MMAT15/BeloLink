@@ -609,53 +609,91 @@ a:hover {
    COOKIE BANNER
    ========================================================= */
 .cookie-banner {
-  display: none;
+  display: none; /* Por defecto, está oculto */
   position: fixed;
   bottom: 0;
   width: 100%;
   background-color: var(--primary-color);
   color: var(--white);
-  padding: 15px;
+  padding: 20px 15px; /* Más espacio para acomodar los elementos */
   text-align: center;
   z-index: 1000;
-  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.3); /* Sombra más prominente */
   font-family: Arial, sans-serif;
+  border-top: 2px solid var(--secondary-color); /* Línea decorativa */
 }
 
 .cookie-banner p {
   margin: 0;
   padding: 0 10px;
   font-size: 16px;
+  line-height: 1.5; /* Espaciado entre líneas */
+  max-width: 90%; /* Limita el ancho del texto */
+  margin: 0 auto; /* Centra el texto */
 }
 
 .cookie-banner a {
   color: var(--secondary-color);
+  text-decoration: underline; /* Enlace más visible */
+  font-weight: bold;
+  transition: color 0.3s ease;
 }
 
+.cookie-banner a:hover {
+  color: #0095c2;
+}
+
+/* Contenedor de los botones */
 .cookie-buttons {
-  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  gap: 15px; /* Espacio entre botones */
+  margin-top: 20px; /* Más separación con el texto */
 }
 
 .cookie-buttons button {
   background-color: var(--secondary-color);
   color: var(--primary-color);
   border: none;
-  padding: 10px 20px;
-  margin: 5px;
+  padding: 12px 25px; /* Botones más grandes */
   cursor: pointer;
-  border-radius: 5px;
-  font-size: 14px;
+  border-radius: 8px; /* Bordes más suaves */
+  font-size: 16px; /* Texto más grande */
+  font-weight: bold;
   transition: background-color 0.3s ease, transform 0.3s ease;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2); /* Agrega una sombra */
 }
 
 .cookie-buttons button:hover {
   background-color: #0095c2;
-  transform: scale(1.05);
+  transform: scale(1.1); /* Zoom suave al pasar el mouse */
 }
 
 .cookie-buttons button:active {
   background-color: #0095c2;
-  transform: scale(1);
+  transform: scale(1); /* Sin zoom al hacer clic */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Sombra más sutil */
+}
+
+/* Responsive: Ajuste para pantallas pequeñas */
+@media (max-width: 768px) {
+  .cookie-banner {
+    padding: 15px 10px;
+  }
+
+  .cookie-banner p {
+    font-size: 14px;
+    padding: 0 5px;
+  }
+
+  .cookie-buttons {
+    flex-direction: column; /* Botones apilados */
+    gap: 10px;
+  }
+
+  .cookie-buttons button {
+    width: 100%; /* Botones ocupan todo el ancho */
+  }
 }
 
 /* =========================================================
