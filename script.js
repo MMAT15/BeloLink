@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
       date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
       expires = "; expires=" + date.toUTCString();
     }
-    document.cookie = name + "=" + (value || "") + expires + "; path=/";
+    document.cookie = name + "=" + encodeURIComponent(value) + expires + "; path=/";
   }
 
   function deleteCookie(name) {
@@ -19,12 +19,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function getCookie(name) {
     const nameEQ = name + "=";
-    const ca = document.cookie.split(";");
-    for (let i = 0; i < ca.length; i++) {
-      let c = ca[i].trim();
-      if (c.indexOf(nameEQ) === 0) {
-        return c.substring(nameEQ.length, c.length);
-      }
+    const cookiesArray = document.cookie.split(";");
+    for (let i = 0; i < cookiesArray.length; i++) {
+      let c = cookiesArray[i].trim();
+      if (c.indexOf(nameEQ) === 0) return decodeURIComponent(c.substring(nameEQ.length, c.length));
     }
     return null;
   }
@@ -33,19 +31,20 @@ document.addEventListener("DOMContentLoaded", function () {
   // CARGAR GOOGLE ANALYTICS SOLO SI ACEPTA COOKIES
   // ==========================================
   function loadGoogleAnalytics() {
-    // Evita cargar el script si ya existe
-    if (document.querySelector('script[src*="googletagmanager"]')) return;
+    if (document.querySelector('script[src*="googletagmanager"]')) return; // Evita duplicados
 
-    const gaScript = document.createElement('script');
+    const gaScript = document.createElement("script");
     gaScript.async = true;
     gaScript.src = "https://www.googletagmanager.com/gtag/js?id=G-WGSGHHHYX5";
     document.head.appendChild(gaScript);
 
     gaScript.onload = () => {
       window.dataLayer = window.dataLayer || [];
-      function gtag() { dataLayer.push(arguments); }
-      gtag('js', new Date());
-      gtag('config', 'G-WGSGHHHYX5');
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "G-WGSGHHHYX5");
     };
   }
 
@@ -54,12 +53,11 @@ document.addEventListener("DOMContentLoaded", function () {
   // ==========================================
   const cookieBanner = document.getElementById("cookie-banner");
 
-// Verifica existencia del banner y la cookie
-if (cookieBanner && !getCookie("cookiesAccepted")) {
-  cookieBanner.style.display = "flex"; // Muestra el banner si no se ha aceptado/rechazado
-} else if (getCookie("cookiesAccepted") === "true") {
-  loadGoogleAnalytics(); // Carga Google Analytics si las cookies ya están aceptadas
-}
+  if (cookieBanner && !getCookie("cookiesAccepted")) {
+    cookieBanner.style.display = "flex"; // Muestra el banner si no se ha aceptado/rechazado
+  } else if (getCookie("cookiesAccepted") === "true") {
+    loadGoogleAnalytics(); // Carga Google Analytics si las cookies ya están aceptadas
+  }
 
   const acceptCookiesBtn = document.getElementById("accept-cookies-btn");
   const rejectCookiesBtn = document.getElementById("reject-cookies-btn");
@@ -76,7 +74,8 @@ if (cookieBanner && !getCookie("cookiesAccepted")) {
     rejectCookiesBtn.addEventListener("click", function () {
       setCookie("cookiesAccepted", "false", 365);
       if (cookieBanner) cookieBanner.style.display = "none";
-      deleteCookie("optionalCookie1"); // Ejemplo de eliminación de cookies no esenciales
+      // Borra cookies adicionales no esenciales aquí
+      deleteCookie("optionalCookie1");
       deleteCookie("optionalCookie2");
     });
   }
