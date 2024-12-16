@@ -10,11 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
       date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
       expires = "; expires=" + date.toUTCString();
     }
-    document.cookie = name + "=" + encodeURIComponent(value) + expires + "; path=/";
-  }
-
-  function deleteCookie(name) {
-    document.cookie = name + "=; Max-Age=-99999999; path=/;";
+    document.cookie = `${name}=${encodeURIComponent(value)}${expires}; path=/`;
   }
 
   function getCookie(name) {
@@ -22,9 +18,13 @@ document.addEventListener("DOMContentLoaded", function () {
     const cookiesArray = document.cookie.split(";");
     for (let i = 0; i < cookiesArray.length; i++) {
       let c = cookiesArray[i].trim();
-      if (c.indexOf(nameEQ) === 0) return decodeURIComponent(c.substring(nameEQ.length, c.length));
+      if (c.indexOf(nameEQ) === 0) return decodeURIComponent(c.substring(nameEQ.length));
     }
     return null;
+  }
+
+  function deleteCookie(name) {
+    setCookie(name, "", -1); // Expira la cookie
   }
 
   // ==========================================
@@ -52,11 +52,17 @@ document.addEventListener("DOMContentLoaded", function () {
   // MOSTRAR/OCULTAR BANNER DE COOKIES
   // ==========================================
   const cookieBanner = document.getElementById("cookie-banner");
+  const cookiesAccepted = getCookie("cookiesAccepted");
 
-  if (cookieBanner && !getCookie("cookiesAccepted")) {
-    cookieBanner.style.display = "flex"; // Muestra el banner si no se ha aceptado/rechazado
-  } else if (getCookie("cookiesAccepted") === "true") {
-    loadGoogleAnalytics(); // Carga Google Analytics si las cookies ya están aceptadas
+  if (cookieBanner) {
+    if (cookiesAccepted === "true") {
+      cookieBanner.style.display = "none"; // Oculta el banner si ya se aceptaron las cookies
+      loadGoogleAnalytics();
+    } else if (cookiesAccepted === "false") {
+      cookieBanner.style.display = "none"; // Oculta si fueron rechazadas
+    } else {
+      cookieBanner.style.display = "flex"; // Muestra si no hay cookies
+    }
   }
 
   const acceptCookiesBtn = document.getElementById("accept-cookies-btn");
@@ -65,7 +71,7 @@ document.addEventListener("DOMContentLoaded", function () {
   if (acceptCookiesBtn) {
     acceptCookiesBtn.addEventListener("click", function () {
       setCookie("cookiesAccepted", "true", 365);
-      if (cookieBanner) cookieBanner.style.display = "none";
+      cookieBanner.style.display = "none";
       loadGoogleAnalytics();
     });
   }
@@ -73,9 +79,8 @@ document.addEventListener("DOMContentLoaded", function () {
   if (rejectCookiesBtn) {
     rejectCookiesBtn.addEventListener("click", function () {
       setCookie("cookiesAccepted", "false", 365);
-      if (cookieBanner) cookieBanner.style.display = "none";
-      // Borra cookies adicionales no esenciales aquí
-      deleteCookie("optionalCookie1");
+      cookieBanner.style.display = "none";
+      deleteCookie("optionalCookie1"); // Borra cookies adicionales
       deleteCookie("optionalCookie2");
     });
   }
@@ -86,17 +91,15 @@ document.addEventListener("DOMContentLoaded", function () {
   const instagramFloat = document.getElementById("instagram-float");
   if (instagramFloat) {
     instagramFloat.style.display = "none";
-    setTimeout(function () {
-      instagramFloat.style.display = "flex"; // Muestra el botón flotante después de 5 minutos
-    }, 300000); // 5 min
+    setTimeout(() => {
+      instagramFloat.style.display = "flex";
+    }, 300000); // 5 minutos
   }
 
   const closeFloatBtn = document.getElementById("close-float");
   if (closeFloatBtn) {
-    closeFloatBtn.addEventListener("click", function () {
-      if (instagramFloat) {
-        instagramFloat.style.display = "none"; // Oculta el botón flotante al hacer clic
-      }
+    closeFloatBtn.addEventListener("click", () => {
+      instagramFloat.style.display = "none";
     });
   }
 
@@ -105,11 +108,12 @@ document.addEventListener("DOMContentLoaded", function () {
   // ==========================================
   const nav = document.getElementById("nav");
   const menuToggle = document.getElementById("menu-toggle");
+
   if (nav && menuToggle) {
     document.addEventListener("click", function (event) {
       if (!nav.contains(event.target) && !menuToggle.contains(event.target)) {
-        nav.classList.remove("active"); // Cierra el menú
-        menuToggle.classList.remove("active"); // Cambia el estado del botón
+        nav.classList.remove("active");
+        menuToggle.classList.remove("active");
       }
     });
   }
