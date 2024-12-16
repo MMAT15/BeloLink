@@ -502,7 +502,6 @@ a:hover {
 .highlight-belo {
   display: inline-block;
   color: #ace9ff;
-  background-color: #162b6f;
   border-radius: 4px;
   transition: transform 0.3s ease;
 }
