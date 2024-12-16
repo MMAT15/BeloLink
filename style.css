@@ -801,3 +801,16 @@ a:hover {
     padding: 8px 16px;
   }
 }
+/* Corrige el desbordamiento de listas */
+ul, ol {
+  padding-left: 1.5rem; /* Ajuste más ligero */
+  margin-left: 0; /* Asegura que no haya márgenes externos */
+  overflow-wrap: break-word; /* Evita que el contenido cause desbordamiento */
+}
+
+li {
+  list-style-position: inside; /* Puntos dentro del contenedor */
+  padding-left: 0.5rem; /* Alinea el texto con los puntos */
+  word-break: break-word; /* Rompe palabras largas si es necesario */
+  line-height: 1.5; /* Mejora la legibilidad */
+}
