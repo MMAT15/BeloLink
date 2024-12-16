@@ -308,12 +308,54 @@
       window.scrollTo({top: 0, behavior: 'smooth'});
     }
 
-    // Cambiar título en header
-    function changeHeaderText() {
-      const headerTitle = document.getElementById('header-title');
-      headerTitle.textContent = 'BeloLink Innovations - Smart Solutions!';
-    }
-  </script>
+      document.getElementById('menu-toggle').addEventListener('click', function() {
+        document.getElementById('nav').classList.toggle('active');
+        document.querySelector('.logo-container').classList.toggle('active');
+        this.classList.toggle('active');
+      });
+
+      function changeHeaderText() {
+        const headerTitle = document.getElementById('header-title');
+        const originalHTML = '<span class="highlight-belo">Belo</span><span class="highlight-link">Link</span>';
+        const newHTML = '<span style="color: #ace9ff;">Innovación</span>, <span style="color: #7fcfe7;">Seguridad</span> y <span style="color: #0096c6;">Comodidad</span>';
+
+        headerTitle.innerHTML = newHTML;
+
+        setTimeout(() => {
+          headerTitle.innerHTML = originalHTML;
+        }, 3000); // Cambia de vuelta al HTML original después de 3 segundos
+      }
+
+      function scrollToTop() {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+      }
+
+      document.addEventListener('DOMContentLoaded', () => {
+        const hoverElements = document.querySelectorAll('.beneficio, .contacto-item');
+        hoverElements.forEach(el => el.classList.add('no-hover-effect'));
+
+        const options = {
+          root: null,
+          rootMargin: '0px',
+          threshold: 0.1
+        };
+
+        const callback = (entries, observer) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.remove('no-hover-effect');
+              observer.unobserve(entry.target);
+            }
+          });
+        };
+
+        const observer = new IntersectionObserver(callback, options);
+        hoverElements.forEach(el => observer.observe(el));
+      });
+    </script>
 
   <!-- Script del Asistente Virtual Mejorado -->
   <script>
