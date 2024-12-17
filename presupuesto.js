@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const searchButton = document.getElementById("search-button");
 
   let cart = [];
-
+ 
   /* ============================
      LISTA DE PRODUCTOS
   ============================ */

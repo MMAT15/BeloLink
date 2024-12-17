@@ -97,6 +97,7 @@ nav ul li a:hover {
   flex-direction: column;
   justify-content: space-between;
   cursor: pointer;
+  z-index: 9999;  /* Asegura que el menú toggle esté por encima de otros elementos */
 }
 
 .menu-toggle div {
@@ -106,6 +107,7 @@ nav ul li a:hover {
   transition: var(--transition);
 }
 
+/* Animación cuando el menu-toggle está activo */
 .menu-toggle.active div:nth-child(1) {
   transform: rotate(45deg) translateY(10px);
 }
@@ -121,6 +123,7 @@ nav ul li a:hover {
 @media (max-width: 768px) {
   .menu-toggle {
     display: flex;
+    margin-left: 20px;  /* Ajusta el espaciado según lo necesites */
   }
 
   nav ul {
@@ -132,6 +135,7 @@ nav ul li a:hover {
     left: 0;
     width: 100%;
     padding: 10px 0;
+    z-index: 9999;  /* Asegura que el menú se muestre por encima de otros elementos */
   }
 
   nav ul.active {
@@ -140,6 +144,22 @@ nav ul li a:hover {
 
   nav ul li {
     margin: 10px 0;
+    padding: 10px 0;
+    text-align: center;
+    font-weight: bold;
+  }
+
+  /* Agregar efectos cuando el menu está activo */
+  nav ul li a {
+    padding: 10px;
+    color: var(--secondary-color);
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+  }
+
+  nav ul li a:hover {
+    background-color: var(--highlight-color);
+    color: var(--white);
   }
 }
 
