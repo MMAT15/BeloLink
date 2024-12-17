@@ -3,103 +3,130 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Calcula tu Presupuesto - BeloLink</title>
+  <title>Calcula tu Presupuesto | BeloLink</title>
   <link rel="stylesheet" href="presupuesto.css">
 </head>
 <body>
-  <!-- HEADER -->
+  <!-- Header -->
   <header>
     <div class="logo-container">
       <a href="index.html">
         <img src="principal.PNG" alt="BeloLink Logo" class="logo">
       </a>
-      <h1>
-        <span class="highlight-belo">Calcula</span> <span class="highlight-link">tu Presupuesto</span>
+      <h1 class="title">
+        <span class="highlight-belo">Belo</span><span class="highlight-link">Link</span> | <span class="highlight-title">Calcula tu Presupuesto</span>
       </h1>
     </div>
+    <!-- Menú Hamburguesa -->
     <div class="menu-toggle" id="menu-toggle">
       <div></div>
       <div></div>
       <div></div>
     </div>
-    <nav>
+    <nav id="nav">
       <ul>
         <li><a href="index.html">Inicio</a></li>
-        <li><a href="productos.html">Productos</a></li>
-        <li><a href="presupuesto.html" class="active">Calcula tu Presupuesto</a></li>
-        <li><a href="contacto.html">Contacto</a></li>
+        <li><a href="productos.html">Nuestras Soluciones</a></li>
+        <li><a href="casos.html">Casos de éxito</a></li>
+        <li><a href="info.html">Más info</a></li>
+        <li><a href="empresas.html">Clientes Corporativos</a></li>
       </ul>
     </nav>
   </header>
 
-  <!-- MAIN CONTENT -->
+  <!-- Sección Principal -->
   <main>
-    <!-- SECCIÓN DE PRODUCTOS -->
+    <!-- Bienvenida -->
+    <section class="welcome-section">
+      <h2>¡Construye tu presupuesto en minutos!</h2>
+      <p>Selecciona los productos que necesitas, ajusta las cantidades y obtén un presupuesto instantáneo, incluyendo mano de obra.</p>
+    </section>
+
+    <!-- Productos -->
     <section class="products">
-      <h2>Selecciona tus Productos</h2>
-      <div class="product-grid" id="product-list">
-        <!-- Productos Generados Dinámicamente -->
+      <h2>Elige tus productos</h2>
+      <div class="filter-bar">
+        <label for="category-filter">Filtrar por categoría:</label>
+        <select id="category-filter">
+          <option value="all">Todos</option>
+          <option value="routers">Routers</option>
+          <option value="switches">Switches</option>
+          <option value="cables">Cables</option>
+          <option value="camaras">Cámaras</option>
+          <option value="luces">Luces</option>
+          <option value="sensores">Sensores</option>
+        </select>
+      </div>
+      <div class="product-list" id="product-list">
+        <!-- Productos insertados dinámicamente aquí -->
       </div>
     </section>
 
-    <!-- SECCIÓN DE CARRITO -->
+    <!-- Carrito -->
     <section class="cart">
-      <h2>Tu Carrito</h2>
-      <table id="cart-table">
-        <thead>
-          <tr>
-            <th>Producto</th>
-            <th>Precio</th>
-            <th>Cantidad</th>
-            <th>Subtotal</th>
-            <th>Acción</th>
-          </tr>
-        </thead>
-        <tbody>
-          <!-- Carrito Dinámico -->
-        </tbody>
-      </table>
-      <div class="cart-summary">
-        <p>Subtotal: $<span id="subtotal">0.00</span></p>
-        <p>Mano de Obra (15%): $<span id="labor-cost">0.00</span></p>
-        <p>Total: $<span id="total">0.00</span></p>
-        <div class="cart-buttons">
-          <button id="clear-cart">Vaciar Carrito</button>
-          <button id="download-pdf">Descargar PDF</button>
+      <h2>Resumen del Carrito</h2>
+      <div id="cart-container">
+        <table id="cart-table">
+          <thead>
+            <tr>
+              <th>Producto</th>
+              <th>Precio</th>
+              <th>Cantidad</th>
+              <th>Subtotal</th>
+              <th>Acción</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+        <div id="cart-summary">
+          <p>Subtotal: $<span id="subtotal">0.00</span></p>
+          <p>Mano de Obra (15%): $<span id="labor-cost">0.00</span></p>
+          <p><strong>Total: $<span id="total">0.00</span></strong></p>
+          <div class="cart-buttons">
+            <button id="download-pdf">Descargar PDF</button>
+            <button id="clear-cart">Vaciar Carrito</button>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- RESUMEN EN MODAL -->
-    <div id="cart-modal" class="modal">
-      <div class="modal-content">
-        <span class="close-modal" id="close-modal">&times;</span>
-        <h3>Resumen del Carrito</h3>
-        <div id="modal-summary">
-          <!-- Resumen generado dinámicamente -->
-        </div>
-        <button id="close-summary">Cerrar</button>
+    <!-- Preguntas Frecuentes -->
+    <section class="faq">
+      <h2>Preguntas Frecuentes</h2>
+      <div class="faq-item">
+        <h3>¿Cómo se calcula la mano de obra?</h3>
+        <p>La mano de obra se calcula automáticamente como un 15% del precio total de los productos seleccionados.</p>
       </div>
-    </div>
+      <div class="faq-item">
+        <h3>¿Puedo descargar mi presupuesto?</h3>
+        <p>Sí, una vez que hayas seleccionado tus productos, puedes descargar el presupuesto en formato PDF para compartirlo o guardarlo.</p>
+      </div>
+      <div class="faq-item">
+        <h3>¿Qué pasa si quiero cambiar mi carrito?</h3>
+        <p>Puedes vaciar el carrito o ajustar las cantidades de productos en cualquier momento antes de generar el presupuesto final.</p>
+      </div>
+    </section>
   </main>
 
-  <!-- BOTÓN DE VOLVER ARRIBA -->
-  <button id="back-to-top" title="Volver Arriba">▲</button>
+  <!-- Botón flotante "Volver Arriba" -->
+  <button id="back-to-top" title="Volver arriba">⬆</button>
 
-  <!-- FOOTER -->
+  <!-- Footer -->
   <footer>
     <p>© 2024 BeloLink - Todos los derechos reservados.</p>
     <div class="redes-sociales">
-      <a href="https://instagram.com/belolinkdomotica" target="_blank">
+      <a href="https://www.instagram.com/belolinkdomotica" target="_blank">
         <img src="img/instagram-png.png" alt="Instagram">
       </a>
       <a href="https://github.com/MMAT15" target="_blank">
         <img src="img/github-mark.png" alt="GitHub">
       </a>
     </div>
+    <p>¿Tienes alguna pregunta? Contáctanos en <a href="mailto:belolink@proton.me">belolink@proton.me</a></p>
   </footer>
 
-  <!-- SCRIPTS -->
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
   <script src="presupuesto.js"></script>
 </body>
 </html>
