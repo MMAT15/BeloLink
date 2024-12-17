@@ -546,3 +546,64 @@ footer a:hover {
   font-size: 0.9rem;
   margin-top: 10px;
 }
+/* =========================================================
+   EXPLICACIÓN DEL INICIO DE SESIÓN
+========================================================= */
+.info-section {
+  background-color: #f9f9f9;
+  padding: 30px 20px;
+  margin-top: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  max-width: 800px;
+  margin: 20px auto;
+}
+
+.info-section h3 {
+  text-align: center;
+  color: var(--primary-color);
+  margin-bottom: 20px;
+  font-size: 28px;
+}
+
+.info-message {
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.info-message p {
+  margin-bottom: 15px;
+}
+
+.info-message ul {
+  list-style: none;
+  padding: 0;
+}
+
+.info-message ul li {
+  margin-bottom: 10px;
+}
+
+.info-message strong {
+  color: var(--primary-color);
+}
+
+.info-message a {
+  color: var(--highlight-color);
+  text-decoration: none;
+}
+
+.info-message a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  .form-container {
+    width: 90%;
+    padding: 20px;
+  }
+
+  .info-section {
+    padding: 20px;
+  }
+}
