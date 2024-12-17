@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Iniciar Sesión | BeloLink</title>
+  <title>Registrarte | BeloLink</title>
   <link rel="stylesheet" href="presupuesto.css">
 </head>
 <body>
@@ -18,23 +18,23 @@
     </div>
   </header>
 
-  <!-- Formulario de Inicio de Sesión -->
+  <!-- Formulario de Registro -->
   <main>
     <section class="auth-section">
       <div class="form-container">
-        <h2>Iniciar Sesión</h2>
-        <form id="login-form">
-          <input type="email" id="login-email" placeholder="Correo Electrónico" required>
-          <input type="password" id="login-password" placeholder="Contraseña" required>
+        <h2>Registrarte</h2>
+        <form id="register-form">
+          <input type="email" id="register-email" placeholder="Correo Electrónico" required>
+          <input type="password" id="register-password" placeholder="Contraseña" required>
           <div class="privacy-checkbox">
             <label>
               <input type="checkbox" id="accept-privacy" required> 
               Acepto la <a href="privacidad.html" target="_blank">Política de Privacidad</a>.
             </label>
           </div>
-          <button type="submit" id="submit-btn" disabled>Iniciar Sesión</button>
+          <button type="submit" id="submit-btn" disabled>Registrar</button>
           <div class="form-footer">
-            <p>¿No tienes cuenta? <a href="registrar.html">Regístrate</a></p>
+            <p>¿Ya tienes cuenta? <a href="iniciar.html">Iniciar sesión</a></p>
           </div>
         </form>
         <p id="error-msg" style="color: red; display: none;">Debe aceptar la Política de Privacidad para continuar.</p>
@@ -44,7 +44,7 @@
 
   <script>
     document.addEventListener("DOMContentLoaded", () => {
-      const loginForm = document.getElementById("login-form");
+      const registerForm = document.getElementById("register-form");
       const submitBtn = document.getElementById("submit-btn");
       const acceptPrivacy = document.getElementById("accept-privacy");
       const errorMsg = document.getElementById("error-msg");
@@ -59,23 +59,21 @@
         }
       });
 
-      // Al enviar el formulario de inicio de sesión
-      loginForm.addEventListener("submit", (e) => {
+      // Al enviar el formulario de registro
+      registerForm.addEventListener("submit", (e) => {
         e.preventDefault();
 
-        const email = document.getElementById("login-email").value;
-        const password = document.getElementById("login-password").value;
+        const email = document.getElementById("register-email").value;
+        const password = document.getElementById("register-password").value;
 
-        // Verificar si el usuario está registrado en localStorage
-        const storedEmail = localStorage.getItem("email");
-        const storedPassword = localStorage.getItem("password");
+        // Guardar el correo electrónico y la contraseña en localStorage
+        localStorage.setItem("email", email);
+        localStorage.setItem("password", password);
 
-        if (storedEmail === email && storedPassword === password) {
-          // Si las credenciales son correctas, redirigir a presupuesto.html
-          window.location.href = "presupuesto.html";
-        } else {
-          alert("Correo electrónico o contraseña incorrectos.");
-        }
+        alert("¡Registro exitoso! Ahora puedes iniciar sesión.");
+
+        // Redirigir al inicio de sesión
+        window.location.href = "iniciar.html";
       });
     });
   </script>
