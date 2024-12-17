@@ -1,15 +1,15 @@
-/* ============================
+/* ============================================================
    RESET Y VARIABLES
-============================= */
+============================================================ */
 :root {
   --primary-color: #162b6f;
   --secondary-color: #ace9ff;
-  --text-color: #333;
+  --highlight-color: #0096c6;
   --background-color: #f4f4f4;
+  --text-color: #333;
   --white: #fff;
-  --hover-bg-color: #e0f7fa;
-  --dark-blue: #0d1b4c;
-  --light-gray: #f8f9fa;
+  --gray-light: #e0e0e0;
+  --hover-bg-color: #f0f8ff;
 }
 
 * {
@@ -19,59 +19,56 @@
 }
 
 body {
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'Arial', sans-serif;
   background-color: var(--background-color);
   color: var(--text-color);
   line-height: 1.6;
 }
 
-/* ============================
+/* ============================================================
    HEADER
-============================= */
+============================================================ */
 header {
   background-color: var(--primary-color);
-  padding: 15px 20px;
+  color: var(--white);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  color: var(--white);
-  position: relative;
+  padding: 10px 20px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
 }
 
 .logo-container {
   display: flex;
   align-items: center;
-  gap: 10px;
 }
 
 .logo {
-  width: 60px;
-  height: 60px;
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
   border-radius: 50%;
-  border: 2px solid var(--secondary-color);
   object-fit: cover;
 }
 
-header h1 {
-  font-size: 24px;
-  font-weight: 700;
+#header-title {
+  font-size: 1.8rem;
+  cursor: pointer;
+  transition: color 0.3s ease;
 }
 
-.highlight-belo {
-  color: var(--secondary-color);
+#header-title:hover {
+  color: var(--highlight-color);
 }
 
-.highlight-link {
-  color: var(--white);
-}
-
-.highlight-title {
-  color: var(--hover-bg-color);
-}
-
+/* ============================================================
+   MENÚ HAMBURGUESA
+============================================================ */
 .menu-toggle {
-  width: 35px;
+  width: 40px;
   height: 30px;
   display: flex;
   flex-direction: column;
@@ -82,49 +79,59 @@ header h1 {
 .menu-toggle div {
   width: 100%;
   height: 4px;
-  background-color: var(--secondary-color);
+  background-color: var(--white);
+  border-radius: 2px;
   transition: all 0.3s ease;
 }
 
+.menu-toggle.active div:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.menu-toggle.active div:nth-child(2) {
+  opacity: 0;
+}
+
+.menu-toggle.active div:nth-child(3) {
+  transform: rotate(-45deg) translate(6px, -6px);
+}
+
 nav {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  background-color: var(--primary-color);
-  width: 100%;
   display: none;
-  flex-direction: column;
-  z-index: 1000;
+  position: absolute;
+  top: 60px;
+  left: 0;
+  width: 100%;
+  background-color: var(--primary-color);
+  text-align: center;
 }
 
 nav.active {
-  display: flex;
+  display: block;
 }
 
 nav ul {
   list-style: none;
-  text-align: center;
 }
 
 nav ul li {
-  padding: 10px;
+  padding: 10px 0;
 }
 
 nav ul li a {
-  color: var(--white);
   text-decoration: none;
-  font-size: 18px;
-  display: block;
+  color: var(--secondary-color);
+  font-weight: bold;
   transition: color 0.3s ease;
 }
 
 nav ul li a:hover {
-  color: var(--secondary-color);
+  color: var(--highlight-color);
 }
 
-/* ============================
+/* ============================================================
    SECCIONES GENERALES
-============================= */
+============================================================ */
 main {
   padding: 20px;
 }
@@ -133,87 +140,69 @@ h2 {
   text-align: center;
   margin-bottom: 20px;
   color: var(--primary-color);
-  font-size: 28px;
 }
 
-section {
-  background-color: var(--white);
-  padding: 20px;
-  margin-bottom: 30px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-/* ============================
-   WELCOME SECTION
-============================= */
+/* Bienvenida */
 .welcome-section {
   text-align: center;
-  padding: 30px;
-  background-color: var(--light-gray);
-  border: 1px solid var(--secondary-color);
-  border-radius: 10px;
+  margin-bottom: 40px;
 }
 
 .welcome-section p {
-  font-size: 18px;
+  font-size: 1.1rem;
 }
 
-/* ============================
-   FILTRO DE PRODUCTOS
-============================= */
-.filter-bar {
+/* Productos */
+.products .filter-bar {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   margin-bottom: 20px;
+  flex-wrap: wrap;
 }
 
-.filter-bar label {
-  font-weight: 600;
-  margin-right: 10px;
-}
-
-.filter-bar select {
-  padding: 8px 12px;
-  font-size: 16px;
+.filter-bar select,
+.filter-bar input,
+.filter-bar button {
+  padding: 8px 10px;
+  margin: 5px;
+  border: 1px solid var(--gray-light);
   border-radius: 5px;
-  border: 1px solid var(--secondary-color);
-  outline: none;
-  cursor: pointer;
+  font-size: 1rem;
 }
 
-/* ============================
-   PRODUCTOS
-============================= */
 .product-list {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   gap: 20px;
 }
 
 .product-card {
-  border: 1px solid var(--light-gray);
-  border-radius: 10px;
-  overflow: hidden;
-  background-color: var(--white);
+  background: var(--white);
+  border: 1px solid var(--gray-light);
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   text-align: center;
-  transition: box-shadow 0.3s ease, transform 0.3s ease;
+  padding: 15px;
+  transition: transform 0.3s ease;
 }
 
 .product-card img {
   width: 100%;
-  height: 150px;
+  height: 120px;
   object-fit: cover;
+  margin-bottom: 10px;
+  border-radius: 8px;
 }
 
 .product-card h3 {
-  font-size: 20px;
-  margin: 10px 0;
+  font-size: 1.1rem;
+  margin-bottom: 10px;
 }
 
 .product-card p {
-  color: var(--primary-color);
-  font-weight: bold;
+  color: var(--highlight-color);
+  font-size: 1.2rem;
+  margin-bottom: 10px;
 }
 
 .product-card button {
@@ -221,324 +210,140 @@ section {
   background-color: var(--primary-color);
   color: var(--white);
   border: none;
+  border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .product-card button:hover {
-  background-color: var(--secondary-color);
-  color: var(--primary-color);
+  background-color: var(--highlight-color);
   transform: scale(1.05);
 }
 
-/* ============================
+/* ============================================================
    CARRITO
-============================= */
+============================================================ */
 .cart table {
   width: 100%;
   border-collapse: collapse;
   margin-bottom: 20px;
 }
 
-.cart th, .cart td {
-  border: 1px solid var(--light-gray);
+.cart th,
+.cart td {
   padding: 10px;
+  border: 1px solid var(--gray-light);
   text-align: center;
 }
 
-.cart-buttons {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 10px;
-}
-
-button#clear-cart, button#download-pdf {
-  padding: 10px 15px;
-  background-color: var(--dark-blue);
+.cart-buttons button {
+  padding: 8px 12px;
+  background-color: var(--highlight-color);
   color: var(--white);
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  margin: 5px;
+  transition: transform 0.3s ease;
 }
 
-button#clear-cart:hover, button#download-pdf:hover {
-  background-color: var(--secondary-color);
-  color: var(--primary-color);
+.cart-buttons button:hover {
+  transform: scale(1.05);
 }
 
-/* ============================
-   PREGUNTAS FRECUENTES (FAQ)
-============================= */
+/* ============================================================
+   FAQ
+============================================================ */
 .faq-item {
-  margin-bottom: 15px;
+  margin-bottom: 20px;
 }
 
 .faq-item h3 {
-  font-size: 20px;
-  color: var(--primary-color);
+  color: var(--highlight-color);
+  margin-bottom: 10px;
 }
 
-.faq-item p {
-  margin-top: 5px;
-  color: var(--text-color);
-  font-size: 16px;
-}
-
-/* ============================
-   BOTÓN VOLVER ARRIBA
-============================= */
-#back-to-top {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  padding: 10px 15px;
-  background-color: var(--primary-color);
-  color: var(--white);
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  display: none;
-  transition: background-color 0.3s ease, transform 0.3s ease;
-}
-
-#back-to-top:hover {
-  background-color: var(--secondary-color);
-  color: var(--primary-color);
-  transform: scale(1.1);
-}
-
-/* ============================
-   FOOTER
-============================= */
-footer {
-  background-color: var(--primary-color);
-  color: var(--white);
+/* ============================================================
+   TESTIMONIOS
+============================================================ */
+.testimonials {
   text-align: center;
-  padding: 20px;
-}
-
-footer .redes-sociales img {
-  width: 30px;
-  height: 30px;
-  margin: 0 10px;
-  transition: transform 0.3s ease;
-}
-
-footer .redes-sociales img:hover {
-  transform: scale(1.2);
-}
-
-footer a {
-  color: var(--secondary-color);
-  text-decoration: none;
-}
-
-footer a:hover {
-  text-decoration: underline;
-}
-/* =========================================================
-   ENLACES Y CLASES DESTACADAS
-   ========================================================= */
-   a {
-    color: #0096c6;
-    text-decoration: none;
-    display: block; /* Hace que el enlace ocupe todo el área del contenedor */
-  }
-  
-  a:hover {
-    cursor: pointer;
-  }
-  
-  .highlight-belo {
-    display: inline-block;
-    color: #ace9ff;
-    background-color: #162b6f;
-    border-radius: 4px;
-    transition: transform 0.3s ease;
-  }
-  
-  .highlight-belo:hover {
-    transform: scale(1.1);
-  }
-  
-  .highlight-link {
-    display: inline-block;
-    color: #0096c6;
-    transition: transform 0.3s ease;
-  }
-  
-  .highlight-link:hover {
-    transform: scale(1.1);
-  }
-  
-  .bot-logo {
-    width: 50px;
-    height: auto;
-    cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-  
-  .bot-logo:hover {
-    transform: scale(1.1);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  }
-  /* =========================================================
-   FOOTER
-   ========================================================= */
-footer {
-  background-color: var(--primary-color);
-  color: var(--white);
-  text-align: center;
-  padding: 30px;
-  box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-.redes-sociales {
-  display: flex;
-  justify-content: center;
-  margin-top: 10px;
-}
-
-.redes-sociales img {
-  width: 24px;
-  height: 24px;
-  margin: 0 5px;
-  transition: transform 0.3s ease;
-}
-
-.redes-sociales img:hover {
-  transform: scale(1.2);
-}
-
-footer p {
-  margin: 10px 0;
-}
-
-/* Contenedor del GIF */
-.gif-container {
-  display: flex; /* Centra el contenido */
-  justify-content: center; /* Centrado horizontal */
-  align-items: center; /* Centrado vertical (si es necesario) */
-  margin: 20px auto; /* Centrado con margen automático */
-  max-width: 100%; /* Asegura que no se desborde */
-}
-
-.back-to-top {
-  margin-top: 20px;
-  padding: 10px 20px;
-  background-color: var(--secondary-color);
-  color: var(--primary-color);
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s, transform 0.3s;
-}
-
-.back-to-top:hover {
   background-color: var(--hover-bg-color);
-  transform: scale(1.1);
-}
-
-/* =========================================================
-   FORMULARIO
-   ========================================================= */
-form {
-  background-color: var(--background-color);
   padding: 20px;
   border-radius: 8px;
 }
 
-form label {
-  font-size: 16px;
+.testimonial-item {
+  margin-bottom: 20px;
+}
+
+.testimonial-item p {
+  font-style: italic;
+}
+
+.testimonial-item span {
   font-weight: bold;
 }
 
-form input,
-form textarea {
-  font-size: 16px;
-  padding: 10px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  width: 100%;
-  box-sizing: border-box;
-  margin-bottom: 15px;
-  transition: box-shadow 0.3s ease;
-}
-
-form input:focus,
-form textarea:focus {
-  box-shadow: 0 0 0 3px rgba(172, 233, 255, 0.5);
-  outline: none; /* Dejar que el box-shadow maneje el foco */
-}
-
-form button {
-  background-color: var(--secondary-color);
-  color: var(--white);
-  font-size: 18px;
-  padding: 10px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s, transform 0.3s;
-}
-
-form button:hover {
+/* ============================================================
+   BOTÓN VOLVER ARRIBA
+============================================================ */
+#back-to-top {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
   background-color: var(--primary-color);
-  transform: scale(1.05);
-}
-ESTILOS DE HEADER
-
-header {
-background-color: var(--primary-color);
-color: var(--white);
-padding: 20px;
-display: flex;
-justify-content: space-between;
-align-items: center;
-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-position: relative;
-z-index: 2;
-width: 100%;
+  color: var(--white);
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  display: none;
+  transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
-/* Cuando el header se hace "sticky" podría mejorarse la navegación
-(posible futura mejora con position: sticky) */
-/* header {
-position: sticky;
-top: 0;
-... 
-} */
-
-.logo-container {
-display: flex;
-align-items: center;
-gap: 10px; /* Espacio entre el logo y el título */
-transition: opacity 0.3s ease;
+#back-to-top:hover {
+  background-color: var(--highlight-color);
+  transform: scale(1.1);
 }
 
-.logo {
-width: 50px;
-height: 50px;
-border-radius: 50%;
-border: 2px solid var(--secondary-color);
-object-fit: cover;
-transition: transform 0.5s ease, box-shadow 0.5s ease;
+/* ============================================================
+   FOOTER
+============================================================ */
+footer {
+  background-color: var(--primary-color);
+  color: var(--white);
+  text-align: center;
+  padding: 20px;
+  margin-top: 20px;
 }
 
-.logo-container:hover .logo {
-transform: scale(1.1) rotate(10deg); /* Escala y rotación suave */
-box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25); /* Sombra más visible */
-filter: brightness(1.2); /* Aumenta el brillo para destacar */
+.redes-sociales img {
+  width: 32px;
+  margin: 5px;
+  transition: transform 0.3s ease;
 }
 
-header h1 {
-margin: 0;
-font-weight: 600;
-transition: opacity 0.3s ease;
+.redes-sociales img:hover {
+  transform: scale(1.1);
+}
+
+.footer-gif {
+  width: 100px;
+  margin: 10px auto;
+}
+
+/* ============================================================
+   RESPONSIVE
+============================================================ */
+@media (max-width: 768px) {
+  .filter-bar {
+    flex-direction: column;
+  }
+
+  .product-list {
+    grid-template-columns: 1fr;
+  }
 }

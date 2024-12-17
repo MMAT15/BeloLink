@@ -14,7 +14,7 @@
         <img src="principal.PNG" alt="BeloLink Innovations Logo" class="logo">
       </a>
       <h1 id="header-title" onclick="changeHeaderText()">
-        <span class="highlight-belo">Belo</span><span class="highlight-link">Link </span>
+        <span class="highlight-belo">Belo</span><span class="highlight-link">Link</span>
       </h1>
     </div>
     <div class="menu-toggle" id="menu-toggle">
@@ -29,7 +29,7 @@
         <li><a href="casos.html">Casos de éxito</a></li>
         <li><a href="info.html">Más info</a></li>
         <li><a href="empresas.html">Clientes Corporativos</a></li>
-        <li><a href="presupuesto.html"> Simulá tu presupuesto</a></li>
+        <li><a href="presupuesto.html">Simulá tu presupuesto</a></li>
       </ul>
     </nav>
   </header>
@@ -56,6 +56,8 @@
           <option value="luces">Luces</option>
           <option value="sensores">Sensores</option>
         </select>
+        <input type="text" id="product-search" placeholder="Buscar producto...">
+        <button id="search-button">Buscar</button>
       </div>
       <div class="product-list" id="product-list">
         <!-- Productos insertados dinámicamente aquí -->
@@ -106,6 +108,19 @@
         <p>Puedes vaciar el carrito o ajustar las cantidades de productos en cualquier momento antes de generar el presupuesto final.</p>
       </div>
     </section>
+
+    <!-- Testimonios -->
+    <section class="testimonials">
+      <h2>Lo que dicen nuestros clientes</h2>
+      <div class="testimonial-item">
+        <p>"Gracias a BeloLink, optimizamos la eficiencia de nuestras oficinas. ¡Altamente recomendado!"</p>
+        <span>- Cliente 1</span>
+      </div>
+      <div class="testimonial-item">
+        <p>"El proceso de instalación fue sencillo y rápido. El sistema de domótica funciona de maravilla."</p>
+        <span>- Cliente 2</span>
+      </div>
+    </section>
   </main>
 
   <!-- Botón flotante "Volver Arriba" -->
@@ -113,26 +128,22 @@
 
   <!-- Footer -->
   <footer>
-    <footer>
-      <p>© 2024 <span class="highlight-belo">Belo</span><span class="highlight-link">Link</span>.</p>
-      <div class="gif-container">
-       <img src="DuckGIf/dancing-duck.gif" alt="Dancing Duck" class="footer-gif">
-     </div>
-         <p>¿Tienes alguna pregunta? Escríbenos a <a href="mailto:Belolink@proton.me">Belolink@proton.me</a></p>
-         <ul>
-           <li><a href="privacidad.html">Política de Privacidad</a></li>
-         </ul>
-     <div class="redes-sociales">
-       <a href="https://www.instagram.com/belolinkdomotica" target="_blank">
-         <img src="img/instagram-png.png" alt="Instagram" style="width:32px; height:32px;">
-       </a>
-       <a href="https://github.com/MMAT15" target="_blank">
-         <img src="img/github-mark.png" alt="GitHub" style="width:32px; height:32px;">
-       </a>
-     </div>
-      <button onclick="scrollToTop()" class="back-to-top">Volver arriba</button>
-     </body>
-       </footer>
+    <p>© 2024 <span class="highlight-belo">Belo</span><span class="highlight-link">Link</span>.</p>
+    <div class="gif-container">
+      <img src="DuckGIf/dancing-duck.gif" alt="Dancing Duck" class="footer-gif">
+    </div>
+    <p>¿Tienes alguna pregunta? Escríbenos a <a href="mailto:Belolink@proton.me">Belolink@proton.me</a></p>
+    <ul>
+      <li><a href="privacidad.html">Política de Privacidad</a></li>
+    </ul>
+    <div class="redes-sociales">
+      <a href="https://www.instagram.com/belolinkdomotica" target="_blank">
+        <img src="img/instagram-png.png" alt="Instagram" style="width:32px; height:32px;">
+      </a>
+      <a href="https://github.com/MMAT15" target="_blank">
+        <img src="img/github-mark.png" alt="GitHub" style="width:32px; height:32px;">
+      </a>
+    </div>
   </footer>
 
   <!-- Scripts -->

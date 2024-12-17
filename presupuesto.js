@@ -10,25 +10,32 @@ document.addEventListener("DOMContentLoaded", () => {
   const clearCartButton = document.getElementById("clear-cart");
   const downloadPDFButton = document.getElementById("download-pdf");
   const backToTopButton = document.getElementById("back-to-top");
+  const categoryFilter = document.getElementById("category-filter");
   const cart = [];
 
   /* ============================
      LISTA DE PRODUCTOS
   ============================ */
   const products = [
-    { id: 1, name: "Cámara Exterior", price: 200, img: "img/eufy.jpg" },
-    { id: 2, name: "Luces Inteligentes", price: 50, img: "img/phillipshue.jpeg" },
-    { id: 3, name: "Sensor de Movimiento", price: 40, img: "img/sensormov.jpeg" },
-    { id: 4, name: "Switch Inteligente", price: 100, img: "img/switch.jpg" },
-    { id: 5, name: "Cable de Red", price: 20, img: "img/cablered.jpg" },
-    { id: 6, name: "Router Inteligente", price: 150, img: "img/router.webp" },
+    { id: 1, name: "Cámara Exterior", price: 200, img: "img/Camaraexterior.webp", category: "camaras" },
+    { id: 2, name: "Luces Inteligentes", price: 50, img: "img/phillipshue.jpeg", category: "luces" },
+    { id: 3, name: "Sensor de Movimiento", price: 40, img: "img/sensormov.jpeg", category: "sensores" },
+    { id: 4, name: "Switch Inteligente", price: 100, img: "img/switch.jpg", category: "switches" },
+    { id: 5, name: "Cable de Red", price: 20, img: "img/cablered.jpg", category: "cables" },
+    { id: 6, name: "Router Inteligente", price: 150, img: "img/router.webp", category: "routers" },
+    { id: 7, name: "Cámara Inteligente", price: 220, img: "img/Camaraexterior.webp", category: "camaras" },
+    { id: 8, name: "Foco Philips Hue", price: 60, img: "img/phillipshue.jpeg", category: "luces" },
   ];
 
   /* ============================
      RENDERIZAR PRODUCTOS
   ============================ */
-  function renderProducts() {
-    products.forEach((product) => {
+  function renderProducts(filter = "all") {
+    productList.innerHTML = ""; // Limpiar productos
+    const filteredProducts =
+      filter === "all" ? products : products.filter((product) => product.category === filter);
+
+    filteredProducts.forEach((product) => {
       const productCard = document.createElement("div");
       productCard.classList.add("product-card");
       productCard.innerHTML = `
@@ -128,37 +135,32 @@ document.addEventListener("DOMContentLoaded", () => {
      DESCARGAR PRESUPUESTO COMO PDF
   ============================ */
   downloadPDFButton.addEventListener("click", () => {
-    const pdfContent = `
-      <h1>Resumen de Presupuesto</h1>
-      <table border="1" cellpadding="5">
-        <thead>
-          <tr>
-            <th>Producto</th>
-            <th>Precio</th>
-            <th>Cantidad</th>
-            <th>Subtotal</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${cart.map((item) => `
-            <tr>
-              <td>${item.name}</td>
-              <td>$${item.price.toFixed(2)}</td>
-              <td>${item.quantity}</td>
-              <td>$${(item.price * item.quantity).toFixed(2)}</td>
-            </tr>
-          `).join("")}
-        </tbody>
-      </table>
-      <p><strong>Subtotal:</strong> $${subtotalSpan.textContent}</p>
-      <p><strong>Mano de Obra (15%):</strong> $${laborCostSpan.textContent}</p>
-      <p><strong>Total:</strong> $${totalSpan.textContent}</p>
-    `;
+    const { jsPDF } = window.jspdf;
+    const pdf = new jsPDF();
+    let y = 10;
 
-    const win = window.open("", "", "width=800,height=900");
-    win.document.write(pdfContent);
-    win.document.close();
-    win.print();
+    pdf.setFontSize(16);
+    pdf.text("Resumen del Presupuesto", 10, y);
+    y += 10;
+
+    cart.forEach((item) => {
+      pdf.text(
+        `${item.name} - Precio: $${item.price.toFixed(2)} - Cantidad: ${item.quantity} - Subtotal: $${(
+          item.price * item.quantity
+        ).toFixed(2)}`,
+        10,
+        y
+      );
+      y += 10;
+    });
+
+    pdf.text(`Subtotal: $${subtotalSpan.textContent}`, 10, y);
+    y += 10;
+    pdf.text(`Mano de Obra (15%): $${laborCostSpan.textContent}`, 10, y);
+    y += 10;
+    pdf.text(`Total: $${totalSpan.textContent}`, 10, y);
+
+    pdf.save("presupuesto.pdf");
   });
 
   /* ============================
@@ -177,6 +179,14 @@ document.addEventListener("DOMContentLoaded", () => {
       top: 0,
       behavior: "smooth",
     });
+  });
+
+  /* ============================
+     FILTRAR PRODUCTOS
+  ============================ */
+  categoryFilter.addEventListener("change", (e) => {
+    const selectedCategory = e.target.value;
+    renderProducts(selectedCategory);
   });
 
   /* ============================
