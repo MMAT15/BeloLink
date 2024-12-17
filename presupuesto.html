@@ -5,62 +5,75 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Calcula tu Presupuesto | BeloLink</title>
-
-  <!-- CSS principal -->
   <link rel="stylesheet" href="presupuesto.css">
-
-  <!-- Fuente e íconos (puedes usar Google Fonts o FontAwesome si es necesario) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
-
 </head>
 <body>
-  <!-- HEADER -->
-  <header class="header">
-    <div class="logo-container">
-      <a href="index.html" aria-label="Ir a la página principal">
-        <img src="principal.PNG" alt="BeloLink Logo" class="logo">
-      </a>
-      <h1>Calcula tu Presupuesto</h1>
+  <!-- Banner de Cookies -->
+  <div id="cookie-banner" class="cookie-banner">
+    <p>Este sitio web utiliza cookies para optimizar su experiencia. <a href="privacidad.html">Política de Privacidad</a></p>
+    <div class="cookie-buttons">
+      <button id="accept-cookies-btn">Aceptar</button>
+      <button id="reject-cookies-btn">Rechazar</button>
     </div>
+  </div>
+
+  <!-- HEADER -->
+  <header>
+    <div class="logo-container">
+      <a href="index.html">
+        <img src="img/principal.PNG" alt="BeloLink Logo" class="logo">
+      </a>
+      <h1 id="header-title">
+        Calcula tu <span class="highlight-link">Presupuesto</span>
+      </h1>
+    </div>
+    <nav id="nav">
+      <ul>
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="productos.html">Nuestras Soluciones</a></li>
+        <li><a href="casos.html">Casos de Éxito</a></li>
+        <li><a href="info.html">Más Info</a></li>
+        <li><a href="presupuesto.html" class="active">Simulá tu Presupuesto</a></li>
+      </ul>
+    </nav>
   </header>
 
   <!-- MAIN -->
   <main>
     <!-- Sección de Productos -->
     <section class="products">
-      <h2>Selecciona tus productos</h2>
-      <div class="product-list" id="product-list" aria-live="polite">
-        <!-- Productos insertados dinámicamente aquí -->
+      <h2>Selecciona tus Productos</h2>
+      <div class="product-list" id="product-list">
+        <!-- Productos insertados dinámicamente -->
       </div>
     </section>
 
-    <!-- Sección del Carrito -->
+    <!-- Carrito -->
     <section class="cart">
       <h2>Tu Presupuesto</h2>
       <div class="cart-container">
-        <table id="cart-table" aria-describedby="cart-summary">
+        <table id="cart-table">
           <thead>
             <tr>
-              <th scope="col">Producto</th>
-              <th scope="col">Precio</th>
-              <th scope="col">Cantidad</th>
-              <th scope="col">Subtotal</th>
-              <th scope="col">Acción</th>
+              <th>Producto</th>
+              <th>Precio</th>
+              <th>Cantidad</th>
+              <th>Subtotal</th>
+              <th>Eliminar</th>
             </tr>
           </thead>
-          <tbody>
-            <!-- Filas dinámicas -->
-          </tbody>
+          <tbody></tbody>
         </table>
 
         <div id="cart-summary" class="cart-summary">
-          <p>Subtotal: <span id="subtotal">$0.00</span></p>
-          <p>Mano de Obra (15%): <span id="labor-cost">$0.00</span></p>
-          <p><strong>Total: <span id="total">$0.00</span></strong></p>
+          <p><strong>Subtotal:</strong> $<span id="subtotal">0.00</span></p>
+          <p><strong>Mano de Obra (15%):</strong> $<span id="labor-cost">0.00</span></p>
+          <p class="total"><strong>Total Final:</strong> $<span id="total">0.00</span></p>
         </div>
 
-        <div class="cart-buttons">
+        <div class="cart-actions">
           <button id="download-pdf" class="btn">Descargar PDF</button>
         </div>
       </div>
@@ -68,11 +81,18 @@
   </main>
 
   <!-- FOOTER -->
-  <footer class="footer">
-    <p>© 2024 BeloLink - Soluciones de Domótica</p>
+  <footer>
+    <p>© 2024 <span class="highlight-belo">Belo</span><span class="highlight-link">Link</span></p>
+    <div class="redes-sociales">
+      <a href="https://www.instagram.com/belolinkdomotica" target="_blank">
+        <img src="img/instagram-png.png" alt="Instagram">
+      </a>
+      <a href="https://github.com/MMAT15" target="_blank">
+        <img src="img/github-mark.png" alt="GitHub">
+      </a>
+    </div>
   </footer>
 
-  <!-- SCRIPT -->
   <script src="presupuesto.js" defer></script>
 </body>
 </html>
