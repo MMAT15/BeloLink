@@ -37,19 +37,16 @@ document.addEventListener("DOMContentLoaded", () => {
     productList.innerHTML = ""; // Limpiar productos
     let filteredProducts = products;
 
-    // Filtrar por categoría
     if (filter !== "all") {
       filteredProducts = filteredProducts.filter(product => product.category === filter);
     }
 
-    // Filtrar por búsqueda
     if (searchQuery.trim() !== "") {
       filteredProducts = filteredProducts.filter(product =>
         product.name.toLowerCase().includes(searchQuery.toLowerCase())
       );
     }
 
-    // Renderizar productos
     if (filteredProducts.length === 0) {
       productList.innerHTML = `<p class="no-results">No se encontraron productos.</p>`;
       return;
@@ -80,17 +77,28 @@ document.addEventListener("DOMContentLoaded", () => {
     } else {
       cart.push({ ...product, quantity: 1 });
     }
+
+    showNotification(`${product.name} agregado al carrito`);
     animateAddToCart();
     updateCartUI();
   };
 
   /* ============================
-     ANIMACIÓN AL AGREGAR PRODUCTO
+     ANIMACIÓN Y NOTIFICACIÓN
   ============================ */
   function animateAddToCart() {
     const cartIcon = document.querySelector(".cart-icon");
     cartIcon.classList.add("bounce");
     setTimeout(() => cartIcon.classList.remove("bounce"), 500);
+  }
+
+  function showNotification(message) {
+    const notification = document.createElement("div");
+    notification.classList.add("notification");
+    notification.textContent = message;
+    document.body.appendChild(notification);
+
+    setTimeout(() => notification.remove(), 3000);
   }
 
   /* ============================
@@ -99,6 +107,14 @@ document.addEventListener("DOMContentLoaded", () => {
   function updateCartUI() {
     cartTableBody.innerHTML = "";
     let subtotal = 0;
+
+    if (cart.length === 0) {
+      cartTableBody.innerHTML = `<tr><td colspan="5" class="empty-cart">Tu carrito está vacío</td></tr>`;
+      subtotalSpan.textContent = "0.00";
+      laborCostSpan.textContent = "0.00";
+      totalSpan.textContent = "0.00";
+      return;
+    }
 
     cart.forEach((item) => {
       const row = document.createElement("tr");
@@ -128,20 +144,18 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* ============================
-     EVENTOS DE BÚSQUEDA
+     BÚSQUEDA Y FILTRO
   ============================ */
-  searchButton.addEventListener("click", () => {
+  searchInput.addEventListener("keyup", () => {
     renderProducts(categoryFilter.value, searchInput.value);
   });
 
-  searchInput.addEventListener("keyup", (e) => {
-    if (e.key === "Enter") {
-      renderProducts(categoryFilter.value, searchInput.value);
-    }
+  categoryFilter.addEventListener("change", () => {
+    renderProducts(categoryFilter.value, searchInput.value);
   });
 
   /* ============================
-     FUNCIONES DE CARRITO
+     CARRITO Y VOLVER ARRIBA
   ============================ */
   window.updateQuantity = (productId, change) => {
     const item = cart.find(item => item.id === productId);
@@ -168,54 +182,8 @@ document.addEventListener("DOMContentLoaded", () => {
     updateCartUI();
   });
 
-  /* ============================
-     DESCARGAR PDF
-  ============================ */
-  downloadPDFButton.addEventListener("click", () => {
-    const { jsPDF } = window.jspdf;
-    const pdf = new jsPDF();
-    let y = 10;
-
-    pdf.text("Resumen del Presupuesto", 10, y);
-    y += 10;
-
-    cart.forEach((item) => {
-      pdf.text(`${item.name} x${item.quantity} - $${item.price}`, 10, y);
-      y += 10;
-    });
-
-    pdf.text(`Subtotal: $${subtotalSpan.textContent}`, 10, y);
-    y += 10;
-    pdf.text(`Mano de Obra: $${laborCostSpan.textContent}`, 10, y);
-    y += 10;
-    pdf.text(`Total: $${totalSpan.textContent}`, 10, y);
-
-    pdf.save("presupuesto.pdf");
-  });
-
-  /* ============================
-     VOLVER ARRIBA
-  ============================ */
-  window.addEventListener("scroll", () => {
-    if (window.scrollY > 300) {
-      backToTopButton.classList.add("visible");
-    } else {
-      backToTopButton.classList.remove("visible");
-    }
-  });
-
   backToTopButton.addEventListener("click", () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
-  });
-
-  /* ============================
-     MENU HAMBURGUESA
-  ============================ */
-  const menuToggle = document.getElementById("menu-toggle");
-  const nav = document.getElementById("nav");
-
-  menuToggle.addEventListener("click", () => {
-    nav.classList.toggle("active");
   });
 
   /* ============================
