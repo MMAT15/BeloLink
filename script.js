@@ -56,12 +56,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
   if (cookieBanner) {
     if (cookiesAccepted === "true") {
-      cookieBanner.style.display = "none"; // Oculta el banner si ya se aceptaron las cookies
+      cookieBanner.style.display = "none";
       loadGoogleAnalytics();
     } else if (cookiesAccepted === "false") {
-      cookieBanner.style.display = "none"; // Oculta si fueron rechazadas
+      cookieBanner.style.display = "none";
     } else {
-      cookieBanner.style.display = "flex"; // Muestra si no hay cookies
+      cookieBanner.style.display = "flex";
     }
   }
 
@@ -78,12 +78,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
   if (rejectCookiesBtn) {
     rejectCookiesBtn.addEventListener("click", function () {
-      setCookie("cookiesAccepted", "false", 365); // Establece la cookie como "false"
-      cookieBanner.style.display = "none"; // Oculta el banner
-      deleteCookie("optionalCookie1"); // Ejemplo de cookies no esenciales
+      setCookie("cookiesAccepted", "false", 365);
+      cookieBanner.style.display = "none";
+      deleteCookie("optionalCookie1");
       deleteCookie("optionalCookie2");
     });
-  }
   }
 
   // ==========================================
@@ -94,7 +93,7 @@ document.addEventListener("DOMContentLoaded", function () {
     instagramFloat.style.display = "none";
     setTimeout(() => {
       instagramFloat.style.display = "flex";
-    }, 300000); // 5 minutos
+    }, 300000);
   }
 
   const closeFloatBtn = document.getElementById("close-float");
