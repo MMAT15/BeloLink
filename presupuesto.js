@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
      LISTA DE PRODUCTOS
   ============================ */
   const products = [
-    { id: 1, name: "Cámara Exterior", price: 200, img: "img/Camaraexterior.webp" },
+    { id: 1, name: "Cámara Exterior", price: 200, img: "img/eufy.jpg" },
     { id: 2, name: "Luces Inteligentes", price: 50, img: "img/phillipshue.jpeg" },
     { id: 3, name: "Sensor de Movimiento", price: 40, img: "img/sensormov.jpeg" },
     { id: 4, name: "Switch Inteligente", price: 100, img: "img/switch.jpg" },
