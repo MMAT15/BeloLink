@@ -837,7 +837,9 @@ li {
 .login-link:hover {
   color: var(--highlight-color);
 }
-
+.login-link i {
+  margin-right: 8px; /* Espacio entre el icono y el texto */
+}
 /* Estilo para el menu toggle y "Iniciar sesión" alineados a la derecha */
 .header-right {
   display: flex;
