@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Calcula tu Presupuesto | BeloLink</title>
-  <link rel="stylesheet" href="style.css"> <!-- Asegúrate de usar style.css -->
+  <link rel="stylesheet" href="presupuesto.css">
 </head>
 <body>
   <!-- Header -->
@@ -30,59 +30,25 @@
         <li><a href="info.html">Más info</a></li>
         <li><a href="empresas.html">Clientes Corporativos</a></li>
         <li><a href="presupuesto.html">Simulá tu presupuesto</a></li>
+        <li><a href="login.html">Iniciar sesión</a></li>
       </ul>
     </nav>
   </header>
 
   <!-- Contenido principal -->
   <main class="content">
-    <section class="welcome-section">
-      <h2>¡Construye tu presupuesto en minutos!</h2>
-      <p>Selecciona los productos que necesitas, ajusta las cantidades y obtén un presupuesto instantáneo.</p>
-    </section>
-
-    <!-- Productos -->
-    <section class="products">
-      <h2>Elige tus productos</h2>
-      <div class="filter-bar">
-        <select id="category-filter">
-          <option value="all">Todos</option>
-          <option value="routers">Routers</option>
-          <option value="switches">Switches</option>
-          <option value="cables">Cables</option>
-          <option value="camaras">Cámaras</option>
-          <option value="luces">Luces</option>
-          <option value="sensores">Sensores</option>
-        </select>
-        <input type="text" id="search-input" placeholder="Buscar producto...">
-        <button id="search-button">Buscar</button>
-      </div>
-      <div class="product-list" id="product-list"></div>
-    </section>
-
-    <!-- Carrito -->
-    <section class="cart">
-      <h2>Resumen del Carrito</h2>
-      <table id="cart-table">
-        <thead>
-          <tr>
-            <th>Producto</th>
-            <th>Precio</th>
-            <th>Cantidad</th>
-            <th>Subtotal</th>
-            <th>Acción</th>
-          </tr>
-        </thead>
-        <tbody></tbody>
-      </table>
-      <div id="cart-summary">
-        <p>Subtotal: $<span id="subtotal">0.00</span></p>
-        <p>Mano de Obra (15%): $<span id="labor-cost">0.00</span></p>
-        <p><strong>Total: $<span id="total">0.00</span></strong></p>
-      </div>
-      <div class="cart-buttons">
-        <button id="clear-cart">Vaciar Carrito</button>
-        <button id="download-pdf">Descargar PDF</button>
+    <!-- Formulario de Inicio de Sesión -->
+    <section class="auth-section">
+      <div class="form-container">
+        <h2>Iniciar Sesión</h2>
+        <form id="login-form">
+          <input type="email" id="login-email" placeholder="Correo Electrónico" required>
+          <input type="password" id="login-password" placeholder="Contraseña" required>
+          <button type="submit">Iniciar Sesión</button>
+          <div class="form-footer">
+            <p>¿No tienes cuenta? <a href="register.html">Regístrate</a></p>
+          </div>
+        </form>
       </div>
     </section>
   </main>
@@ -114,12 +80,12 @@
       const nav = document.getElementById("nav");
   
       menuToggle.addEventListener("click", () => {
-        nav.classList.toggle("active"); // Mostrar/ocultar el menú
-        menuToggle.classList.toggle("active"); // Animación del icono
+        nav.classList.toggle("active");
+        menuToggle.classList.toggle("active");
       });
     });
   </script>
-  <script type="module" src="app.js"></script> <!-- Firebase y autenticación -->
+  <script type="module" src="app.js"></script>
   <script src="presupuesto.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
 </body>
