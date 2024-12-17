@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const downloadPDFButton = document.getElementById("download-pdf");
   const backToTopButton = document.getElementById("back-to-top");
   const categoryFilter = document.getElementById("category-filter");
-  const searchInput = document.getElementById("product-search");
+  const searchInput = document.getElementById("search-input");
   const searchButton = document.getElementById("search-button");
   const saveCartButton = document.getElementById("save-cart");
   const loadCartButton = document.getElementById("load-cart");
@@ -35,23 +35,15 @@ document.addEventListener("DOMContentLoaded", () => {
   /* ============================
      RENDERIZAR PRODUCTOS
   ============================ */
-  function renderProducts(filter = "all", searchQuery = "") {
+  const renderProducts = (filter = "all", searchQuery = "") => {
     productList.innerHTML = "";
-    let filteredProducts = products;
 
-    // Filtrar por categoría
-    if (filter !== "all") {
-      filteredProducts = filteredProducts.filter((product) => product.category === filter);
-    }
+    const filteredProducts = products.filter((product) => {
+      const matchesCategory = filter === "all" || product.category === filter;
+      const matchesSearch = product.name.toLowerCase().includes(searchQuery.toLowerCase());
+      return matchesCategory && matchesSearch;
+    });
 
-    // Filtrar por búsqueda
-    if (searchQuery.trim()) {
-      filteredProducts = filteredProducts.filter((product) =>
-        product.name.toLowerCase().includes(searchQuery.toLowerCase())
-      );
-    }
-
-    // Renderizar productos
     if (filteredProducts.length === 0) {
       productList.innerHTML = `<p class="no-results">No se encontraron productos.</p>`;
       return;
@@ -68,58 +60,46 @@ document.addEventListener("DOMContentLoaded", () => {
       `;
       productList.appendChild(productCard);
     });
-  }
+  };
 
   /* ============================
-     AGREGAR AL CARRITO
+     CARRITO DE COMPRAS
   ============================ */
-  window.addToCart = (productId) => {
+  const addToCart = (productId) => {
     const product = products.find((item) => item.id === productId);
-    const existingItem = cart.find((item) => item.id === productId);
+    const item = cart.find((item) => item.id === productId);
 
-    if (existingItem) {
-      existingItem.quantity++;
+    if (item) {
+      item.quantity++;
     } else {
       cart.push({ ...product, quantity: 1 });
     }
 
     updateCartUI();
-    animateAddToCart();
   };
 
-  /* ============================
-     ANIMACIÓN AL AGREGAR AL CARRITO
-  ============================ */
-  function animateAddToCart() {
-    const cartIcon = document.querySelector(".cart-icon");
-    cartIcon.classList.add("bounce");
-    setTimeout(() => cartIcon.classList.remove("bounce"), 500);
-  }
-
-  /* ============================
-     ACTUALIZAR CARRITO
-  ============================ */
-  function updateCartUI() {
+  const updateCartUI = () => {
     cartTableBody.innerHTML = "";
     let subtotal = 0;
 
     cart.forEach((item) => {
-      const row = document.createElement("tr");
       const itemSubtotal = item.price * item.quantity;
       subtotal += itemSubtotal;
 
-      row.innerHTML = `
-        <td>${item.name}</td>
-        <td>$${item.price.toFixed(2)}</td>
-        <td>
-          <button onclick="updateQuantity(${item.id}, -1)">-</button>
-          ${item.quantity}
-          <button onclick="updateQuantity(${item.id}, 1)">+</button>
-        </td>
-        <td>$${itemSubtotal.toFixed(2)}</td>
-        <td><button onclick="removeFromCart(${item.id})">❌</button></td>
+      const row = `
+        <tr>
+          <td>${item.name}</td>
+          <td>$${item.price.toFixed(2)}</td>
+          <td>
+            <button onclick="updateQuantity(${item.id}, -1)">-</button>
+            ${item.quantity}
+            <button onclick="updateQuantity(${item.id}, 1)">+</button>
+          </td>
+          <td>$${itemSubtotal.toFixed(2)}</td>
+          <td><button onclick="removeFromCart(${item.id})">❌</button></td>
+        </tr>
       `;
-      cartTableBody.appendChild(row);
+      cartTableBody.insertAdjacentHTML("beforeend", row);
     });
 
     const laborCost = subtotal * 0.15;
@@ -128,60 +108,43 @@ document.addEventListener("DOMContentLoaded", () => {
     subtotalSpan.textContent = subtotal.toFixed(2);
     laborCostSpan.textContent = laborCost.toFixed(2);
     totalSpan.textContent = total.toFixed(2);
-  }
+  };
 
-  /* ============================
-     ACTUALIZAR CANTIDAD
-  ============================ */
-  window.updateQuantity = (productId, change) => {
+  const updateQuantity = (productId, change) => {
     const item = cart.find((item) => item.id === productId);
-    if (!item) return;
-
-    item.quantity += change;
-    if (item.quantity <= 0) {
-      removeFromCart(productId);
-    } else {
+    if (item) {
+      item.quantity += change;
+      if (item.quantity <= 0) removeFromCart(productId);
       updateCartUI();
     }
   };
 
-  /* ============================
-     REMOVER DEL CARRITO
-  ============================ */
-  window.removeFromCart = (productId) => {
+  const removeFromCart = (productId) => {
     cart = cart.filter((item) => item.id !== productId);
     updateCartUI();
   };
 
   /* ============================
-     GUARDAR Y CARGAR CARRITO
+     LOCALSTORAGE
   ============================ */
   saveCartButton.addEventListener("click", () => {
     localStorage.setItem("cart", JSON.stringify(cart));
-    alert("Carrito guardado.");
+    alert("Carrito guardado correctamente.");
   });
 
   loadCartButton.addEventListener("click", () => {
-    const savedCart = JSON.parse(localStorage.getItem("cart"));
-    if (savedCart) {
-      cart.length = 0;
-      savedCart.forEach((item) => cart.push(item));
-      updateCartUI();
-    } else {
-      alert("No hay un carrito guardado.");
-    }
+    const savedCart = JSON.parse(localStorage.getItem("cart")) || [];
+    cart = savedCart;
+    updateCartUI();
   });
 
-  /* ============================
-     LIMPIAR CARRITO
-  ============================ */
   clearCartButton.addEventListener("click", () => {
     cart = [];
     updateCartUI();
   });
 
   /* ============================
-     DESCARGAR PDF
+     PDF GENERATION
   ============================ */
   downloadPDFButton.addEventListener("click", () => {
     const { jsPDF } = window.jspdf;
@@ -196,11 +159,9 @@ document.addEventListener("DOMContentLoaded", () => {
       y += 10;
     });
 
-    pdf.text(`Subtotal: $${subtotalSpan.textContent}`, 10, y);
-    y += 10;
-    pdf.text(`Mano de Obra: $${laborCostSpan.textContent}`, 10, y);
-    y += 10;
-    pdf.text(`Total: $${totalSpan.textContent}`, 10, y);
+    pdf.text(`Subtotal: $${subtotalSpan.textContent}`, 10, y += 10);
+    pdf.text(`Mano de Obra: $${laborCostSpan.textContent}`, 10, y += 10);
+    pdf.text(`Total: $${totalSpan.textContent}`, 10, y += 10);
 
     pdf.save("presupuesto.pdf");
   });
@@ -208,19 +169,11 @@ document.addEventListener("DOMContentLoaded", () => {
   /* ============================
      FILTRAR Y BUSCAR PRODUCTOS
   ============================ */
-  categoryFilter.addEventListener("change", () => {
-    renderProducts(categoryFilter.value, searchInput.value);
-  });
+  const handleSearch = () => renderProducts(categoryFilter.value, searchInput.value);
 
-  searchButton.addEventListener("click", () => {
-    renderProducts(categoryFilter.value, searchInput.value);
-  });
-
-  searchInput.addEventListener("keyup", (e) => {
-    if (e.key === "Enter") {
-      renderProducts(categoryFilter.value, searchInput.value);
-    }
-  });
+  categoryFilter.addEventListener("change", handleSearch);
+  searchButton.addEventListener("click", handleSearch);
+  searchInput.addEventListener("keyup", (e) => e.key === "Enter" && handleSearch());
 
   /* ============================
      BOTÓN VOLVER ARRIBA
