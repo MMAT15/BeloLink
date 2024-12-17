@@ -464,3 +464,67 @@ footer a:hover {
   nav.active .close-menu {
     display: block; /* El botón solo se muestra cuando el menú está activo */
   }
+  /* =========================================================
+   FORMULARIO DE INICIO DE SESIÓN Y REGISTRO
+========================================================= */
+.form-container {
+  background-color: var(--white);
+  border-radius: var(--border-radius);
+  padding: 30px;
+  box-shadow: var(--box-shadow);
+  margin: 0 auto;
+  max-width: 400px;
+  text-align: center;
+}
+
+.form-container h2 {
+  color: var(--primary-color);
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+}
+
+.form-container input {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border: 1px solid var(--gray-light);
+  border-radius: var(--border-radius);
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+.form-container button {
+  background-color: var(--primary-color);
+  color: var(--white);
+  padding: 12px;
+  width: 100%;
+  border: none;
+  border-radius: var(--border-radius);
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.form-container button:hover {
+  background-color: var(--highlight-color);
+}
+
+.form-container .form-footer {
+  margin-top: 15px;
+  font-size: 0.9rem;
+}
+
+.form-container .form-footer a {
+  color: var(--primary-color);
+  text-decoration: none;
+}
+
+.form-container .form-footer a:hover {
+  text-decoration: underline;
+}
+
+.form-container .error-message {
+  color: red;
+  font-size: 0.9rem;
+  margin-top: 10px;
+}
