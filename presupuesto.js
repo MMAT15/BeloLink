@@ -1,190 +1,205 @@
 document.addEventListener("DOMContentLoaded", function () {
   // ==========================================
-  // FUNCIONES PARA MANEJO DE COOKIES
+  // VARIABLES Y ELEMENTOS DOM
   // ==========================================
-  function setCookie(name, value, days) {
-    if (!name || !value) return; // Validación de parámetros
-    let expires = "";
-    if (days) {
-      const date = new Date();
-      date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
-      expires = "; expires=" + date.toUTCString();
-    }
-    document.cookie = `${name}=${encodeURIComponent(value)}${expires}; path=/`;
-  }
-
-  function getCookie(name) {
-    const nameEQ = name + "=";
-    const cookiesArray = document.cookie.split(";");
-    for (let i = 0; i < cookiesArray.length; i++) {
-      let c = cookiesArray[i].trim();
-      if (c.indexOf(nameEQ) === 0) return decodeURIComponent(c.substring(nameEQ.length));
-    }
-    return null;
-  }
-
-  // ==========================================
-  // GESTIÓN DEL BANNER DE COOKIES
-  // ==========================================
-  const cookieBanner = document.getElementById("cookie-banner");
-  const cookiesAccepted = getCookie("cookiesAccepted");
-
-  if (cookieBanner) {
-    if (cookiesAccepted === "true" || cookiesAccepted === "false") {
-      cookieBanner.style.display = "none";
-    } else {
-      cookieBanner.style.display = "flex";
-    }
-  }
-
-  const acceptCookiesBtn = document.getElementById("accept-cookies-btn");
-  const rejectCookiesBtn = document.getElementById("reject-cookies-btn");
-
-  if (acceptCookiesBtn) {
-    acceptCookiesBtn.addEventListener("click", () => {
-      setCookie("cookiesAccepted", "true", 365);
-      cookieBanner.style.display = "none";
-    });
-  }
-
-  if (rejectCookiesBtn) {
-    rejectCookiesBtn.addEventListener("click", () => {
-      setCookie("cookiesAccepted", "false", 365);
-      cookieBanner.style.display = "none";
-    });
-  }
-
-  // ==========================================
-  // CARRITO DE PRESUPUESTO
-  // ==========================================
-  const products = [
-    { id: 1, name: "Router Inteligente", price: 15000, img: "img/router.jpg" },
-    { id: 2, name: "Switch Inteligente", price: 12000, img: "img/switch.jpg" },
-    { id: 3, name: "Cable de Red 10m", price: 3000, img: "img/cable.jpg" },
-    { id: 4, name: "Cámara Exterior", price: 25000, img: "img/camara.jpg" },
-    { id: 5, name: "Luz Inteligente", price: 5000, img: "img/luz.jpg" },
-    { id: 6, name: "Sensor Inteligente", price: 7000, img: "img/sensor.jpg" }
-  ];
-
   const productList = document.getElementById("product-list");
   const cartTableBody = document.querySelector("#cart-table tbody");
-  const subtotalElem = document.getElementById("subtotal");
-  const laborCostElem = document.getElementById("labor-cost");
-  const totalElem = document.getElementById("total");
+  const subtotalElement = document.getElementById("subtotal");
+  const laborCostElement = document.getElementById("labor-cost");
+  const totalElement = document.getElementById("total");
+  const floatingCartBtn = document.getElementById("floating-cart-btn");
+  const modal = document.getElementById("modal");
+  const closeModalBtn = document.getElementById("close-modal");
+  const downloadPdfBtn = document.getElementById("download-pdf");
 
-  let cart = JSON.parse(sessionStorage.getItem("cart")) || [];
+  const LABOR_PERCENTAGE = 0.15;
+  let cart = [];
 
-  function renderProducts() {
+  // ==========================================
+  // PRODUCTOS DISPONIBLES
+  // ==========================================
+  const products = [
+    {
+      id: 1,
+      name: "Cámara Inteligente Exterior",
+      price: 12000,
+      image: "img/Camaraexterior.webp",
+    },
+    {
+      id: 2,
+      name: "Luces Inteligentes Phillips Hue",
+      price: 8000,
+      image: "img/phillipshue.jpeg",
+    },
+    {
+      id: 3,
+      name: "Sensor de Movimiento Inteligente",
+      price: 4500,
+      image: "img/sensormov.jpeg",
+    },
+    {
+      id: 4,
+      name: "Switch Gigabit",
+      price: 7000,
+      image: "img/switch.jpg",
+    },
+    {
+      id: 5,
+      name: "Cables de Red 20m",
+      price: 3000,
+      image: "img/cablered.jpg",
+    },
+    {
+      id: 6,
+      name: "Router Inteligente",
+      price: 15000,
+      image: "img/router.webp",
+    },
+  ];
+
+  // ==========================================
+  // FUNCIONES PRINCIPALES
+  // ==========================================
+  function displayProducts() {
     productList.innerHTML = "";
-    products.forEach(product => {
-      const card = document.createElement("div");
-      card.classList.add("product-card");
-      card.innerHTML = `
-        <img src="${product.img}" alt="${product.name}">
+    products.forEach((product) => {
+      const productCard = document.createElement("div");
+      productCard.classList.add("product-card");
+
+      productCard.innerHTML = `
+        <img src="${product.image}" alt="${product.name}" />
         <h3>${product.name}</h3>
-        <p>$${product.price.toLocaleString()}</p>
-        <button onclick="addToCart(${product.id})">Agregar</button>
+        <p>Precio: $${product.price.toLocaleString()}</p>
+        <button class="add-to-cart-btn" data-id="${product.id}">Agregar</button>
       `;
-      productList.appendChild(card);
+      productList.appendChild(productCard);
     });
   }
 
-  window.addToCart = function (id) {
-    const product = products.find(p => p.id === id);
-    const cartItem = cart.find(item => item.id === id);
+  function addToCart(productId) {
+    const product = products.find((item) => item.id === productId);
+    const existingItem = cart.find((item) => item.id === productId);
 
-    if (cartItem) {
-      cartItem.quantity++;
+    if (existingItem) {
+      existingItem.quantity += 1;
     } else {
       cart.push({ ...product, quantity: 1 });
     }
-
-    saveAndRenderCart();
-  };
-
-  window.removeFromCart = function (id) {
-    cart = cart.filter(item => item.id !== id);
-    saveAndRenderCart();
-  };
-
-  function saveAndRenderCart() {
-    sessionStorage.setItem("cart", JSON.stringify(cart));
-    renderCart();
+    updateCart();
+    showFloatingCart();
   }
 
-  function renderCart() {
+  function updateCart() {
     cartTableBody.innerHTML = "";
-
     let subtotal = 0;
 
-    cart.forEach(item => {
-      const row = document.createElement("tr");
+    cart.forEach((item, index) => {
       const itemSubtotal = item.price * item.quantity;
       subtotal += itemSubtotal;
 
+      const row = document.createElement("tr");
       row.innerHTML = `
         <td>${item.name}</td>
         <td>$${item.price.toLocaleString()}</td>
-        <td>${item.quantity}</td>
+        <td>
+          <input type="number" value="${item.quantity}" min="1" data-index="${index}" class="cart-quantity-input" />
+        </td>
         <td>$${itemSubtotal.toLocaleString()}</td>
-        <td><button onclick="removeFromCart(${item.id})">Eliminar</button></td>
+        <td>
+          <button class="remove-btn" data-index="${index}">🗑️</button>
+        </td>
       `;
       cartTableBody.appendChild(row);
     });
 
-    const laborCost = subtotal * 0.15;
+    const laborCost = subtotal * LABOR_PERCENTAGE;
     const total = subtotal + laborCost;
 
-    subtotalElem.textContent = subtotal.toLocaleString();
-    laborCostElem.textContent = laborCost.toLocaleString();
-    totalElem.textContent = total.toLocaleString();
+    subtotalElement.textContent = subtotal.toLocaleString();
+    laborCostElement.textContent = laborCost.toLocaleString();
+    totalElement.textContent = total.toLocaleString();
+  }
+
+  function removeFromCart(index) {
+    cart.splice(index, 1);
+    updateCart();
+  }
+
+  function changeQuantity(index, newQuantity) {
+    cart[index].quantity = parseInt(newQuantity, 10);
+    updateCart();
+  }
+
+  function showFloatingCart() {
+    floatingCartBtn.classList.add("active");
+  }
+
+  function downloadPDF() {
+    const doc = new jsPDF();
+    doc.text("Resumen del Presupuesto", 10, 10);
+
+    let y = 20;
+    cart.forEach((item) => {
+      doc.text(
+        `${item.name} - Cantidad: ${item.quantity} - Precio: $${item.price.toLocaleString()}`,
+        10,
+        y
+      );
+      y += 10;
+    });
+
+    doc.text(`Subtotal: $${subtotalElement.textContent}`, 10, y + 10);
+    doc.text(`Mano de Obra (15%): $${laborCostElement.textContent}`, 10, y + 20);
+    doc.text(`Total: $${totalElement.textContent}`, 10, y + 30);
+
+    doc.save("presupuesto.pdf");
   }
 
   // ==========================================
-  // GENERAR PDF DEL PRESUPUESTO
+  // EVENTOS
   // ==========================================
-  document.getElementById("download-pdf").addEventListener("click", function () {
-    const cartSummary = document.querySelector("#cart-summary").innerHTML;
-    let pdfContent = `
-      <h2>Presupuesto</h2>
-      <table border="1" cellspacing="0" cellpadding="10" style="width: 100%; text-align: center;">
-        <thead>
-          <tr>
-            <th>Producto</th>
-            <th>Precio</th>
-            <th>Cantidad</th>
-            <th>Subtotal</th>
-          </tr>
-        </thead>
-        <tbody>
-    `;
-
-    cart.forEach(item => {
-      pdfContent += `
-        <tr>
-          <td>${item.name}</td>
-          <td>$${item.price.toLocaleString()}</td>
-          <td>${item.quantity}</td>
-          <td>$${(item.price * item.quantity).toLocaleString()}</td>
-        </tr>
-      `;
-    });
-
-    pdfContent += `
-        </tbody>
-      </table>
-      ${cartSummary}
-    `;
-
-    const win = window.open("", "_blank");
-    win.document.write(pdfContent);
-    win.document.close();
-    win.print();
+  productList.addEventListener("click", (e) => {
+    if (e.target.classList.contains("add-to-cart-btn")) {
+      const productId = parseInt(e.target.dataset.id, 10);
+      addToCart(productId);
+    }
   });
 
+  cartTableBody.addEventListener("click", (e) => {
+    if (e.target.classList.contains("remove-btn")) {
+      const index = parseInt(e.target.dataset.index, 10);
+      removeFromCart(index);
+    }
+  });
+
+  cartTableBody.addEventListener("input", (e) => {
+    if (e.target.classList.contains("cart-quantity-input")) {
+      const index = parseInt(e.target.dataset.index, 10);
+      const newQuantity = e.target.value;
+      if (newQuantity > 0) {
+        changeQuantity(index, newQuantity);
+      }
+    }
+  });
+
+  floatingCartBtn.addEventListener("click", () => {
+    modal.style.display = "block";
+  });
+
+  closeModalBtn.addEventListener("click", () => {
+    modal.style.display = "none";
+  });
+
+  window.addEventListener("click", (e) => {
+    if (e.target === modal) {
+      modal.style.display = "none";
+    }
+  });
+
+  downloadPdfBtn.addEventListener("click", downloadPDF);
+
   // ==========================================
-  // INICIALIZACIÓN
+  // INICIALIZAR
   // ==========================================
-  renderProducts();
-  renderCart();
+  displayProducts();
 });
