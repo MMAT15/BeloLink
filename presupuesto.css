@@ -1,20 +1,6 @@
 /* =========================================================
-   FUENTES LOCALES
+   VARIABLES GLOBALES
 ========================================================= */
-@font-face {
-  font-family: 'Open Sans';
-  src: url('./fonts/OpenSans-Regular.ttf') format('truetype');
-  font-weight: 400;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Open Sans';
-  src: url('./fonts/OpenSans-Bold.ttf') format('truetype');
-  font-weight: 700;
-  font-style: normal;
-}
-
 :root {
   --primary-color: #162b6f;
   --secondary-color: #ace9ff;
@@ -22,7 +8,9 @@
   --background-color: #f4f4f4;
   --text-color: #333;
   --white: #fff;
+  --gray-light: #e0e0e0;
   --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --border-radius: 8px;
   --transition: all 0.3s ease-in-out;
 }
 
@@ -100,6 +88,62 @@ nav ul li a:hover {
 }
 
 /* =========================================================
+   MENU TOGGLE (Responsive)
+========================================================= */
+.menu-toggle {
+  width: 40px;
+  height: 30px;
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.menu-toggle div {
+  width: 100%;
+  height: 4px;
+  background-color: var(--secondary-color);
+  transition: var(--transition);
+}
+
+.menu-toggle.active div:nth-child(1) {
+  transform: rotate(45deg) translateY(10px);
+}
+
+.menu-toggle.active div:nth-child(2) {
+  opacity: 0;
+}
+
+.menu-toggle.active div:nth-child(3) {
+  transform: rotate(-45deg) translateY(-10px);
+}
+
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: flex;
+  }
+
+  nav ul {
+    display: none;
+    flex-direction: column;
+    background-color: var(--primary-color);
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    padding: 10px 0;
+  }
+
+  nav ul.active {
+    display: flex;
+  }
+
+  nav ul li {
+    margin: 10px 0;
+  }
+}
+
+/* =========================================================
    SECCIONES GENERALES
 ========================================================= */
 .section-title {
@@ -109,24 +153,14 @@ nav ul li a:hover {
 }
 
 .welcome-section,
-.cart,
-.products {
+.products,
+.cart {
   background-color: var(--white);
-  border-radius: 8px;
+  border-radius: var(--border-radius);
   padding: 20px;
   box-shadow: var(--box-shadow);
   margin: 20px auto;
   max-width: 1200px;
-}
-
-.welcome-section h2 {
-  color: var(--primary-color);
-  margin-bottom: 10px;
-}
-
-.welcome-section p {
-  font-size: 1.1rem;
-  text-align: center;
 }
 
 /* =========================================================
@@ -135,7 +169,6 @@ nav ul li a:hover {
 .filter-bar {
   display: flex;
   justify-content: space-between;
-  flex-wrap: wrap;
   gap: 10px;
   margin-bottom: 20px;
 }
@@ -145,15 +178,15 @@ nav ul li a:hover {
 .filter-bar button {
   padding: 8px;
   font-size: 1rem;
-  border: 1px solid var(--text-color);
+  border: 1px solid var(--gray-light);
   border-radius: 5px;
-  transition: var(--transition);
 }
 
 .filter-bar button {
   background-color: var(--highlight-color);
   color: var(--white);
   cursor: pointer;
+  transition: var(--transition);
 }
 
 .filter-bar button:hover {
@@ -168,29 +201,32 @@ nav ul li a:hover {
 
 .product-card {
   background-color: var(--white);
-  border-radius: 8px;
+  border: 1px solid var(--gray-light);
+  border-radius: var(--border-radius);
   box-shadow: var(--box-shadow);
   padding: 15px;
   text-align: center;
-  transition: var(--transition);
 }
 
 .product-card img {
   width: 100%;
+  max-width: 200px;
   height: 150px;
-  object-fit: cover;
-  border-radius: 5px;
+  object-fit: contain;
   margin-bottom: 10px;
+  border-radius: 5px;
 }
 
 .product-card h3 {
   color: var(--primary-color);
+  font-size: 1.1rem;
   margin-bottom: 10px;
 }
 
 .product-card p {
   color: var(--highlight-color);
-  font-size: 1.1rem;
+  font-weight: bold;
+  font-size: 1rem;
 }
 
 .product-card button {
@@ -211,11 +247,6 @@ nav ul li a:hover {
 /* =========================================================
    CARRITO
 ========================================================= */
-.cart h2 {
-  color: var(--primary-color);
-  text-align: center;
-}
-
 #cart-table {
   width: 100%;
   border-collapse: collapse;
@@ -223,7 +254,7 @@ nav ul li a:hover {
 
 #cart-table th,
 #cart-table td {
-  border: 1px solid var(--text-color);
+  border: 1px solid var(--gray-light);
   padding: 10px;
   text-align: center;
 }
@@ -232,6 +263,7 @@ nav ul li a:hover {
   display: flex;
   justify-content: center;
   gap: 10px;
+  margin-top: 20px;
 }
 
 .cart-buttons button {
@@ -240,13 +272,11 @@ nav ul li a:hover {
   border: none;
   padding: 8px 12px;
   border-radius: 5px;
-  cursor: pointer;
   transition: var(--transition);
 }
 
 .cart-buttons button:hover {
   background-color: var(--primary-color);
-  transform: scale(1.05);
 }
 
 /* =========================================================
@@ -257,16 +287,16 @@ footer {
   color: var(--white);
   text-align: center;
   padding: 20px;
-  box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
 }
 
-footer p {
-  margin: 10px 0;
-}
-
+footer p,
 footer a {
   color: var(--secondary-color);
-  text-decoration: none;
+}
+
+footer a:hover {
+  color: var(--highlight-color);
 }
 
 .redes-sociales img {
@@ -277,170 +307,4 @@ footer a {
 
 .redes-sociales img:hover {
   transform: scale(1.2);
-}
-
-.footer-gif {
-  width: 100px;
-  margin: 10px auto;
-}
-
-/* =========================================================
-   BOTÓN VOLVER ARRIBA
-========================================================= */
-.back-to-top {
-  margin-top: 20px;
-  padding: 10px 20px;
-  background-color: var(--highlight-color);
-  color: var(--white);
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: var(--transition);
-}
-
-.back-to-top:hover {
-  background-color: var(--primary-color);
-  transform: scale(1.1);
-}
-
-/* =========================================================
-   RESPONSIVE DESIGN
-========================================================= */
-@media (max-width: 768px) {
-  nav ul {
-    flex-direction: column;
-    display: none;
-  }
-
-  nav ul.active {
-    display: flex;
-  }
-
-  .filter-bar {
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .product-list {
-    grid-template-columns: 1fr;
-  }
-}
-/* ============================================================
-   PRODUCTOS: TARJETAS E IMÁGENES
-============================================================ */
-.product-card {
-  background-color: var(--white);
-  border: 1px solid var(--gray-light);
-  border-radius: 8px;
-  box-shadow: var(--box-shadow);
-  padding: 15px;
-  text-align: center;
-  transition: var(--transition);
-}
-
-.product-card img {
-  width: 100%;            /* Ajusta al 100% del ancho del contenedor */
-  max-width: 180px;       /* Limita el tamaño máximo de la imagen */
-  height: auto;           /* Mantiene la proporción original */
-  object-fit: contain;    /* Ajusta la imagen sin recortar */
-  border-radius: 5px;     /* Bordes redondeados */
-  margin: 0 auto 10px;    /* Centra la imagen horizontalmente y añade margen inferior */
-}
-
-.product-card h3 {
-  color: var(--primary-color);
-  font-size: 1.1rem;
-  margin: 10px 0;
-}
-
-.product-card p {
-  color: var(--highlight-color);
-  font-weight: bold;
-  font-size: 1rem;
-}
-
-.product-card button {
-  background-color: var(--primary-color);
-  color: var(--white);
-  padding: 8px 12px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: var(--transition);
-}
-
-.product-card button:hover {
-  background-color: var(--highlight-color);
-  transform: scale(1.05);
-}
-/* Estilo base del menú oculto */
-nav {
-  display: none; /* Ocultar el menú por defecto */
-  position: absolute;
-  top: 100%;
-  left: 0;
-  width: 100%;
-  background-color: var(--primary-color);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  z-index: 1000;
-}
-
-/* Mostrar el menú cuando se activa */
-nav.active {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 10px 0;
-}
-
-nav ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-nav ul li {
-  margin: 10px 0;
-}
-
-nav ul li a {
-  color: var(--secondary-color);
-  text-decoration: none;
-  font-weight: bold;
-  font-size: 1.1rem;
-  transition: color 0.3s;
-}
-
-nav ul li a:hover {
-  color: var(--highlight-color);
-}
-
-/* Estilo del icono toggle */
-.menu-toggle {
-  width: 40px;
-  height: 30px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  cursor: pointer;
-}
-
-.menu-toggle div {
-  width: 100%;
-  height: 4px;
-  background-color: var(--secondary-color);
-  transition: all 0.3s ease;
-}
-
-/* Animación del icono cuando se activa */
-.menu-toggle.active div:nth-child(1) {
-  transform: rotate(45deg) translateY(10px);
-}
-
-.menu-toggle.active div:nth-child(2) {
-  opacity: 0;
-}
-
-.menu-toggle.active div:nth-child(3) {
-  transform: rotate(-45deg) translateY(-10px);
 }
