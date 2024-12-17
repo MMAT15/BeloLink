@@ -790,12 +790,20 @@ a:hover {
   .redes-sociales a img {
     margin: 5px;
   }
-/* Estilo del GIF */
+/* Estilo del GIF en pantallas grandes */
 .footer-gif {
-  width: 100px; /* Ajusta el tamaño del GIF */
+  width: 150px; /* Ajusta el tamaño deseado para computadoras */
   height: auto; /* Mantiene la proporción */
-  margin: 0 auto; /* Centrado adicional si es necesario */
+  margin: 0 auto; /* Centrado adicional */
   display: block; /* Evita márgenes extra */
+}
+
+/* Ajuste para pantallas pequeñas (móviles y tablets) */
+@media (max-width: 768px) {
+  .footer-gif {
+    width: 100px; /* Tamaño más pequeño para móviles */
+    height: auto; /* Mantiene la proporción */
+  }
 }
   .back-to-top {
     padding: 8px 16px;
