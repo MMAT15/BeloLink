@@ -200,6 +200,8 @@ nav ul li a:hover {
 }
 
 .product-card {
+  max-width: 250px;           /* Limita el ancho máximo de la tarjeta */
+  margin: 0 auto;             /* Centra la tarjeta horizontalmente */
   background-color: var(--white);
   border: 1px solid var(--gray-light);
   border-radius: var(--border-radius);
@@ -208,13 +210,13 @@ nav ul li a:hover {
   text-align: center;
 }
 
+
 .product-card img {
-  width: 100%;
-  max-width: 200px;
-  height: 150px;
-  object-fit: contain;
-  margin-bottom: 10px;
-  border-radius: 5px;
+  width: 100%;                /* Ajusta al ancho del contenedor */
+  height: 150px;              /* Altura fija */
+  object-fit: contain;        /* Evita que la imagen se deforme */
+  border-radius: 8px;         /* Bordes redondeados */
+  margin-bottom: 10px;        /* Espaciado inferior */
 }
 
 .product-card h3 {
