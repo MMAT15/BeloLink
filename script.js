@@ -78,11 +78,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
   if (rejectCookiesBtn) {
     rejectCookiesBtn.addEventListener("click", function () {
-      deleteCookie("cookiesAccepted"); // Elimina la cookie en lugar de establecer "false"
-      cookieBanner.style.display = "flex"; // Vuelve a mostrar el banner
-      deleteCookie("optionalCookie1"); 
+      setCookie("cookiesAccepted", "false", 365); // Establece la cookie como "false"
+      cookieBanner.style.display = "none"; // Oculta el banner
+      deleteCookie("optionalCookie1"); // Ejemplo de cookies no esenciales
       deleteCookie("optionalCookie2");
     });
+  }
   }
 
   // ==========================================
