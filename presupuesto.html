@@ -11,9 +11,9 @@
   <header>
     <div class="logo-container">
       <a href="index.html">
-        <img src="principal.PNG" alt="BeloLink Innovations Logo" class="logo">
+        <img src="principal.PNG" alt="BeloLink Logo" class="logo">
       </a>
-      <h1 id="header-title" onclick="changeHeaderText()">
+      <h1 id="header-title">
         <span class="highlight-belo">Belo</span><span class="highlight-link">Link</span>
       </h1>
     </div>
@@ -34,114 +34,106 @@
     </nav>
   </header>
 
-  <!-- Sección Principal -->
-  <main>
-    <!-- Bienvenida -->
-    <section class="welcome-section">
-      <h2>¡Construye tu presupuesto en minutos!</h2>
-      <p>Selecciona los productos que necesitas, ajusta las cantidades y obtén un presupuesto instantáneo, incluyendo mano de obra.</p>
-    </section>
+  <!-- Bienvenida -->
+  <section class="welcome-section">
+    <h2>¡Construye tu presupuesto en minutos!</h2>
+    <p>Selecciona los productos que necesitas, ajusta las cantidades y obtén un presupuesto instantáneo.</p>
+  </section>
 
-    <!-- Productos -->
-    <section class="products">
-      <h2>Elige tus productos</h2>
-      <div class="filter-bar">
-        <label for="category-filter">Filtrar por categoría:</label>
-        <select id="category-filter">
-          <option value="all">Todos</option>
-          <option value="routers">Routers</option>
-          <option value="switches">Switches</option>
-          <option value="cables">Cables</option>
-          <option value="camaras">Cámaras</option>
-          <option value="luces">Luces</option>
-          <option value="sensores">Sensores</option>
-        </select>
-        <input type="text" id="product-search" placeholder="Buscar producto...">
-        <button id="search-button">Buscar</button>
-      </div>
-      <div class="product-list" id="product-list">
-        <!-- Productos insertados dinámicamente aquí -->
-      </div>
-    </section>
+  <!-- Productos -->
+  <section class="products">
+    <h2>Elige tus productos</h2>
+    <div class="filter-bar">
+      <select id="category-filter">
+        <option value="all">Todos</option>
+        <option value="routers">Routers</option>
+        <option value="switches">Switches</option>
+        <option value="cables">Cables</option>
+        <option value="camaras">Cámaras</option>
+        <option value="luces">Luces</option>
+        <option value="sensores">Sensores</option>
+      </select>
+      <input type="text" id="search-input" placeholder="Buscar producto...">
+      <button id="search-button">Buscar</button>
+    </div>
+    <div class="product-list" id="product-list">
+      <!-- Los productos se renderizan aquí dinámicamente -->
+    </div>
+  </section>
 
-    <!-- Carrito -->
-    <section class="cart">
-      <h2>Resumen del Carrito</h2>
-      <div id="cart-container">
-        <table id="cart-table">
-          <thead>
-            <tr>
-              <th>Producto</th>
-              <th>Precio</th>
-              <th>Cantidad</th>
-              <th>Subtotal</th>
-              <th>Acción</th>
-            </tr>
-          </thead>
-          <tbody></tbody>
-        </table>
-        <div id="cart-summary">
-          <p>Subtotal: $<span id="subtotal">0.00</span></p>
-          <p>Mano de Obra (15%): $<span id="labor-cost">0.00</span></p>
-          <p><strong>Total: $<span id="total">0.00</span></strong></p>
-          <div class="cart-buttons">
-            <button id="download-pdf">Descargar PDF</button>
-            <button id="clear-cart">Vaciar Carrito</button>
-            <button id="save-cart">Guardar Carrito</button>
-            <button id="load-cart">Cargar Carrito</button>
-          </div>
-        </div>
-      </div>
-    </section>
+  <!-- Carrito -->
+  <section class="cart">
+    <h2>Resumen del Carrito</h2>
+    <table id="cart-table">
+      <thead>
+        <tr>
+          <th>Producto</th>
+          <th>Precio</th>
+          <th>Cantidad</th>
+          <th>Subtotal</th>
+          <th>Acción</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+    <div id="cart-summary">
+      <p>Subtotal: $<span id="subtotal">0.00</span></p>
+      <p>Mano de Obra (15%): $<span id="labor-cost">0.00</span></p>
+      <p><strong>Total: $<span id="total">0.00</span></strong></p>
+    </div>
+    <div class="cart-buttons">
+      <button id="download-pdf">Descargar PDF</button>
+      <button id="clear-cart">Vaciar Carrito</button>
+      <button id="save-cart">Guardar Carrito</button>
+      <button id="load-cart">Cargar Carrito</button>
+    </div>
+  </section>
 
-    <!-- Historial del Carrito -->
-    <section class="cart-history">
-      <h2>Historial del Carrito</h2>
-      <p>Accede a presupuestos guardados previamente.</p>
-      <ul id="saved-carts">
-        <!-- Carritos guardados dinámicamente aquí -->
-      </ul>
-    </section>
+  <!-- Historial del Carrito -->
+  <section class="history">
+    <h2>Historial del Carrito</h2>
+    <p>Accede a presupuestos guardados previamente.</p>
+    <div id="history-container">
+      <!-- Aquí se mostrarán los presupuestos previos -->
+    </div>
+  </section>
 
-    <!-- Preguntas Frecuentes -->
-    <section class="faq">
-      <h2>Preguntas Frecuentes</h2>
-      <div class="faq-item">
-        <h3>¿Cómo se calcula la mano de obra?</h3>
-        <p>La mano de obra se calcula automáticamente como un 15% del precio total de los productos seleccionados.</p>
-      </div>
-      <div class="faq-item">
-        <h3>¿Puedo descargar mi presupuesto?</h3>
-        <p>Sí, una vez que hayas seleccionado tus productos, puedes descargar el presupuesto en formato PDF para compartirlo o guardarlo.</p>
-      </div>
-      <div class="faq-item">
-        <h3>¿Qué pasa si quiero cambiar mi carrito?</h3>
-        <p>Puedes vaciar el carrito o ajustar las cantidades de productos en cualquier momento antes de generar el presupuesto final.</p>
-      </div>
-    </section>
-  </main>
+  <!-- Preguntas Frecuentes -->
+  <section class="faq">
+    <h2>Preguntas Frecuentes</h2>
+    <div class="faq-item">
+      <h3>¿Cómo se calcula la mano de obra?</h3>
+      <p>La mano de obra se calcula automáticamente como un 15% del precio total.</p>
+    </div>
+    <div class="faq-item">
+      <h3>¿Puedo descargar mi presupuesto?</h3>
+      <p>Sí, puedes descargar tu presupuesto en formato PDF una vez completado.</p>
+    </div>
+    <div class="faq-item">
+      <h3>¿Qué pasa si quiero cambiar mi carrito?</h3>
+      <p>Puedes vaciar el carrito o ajustar cantidades en cualquier momento.</p>
+    </div>
+  </section>
 
-  <!-- Botón flotante "Volver Arriba" -->
+  <!-- Botón Volver Arriba -->
   <button id="back-to-top" title="Volver arriba">⬆</button>
 
   <!-- Footer -->
   <footer>
-    <p>© 2024 <span class="highlight-belo">Belo</span><span class="highlight-link">Link</span>.</p>
-    <div class="gif-container">
-      <img src="DuckGIf/dancing-duck.gif" alt="Dancing Duck" class="footer-gif">
-    </div>
+    <p>© 2024 <span class="highlight-belo">Belo</span><span class="highlight-link">Link</span></p>
     <p>¿Tienes alguna pregunta? Escríbenos a <a href="mailto:Belolink@proton.me">Belolink@proton.me</a></p>
     <ul>
       <li><a href="privacidad.html">Política de Privacidad</a></li>
     </ul>
     <div class="redes-sociales">
       <a href="https://www.instagram.com/belolinkdomotica" target="_blank">
-        <img src="img/instagram-png.png" alt="Instagram" style="width:32px; height:32px;">
+        <img src="img/instagram-png.png" alt="Instagram">
       </a>
       <a href="https://github.com/MMAT15" target="_blank">
-        <img src="img/github-mark.png" alt="GitHub" style="width:32px; height:32px;">
+        <img src="img/github-mark.png" alt="GitHub">
       </a>
     </div>
+    <img src="DuckGIf/dancing-duck.gif" alt="Dancing Duck" class="footer-gif">
   </footer>
 
   <!-- Scripts -->

@@ -11,10 +11,12 @@ document.addEventListener("DOMContentLoaded", () => {
   const downloadPDFButton = document.getElementById("download-pdf");
   const backToTopButton = document.getElementById("back-to-top");
   const categoryFilter = document.getElementById("category-filter");
-  const searchInput = document.getElementById("search-input");
+  const searchInput = document.getElementById("product-search");
   const searchButton = document.getElementById("search-button");
+  const saveCartButton = document.getElementById("save-cart");
+  const loadCartButton = document.getElementById("load-cart");
 
-  const cart = [];
+  let cart = [];
 
   /* ============================
      LISTA DE PRODUCTOS
@@ -34,19 +36,22 @@ document.addEventListener("DOMContentLoaded", () => {
      RENDERIZAR PRODUCTOS
   ============================ */
   function renderProducts(filter = "all", searchQuery = "") {
-    productList.innerHTML = ""; // Limpiar productos
+    productList.innerHTML = "";
     let filteredProducts = products;
 
+    // Filtrar por categoría
     if (filter !== "all") {
-      filteredProducts = filteredProducts.filter(product => product.category === filter);
+      filteredProducts = filteredProducts.filter((product) => product.category === filter);
     }
 
-    if (searchQuery.trim() !== "") {
-      filteredProducts = filteredProducts.filter(product =>
+    // Filtrar por búsqueda
+    if (searchQuery.trim()) {
+      filteredProducts = filteredProducts.filter((product) =>
         product.name.toLowerCase().includes(searchQuery.toLowerCase())
       );
     }
 
+    // Renderizar productos
     if (filteredProducts.length === 0) {
       productList.innerHTML = `<p class="no-results">No se encontraron productos.</p>`;
       return;
@@ -66,25 +71,24 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* ============================
-     AGREGAR PRODUCTO AL CARRITO
+     AGREGAR AL CARRITO
   ============================ */
   window.addToCart = (productId) => {
-    const product = products.find(item => item.id === productId);
-    const existingItem = cart.find(item => item.id === productId);
+    const product = products.find((item) => item.id === productId);
+    const existingItem = cart.find((item) => item.id === productId);
 
     if (existingItem) {
-      existingItem.quantity += 1;
+      existingItem.quantity++;
     } else {
       cart.push({ ...product, quantity: 1 });
     }
 
-    showNotification(`${product.name} agregado al carrito`);
-    animateAddToCart();
     updateCartUI();
+    animateAddToCart();
   };
 
   /* ============================
-     ANIMACIÓN Y NOTIFICACIÓN
+     ANIMACIÓN AL AGREGAR AL CARRITO
   ============================ */
   function animateAddToCart() {
     const cartIcon = document.querySelector(".cart-icon");
@@ -92,29 +96,12 @@ document.addEventListener("DOMContentLoaded", () => {
     setTimeout(() => cartIcon.classList.remove("bounce"), 500);
   }
 
-  function showNotification(message) {
-    const notification = document.createElement("div");
-    notification.classList.add("notification");
-    notification.textContent = message;
-    document.body.appendChild(notification);
-
-    setTimeout(() => notification.remove(), 3000);
-  }
-
   /* ============================
-     ACTUALIZAR INTERFAZ DEL CARRITO
+     ACTUALIZAR CARRITO
   ============================ */
   function updateCartUI() {
     cartTableBody.innerHTML = "";
     let subtotal = 0;
-
-    if (cart.length === 0) {
-      cartTableBody.innerHTML = `<tr><td colspan="5" class="empty-cart">Tu carrito está vacío</td></tr>`;
-      subtotalSpan.textContent = "0.00";
-      laborCostSpan.textContent = "0.00";
-      totalSpan.textContent = "0.00";
-      return;
-    }
 
     cart.forEach((item) => {
       const row = document.createElement("tr");
@@ -144,21 +131,10 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* ============================
-     BÚSQUEDA Y FILTRO
-  ============================ */
-  searchInput.addEventListener("keyup", () => {
-    renderProducts(categoryFilter.value, searchInput.value);
-  });
-
-  categoryFilter.addEventListener("change", () => {
-    renderProducts(categoryFilter.value, searchInput.value);
-  });
-
-  /* ============================
-     CARRITO Y VOLVER ARRIBA
+     ACTUALIZAR CANTIDAD
   ============================ */
   window.updateQuantity = (productId, change) => {
-    const item = cart.find(item => item.id === productId);
+    const item = cart.find((item) => item.id === productId);
     if (!item) return;
 
     item.quantity += change;
@@ -169,17 +145,88 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
 
+  /* ============================
+     REMOVER DEL CARRITO
+  ============================ */
   window.removeFromCart = (productId) => {
-    const index = cart.findIndex(item => item.id === productId);
-    if (index !== -1) {
-      cart.splice(index, 1);
-    }
+    cart = cart.filter((item) => item.id !== productId);
     updateCartUI();
   };
 
+  /* ============================
+     GUARDAR Y CARGAR CARRITO
+  ============================ */
+  saveCartButton.addEventListener("click", () => {
+    localStorage.setItem("cart", JSON.stringify(cart));
+    alert("Carrito guardado.");
+  });
+
+  loadCartButton.addEventListener("click", () => {
+    const savedCart = JSON.parse(localStorage.getItem("cart"));
+    if (savedCart) {
+      cart.length = 0;
+      savedCart.forEach((item) => cart.push(item));
+      updateCartUI();
+    } else {
+      alert("No hay un carrito guardado.");
+    }
+  });
+
+  /* ============================
+     LIMPIAR CARRITO
+  ============================ */
   clearCartButton.addEventListener("click", () => {
-    cart.length = 0;
+    cart = [];
     updateCartUI();
+  });
+
+  /* ============================
+     DESCARGAR PDF
+  ============================ */
+  downloadPDFButton.addEventListener("click", () => {
+    const { jsPDF } = window.jspdf;
+    const pdf = new jsPDF();
+    let y = 10;
+
+    pdf.text("Resumen del Presupuesto", 10, y);
+    y += 10;
+
+    cart.forEach((item) => {
+      pdf.text(`${item.name} x${item.quantity} - $${item.price}`, 10, y);
+      y += 10;
+    });
+
+    pdf.text(`Subtotal: $${subtotalSpan.textContent}`, 10, y);
+    y += 10;
+    pdf.text(`Mano de Obra: $${laborCostSpan.textContent}`, 10, y);
+    y += 10;
+    pdf.text(`Total: $${totalSpan.textContent}`, 10, y);
+
+    pdf.save("presupuesto.pdf");
+  });
+
+  /* ============================
+     FILTRAR Y BUSCAR PRODUCTOS
+  ============================ */
+  categoryFilter.addEventListener("change", () => {
+    renderProducts(categoryFilter.value, searchInput.value);
+  });
+
+  searchButton.addEventListener("click", () => {
+    renderProducts(categoryFilter.value, searchInput.value);
+  });
+
+  searchInput.addEventListener("keyup", (e) => {
+    if (e.key === "Enter") {
+      renderProducts(categoryFilter.value, searchInput.value);
+    }
+  });
+
+  /* ============================
+     BOTÓN VOLVER ARRIBA
+  ============================ */
+  window.addEventListener("scroll", () => {
+    backToTopButton.classList.toggle("visible", window.scrollY > 300);
   });
 
   backToTopButton.addEventListener("click", () => {
