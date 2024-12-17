@@ -11,6 +11,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const downloadPDFButton = document.getElementById("download-pdf");
   const backToTopButton = document.getElementById("back-to-top");
   const categoryFilter = document.getElementById("category-filter");
+  const searchInput = document.getElementById("search-input");
+  const searchButton = document.getElementById("search-button");
+
   const cart = [];
 
   /* ============================
@@ -30,10 +33,27 @@ document.addEventListener("DOMContentLoaded", () => {
   /* ============================
      RENDERIZAR PRODUCTOS
   ============================ */
-  function renderProducts(filter = "all") {
+  function renderProducts(filter = "all", searchQuery = "") {
     productList.innerHTML = ""; // Limpiar productos
-    const filteredProducts =
-      filter === "all" ? products : products.filter((product) => product.category === filter);
+    let filteredProducts = products;
+
+    // Filtrar por categoría
+    if (filter !== "all") {
+      filteredProducts = filteredProducts.filter(product => product.category === filter);
+    }
+
+    // Filtrar por búsqueda
+    if (searchQuery.trim() !== "") {
+      filteredProducts = filteredProducts.filter(product =>
+        product.name.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+    }
+
+    // Renderizar productos
+    if (filteredProducts.length === 0) {
+      productList.innerHTML = `<p class="no-results">No se encontraron productos.</p>`;
+      return;
+    }
 
     filteredProducts.forEach((product) => {
       const productCard = document.createElement("div");
@@ -52,16 +72,26 @@ document.addEventListener("DOMContentLoaded", () => {
      AGREGAR PRODUCTO AL CARRITO
   ============================ */
   window.addToCart = (productId) => {
-    const product = products.find((item) => item.id === productId);
-    const existingItem = cart.find((item) => item.id === productId);
+    const product = products.find(item => item.id === productId);
+    const existingItem = cart.find(item => item.id === productId);
 
     if (existingItem) {
       existingItem.quantity += 1;
     } else {
       cart.push({ ...product, quantity: 1 });
     }
+    animateAddToCart();
     updateCartUI();
   };
+
+  /* ============================
+     ANIMACIÓN AL AGREGAR PRODUCTO
+  ============================ */
+  function animateAddToCart() {
+    const cartIcon = document.querySelector(".cart-icon");
+    cartIcon.classList.add("bounce");
+    setTimeout(() => cartIcon.classList.remove("bounce"), 500);
+  }
 
   /* ============================
      ACTUALIZAR INTERFAZ DEL CARRITO
@@ -98,10 +128,23 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* ============================
-     ACTUALIZAR CANTIDAD
+     EVENTOS DE BÚSQUEDA
+  ============================ */
+  searchButton.addEventListener("click", () => {
+    renderProducts(categoryFilter.value, searchInput.value);
+  });
+
+  searchInput.addEventListener("keyup", (e) => {
+    if (e.key === "Enter") {
+      renderProducts(categoryFilter.value, searchInput.value);
+    }
+  });
+
+  /* ============================
+     FUNCIONES DE CARRITO
   ============================ */
   window.updateQuantity = (productId, change) => {
-    const item = cart.find((item) => item.id === productId);
+    const item = cart.find(item => item.id === productId);
     if (!item) return;
 
     item.quantity += change;
@@ -112,51 +155,38 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
 
-  /* ============================
-     REMOVER PRODUCTO DEL CARRITO
-  ============================ */
   window.removeFromCart = (productId) => {
-    const index = cart.findIndex((item) => item.id === productId);
+    const index = cart.findIndex(item => item.id === productId);
     if (index !== -1) {
       cart.splice(index, 1);
     }
     updateCartUI();
   };
 
-  /* ============================
-     VACIAR CARRITO
-  ============================ */
   clearCartButton.addEventListener("click", () => {
     cart.length = 0;
     updateCartUI();
   });
 
   /* ============================
-     DESCARGAR PRESUPUESTO COMO PDF
+     DESCARGAR PDF
   ============================ */
   downloadPDFButton.addEventListener("click", () => {
     const { jsPDF } = window.jspdf;
     const pdf = new jsPDF();
     let y = 10;
 
-    pdf.setFontSize(16);
     pdf.text("Resumen del Presupuesto", 10, y);
     y += 10;
 
     cart.forEach((item) => {
-      pdf.text(
-        `${item.name} - Precio: $${item.price.toFixed(2)} - Cantidad: ${item.quantity} - Subtotal: $${(
-          item.price * item.quantity
-        ).toFixed(2)}`,
-        10,
-        y
-      );
+      pdf.text(`${item.name} x${item.quantity} - $${item.price}`, 10, y);
       y += 10;
     });
 
     pdf.text(`Subtotal: $${subtotalSpan.textContent}`, 10, y);
     y += 10;
-    pdf.text(`Mano de Obra (15%): $${laborCostSpan.textContent}`, 10, y);
+    pdf.text(`Mano de Obra: $${laborCostSpan.textContent}`, 10, y);
     y += 10;
     pdf.text(`Total: $${totalSpan.textContent}`, 10, y);
 
@@ -164,29 +194,18 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   /* ============================
-     BOTÓN VOLVER ARRIBA
+     VOLVER ARRIBA
   ============================ */
   window.addEventListener("scroll", () => {
-    if (window.scrollY > 200) {
-      backToTopButton.style.display = "block";
+    if (window.scrollY > 300) {
+      backToTopButton.classList.add("visible");
     } else {
-      backToTopButton.style.display = "none";
+      backToTopButton.classList.remove("visible");
     }
   });
 
   backToTopButton.addEventListener("click", () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-  });
-
-  /* ============================
-     FILTRAR PRODUCTOS
-  ============================ */
-  categoryFilter.addEventListener("change", (e) => {
-    const selectedCategory = e.target.value;
-    renderProducts(selectedCategory);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   });
 
   /* ============================
@@ -197,7 +216,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   menuToggle.addEventListener("click", () => {
     nav.classList.toggle("active");
-    menuToggle.classList.toggle("active");
   });
 
   /* ============================
