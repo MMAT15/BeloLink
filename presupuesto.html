@@ -3,23 +3,26 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Crea tu presupuesto en minutos con BeloLink. Selecciona productos, ajusta cantidades y descarga tu presupuesto en PDF.">
   <title>Calcula tu Presupuesto | BeloLink</title>
-  <link rel="stylesheet" href="presupuesto.css">
-  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="style.css"> <!-- Reemplaza presupuesto.css con style.css -->
 </head>
 <body>
   <!-- Header -->
   <header>
     <div class="logo-container">
       <a href="index.html">
-        <img src="principal.PNG" alt="BeloLink Logo" class="logo" loading="lazy">
+        <img src="principal.PNG" alt="BeloLink Logo" class="logo">
       </a>
-      <h1 id="header-title">
+      <h1 id="header-title" onclick="changeHeaderText()">
         <span class="highlight-belo">Belo</span><span class="highlight-link">Link</span>
       </h1>
     </div>
-    <nav id="nav" aria-label="Navegación principal">
+    <div class="menu-toggle" id="menu-toggle">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+    <nav id="nav">
       <ul>
         <li><a href="index.html">Inicio</a></li>
         <li><a href="productos.html">Nuestras Soluciones</a></li>
@@ -31,9 +34,8 @@
     </nav>
   </header>
 
-  <!-- Main Content -->
-  <main>
-    <!-- Bienvenida -->
+  <!-- Contenido principal -->
+  <main class="content">
     <section class="welcome-section">
       <h2>¡Construye tu presupuesto en minutos!</h2>
       <p>Selecciona los productos que necesitas, ajusta las cantidades y obtén un presupuesto instantáneo.</p>
@@ -43,7 +45,7 @@
     <section class="products">
       <h2>Elige tus productos</h2>
       <div class="filter-bar">
-        <select id="category-filter" aria-label="Filtrar por categoría">
+        <select id="category-filter">
           <option value="all">Todos</option>
           <option value="routers">Routers</option>
           <option value="switches">Switches</option>
@@ -52,8 +54,8 @@
           <option value="luces">Luces</option>
           <option value="sensores">Sensores</option>
         </select>
-        <input type="text" id="search-input" placeholder="Buscar producto..." aria-label="Buscar producto">
-        <button id="search-button" aria-label="Buscar producto">Buscar</button>
+        <input type="text" id="search-input" placeholder="Buscar producto...">
+        <button id="search-button">Buscar</button>
       </div>
       <div class="product-list" id="product-list"></div>
     </section>
@@ -61,7 +63,7 @@
     <!-- Carrito -->
     <section class="cart">
       <h2>Resumen del Carrito</h2>
-      <table id="cart-table" aria-label="Tabla de carrito">
+      <table id="cart-table">
         <thead>
           <tr>
             <th>Producto</th>
@@ -79,22 +81,31 @@
         <p><strong>Total: $<span id="total">0.00</span></strong></p>
       </div>
       <div class="cart-buttons">
-        <button id="download-pdf">Descargar PDF</button>
         <button id="clear-cart">Vaciar Carrito</button>
-        <button id="save-cart">Guardar Carrito</button>
-        <button id="load-cart">Cargar Carrito</button>
       </div>
     </section>
   </main>
 
   <!-- Footer -->
   <footer>
-    <p>© 2024 <span class="highlight-belo">Belo</span><span class="highlight-link">Link</span></p>
+    <p>© 2024 <span class="highlight-belo">Belo</span><span class="highlight-link">Link</span>.</p>
+    <div class="gif-container">
+      <img src="DuckGIf/dancing-duck.gif" alt="Dancing Duck" class="footer-gif">
+    </div>
     <p>¿Tienes alguna pregunta? Escríbenos a <a href="mailto:Belolink@proton.me">Belolink@proton.me</a></p>
+    <ul>
+      <li><a href="privacidad.html">Política de Privacidad</a></li>
+    </ul>
+    <div class="redes-sociales">
+      <a href="https://www.instagram.com/belolinkdomotica" target="_blank">
+        <img src="img/instagram-png.png" alt="Instagram" style="width:32px; height:32px;">
+      </a>
+      <a href="https://github.com/MMAT15" target="_blank">
+        <img src="img/github-mark.png" alt="GitHub" style="width:32px; height:32px;">
+      </a>
+    </div>
   </footer>
 
-  <!-- Scripts -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js" defer></script>
-  <script src="presupuesto.js" defer></script>
+  <script src="presupuesto.js"></script>
 </body>
 </html>
