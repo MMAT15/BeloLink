@@ -1,21 +1,21 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Política de Privacidad</title>
   <link rel="stylesheet" href="privacidad.css">
 </head>
 <body>
-    <div id="cookie-banner" class="cookie-banner">
-      <p>Este sitio web utiliza cookies para optimizar su experiencia de navegación. El uso de cookies es opcional, y en BeloLink valoramos su privacidad. Para conocer más sobre cómo gestionamos sus datos, consulte nuestra </a></p>
-      <div class="cookie-buttons">
-        <button id="accept-cookies-btn">Aceptar</button>
-        <button id="reject-cookies-btn">Rechazar</button>
-      </div>
+  <div id="cookie-banner" class="cookie-banner">
+    <p>Este sitio web utiliza cookies para optimizar su experiencia de navegación y para iniciar sesión. Al aceptar las cookies, usted acepta nuestra política de privacidad, que incluye el uso de cookies para almacenar información de inicio de sesión y preferencias a través de **localStorage**. Si no está de acuerdo, puede rechazar las cookies, pero algunas funcionalidades del sitio podrían no funcionar correctamente. Para más detalles, consulte nuestra <a href="privacidad.html">Política de privacidad</a>.</p>
+    <div class="cookie-buttons">
+      <button id="accept-cookies-btn">Aceptar</button>
+      <button id="reject-cookies-btn">Rechazar</button>
     </div>
-    <script src="script.js"></script>
+  </div>
+  <script src="script.js"></script>
+
   <header>
     <h1>Política de Privacidad🔒</h1>
   </header>
@@ -31,33 +31,39 @@
       <li><a href="empresas.html">Clientes Corporativos</a></li>
     </ul>
   </div>
+
   <main>
     <section>
       <h2>Introducción</h2>
       <p>En  <span class="belo">Belo</span><span class="link">Link</span> respetamos y valoramos la privacidad de nuestros usuarios. Esta política de privacidad describe cómo manejamos y protegemos la información personal que recibimos de los usuarios de nuestro sitio web.</p>
     </section>
+
     <section>
       <h2>Uso de Cookies</h2>
       <p>Nuestro sitio web utiliza cookies para mejorar la experiencia del usuario y proporcionar funcionalidades personalizadas. Las cookies son pequeños archivos de texto que se almacenan en su dispositivo cuando visita nuestro sitio web. Estas cookies no contienen información personal identificable y no se utilizan para recopilar datos personales sin su consentimiento explícito.</p>
       <h3>Opciones del Usuario:</h3>
       <ul>
-        <li><strong>Aceptar Cookies:</strong> Si elige aceptar cookies, estas se utilizarán para mejorar su experiencia en nuestro sitio, recordando sus preferencias y proporcionando contenido relevante.</li>
+        <li><strong>Aceptar Cookies:</strong> Si elige aceptar cookies, estas se utilizarán para mejorar su experiencia en nuestro sitio, recordando sus preferencias y proporcionando contenido relevante. Además, **localStorage** se utilizará para guardar su estado de inicio de sesión y otros datos preferidos, para que no tenga que iniciar sesión cada vez que regrese a nuestra página.</li>
         <li><strong>Rechazar Cookies:</strong> Si elige rechazar cookies, no almacenaremos ninguna cookie en su dispositivo, excepto las que sean estrictamente necesarias para el funcionamiento del sitio web. Esto puede afectar algunas funcionalidades del sitio, pero respetamos su decisión y no intentaremos recopilar datos adicionales.</li>
       </ul>
     </section>
+
     <section>
       <h2>Seguridad y Privacidad</h2>
       <p>En  <span class="belo">Belo</span><span class="link">Link</span>, tomamos la seguridad y la privacidad de nuestros usuarios muy en serio. Implementamos medidas de seguridad avanzadas, incluyendo el uso de HTTPS, para asegurar que todas las comunicaciones entre su navegador y nuestro servidor estén cifradas y protegidas contra accesos no autorizados.</p>
-      <p>No almacenamos ningún tipo de dato privado del cliente. Somos estrictos en cuanto a la privacidad de los datos y aseguramos que no se recopile información personal sin su consentimiento explícito.</p>
+      <p>No almacenamos ningún tipo de dato privado del cliente. Somos estrictos en cuanto a la privacidad de los datos y aseguramos que no se recopile información personal sin su consentimiento explícito. Además, utilizamos **localStorage** para almacenar solo datos relacionados con la sesión de usuario, como su nombre de usuario o su preferencia de idioma, para mejorar su experiencia de navegación sin comprometer su privacidad.</p>
     </section>
+
     <section>
       <h2>Contacto</h2>
-      <p>Si tiene alguna pregunta o inquietud sobre nuestra política de privacidad, no dude en contactarnos via <a href="mailto:Belolink@proton.me">Mail</a> </p>
+      <p>Si tiene alguna pregunta o inquietud sobre nuestra política de privacidad, no dude en contactarnos vía <a href="mailto:Belolink@proton.me">Mail</a></p>
     </section>
   </main>
+
   <footer>
      <p>© 2024 <span class="highlight-belo">Belo</span><span class="highlight-link">Link</span>.</p>
   </footer>
+
   <script>
     document.getElementById('floating-button').addEventListener('click', function() {
       document.getElementById('floating-menu').classList.toggle('active');
@@ -73,7 +79,16 @@
       }
     });
 
+    // Manejo de cookies
+    document.getElementById("accept-cookies-btn").addEventListener("click", function() {
+      localStorage.setItem("cookiesAccepted", "true");  // Guarda la aceptación de cookies
+      document.getElementById("cookie-banner").style.display = "none";  // Cierra el banner
+    });
 
+    document.getElementById("reject-cookies-btn").addEventListener("click", function() {
+      localStorage.setItem("cookiesAccepted", "false");  // Guarda el rechazo de cookies
+      document.getElementById("cookie-banner").style.display = "none";  // Cierra el banner
+    });
   </script>
 </body>
 </html>
