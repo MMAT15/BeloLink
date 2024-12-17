@@ -9,12 +9,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const totalSpan = document.getElementById("total");
   const clearCartButton = document.getElementById("clear-cart");
   const downloadPDFButton = document.getElementById("download-pdf");
-  const backToTopButton = document.getElementById("back-to-top");
   const categoryFilter = document.getElementById("category-filter");
   const searchInput = document.getElementById("search-input");
   const searchButton = document.getElementById("search-button");
-  const saveCartButton = document.getElementById("save-cart");
-  const loadCartButton = document.getElementById("load-cart");
 
   let cart = [];
 
@@ -56,9 +53,13 @@ document.addEventListener("DOMContentLoaded", () => {
         <img src="${product.img}" alt="${product.name}">
         <h3>${product.name}</h3>
         <p>$${product.price.toFixed(2)}</p>
-        <button onclick="addToCart(${product.id})">Agregar</button>
+        <button data-id="${product.id}" class="add-to-cart">Agregar</button>
       `;
       productList.appendChild(productCard);
+    });
+
+    document.querySelectorAll(".add-to-cart").forEach((button) => {
+      button.addEventListener("click", () => addToCart(parseInt(button.dataset.id)));
     });
   };
 
@@ -110,7 +111,7 @@ document.addEventListener("DOMContentLoaded", () => {
     totalSpan.textContent = total.toFixed(2);
   };
 
-  const updateQuantity = (productId, change) => {
+  window.updateQuantity = (productId, change) => {
     const item = cart.find((item) => item.id === productId);
     if (item) {
       item.quantity += change;
@@ -119,71 +120,26 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
 
-  const removeFromCart = (productId) => {
+  window.removeFromCart = (productId) => {
     cart = cart.filter((item) => item.id !== productId);
     updateCartUI();
   };
 
   /* ============================
-     LOCALSTORAGE
+     LIMPIAR CARRITO
   ============================ */
-  saveCartButton.addEventListener("click", () => {
-    localStorage.setItem("cart", JSON.stringify(cart));
-    alert("Carrito guardado correctamente.");
-  });
-
-  loadCartButton.addEventListener("click", () => {
-    const savedCart = JSON.parse(localStorage.getItem("cart")) || [];
-    cart = savedCart;
-    updateCartUI();
-  });
-
   clearCartButton.addEventListener("click", () => {
     cart = [];
     updateCartUI();
   });
 
   /* ============================
-     PDF GENERATION
-  ============================ */
-  downloadPDFButton.addEventListener("click", () => {
-    const { jsPDF } = window.jspdf;
-    const pdf = new jsPDF();
-    let y = 10;
-
-    pdf.text("Resumen del Presupuesto", 10, y);
-    y += 10;
-
-    cart.forEach((item) => {
-      pdf.text(`${item.name} x${item.quantity} - $${item.price}`, 10, y);
-      y += 10;
-    });
-
-    pdf.text(`Subtotal: $${subtotalSpan.textContent}`, 10, y += 10);
-    pdf.text(`Mano de Obra: $${laborCostSpan.textContent}`, 10, y += 10);
-    pdf.text(`Total: $${totalSpan.textContent}`, 10, y += 10);
-
-    pdf.save("presupuesto.pdf");
-  });
-
-  /* ============================
      FILTRAR Y BUSCAR PRODUCTOS
   ============================ */
-  const handleSearch = () => renderProducts(categoryFilter.value, searchInput.value);
-
-  categoryFilter.addEventListener("change", handleSearch);
-  searchButton.addEventListener("click", handleSearch);
-  searchInput.addEventListener("keyup", (e) => e.key === "Enter" && handleSearch());
-
-  /* ============================
-     BOTÓN VOLVER ARRIBA
-  ============================ */
-  window.addEventListener("scroll", () => {
-    backToTopButton.classList.toggle("visible", window.scrollY > 300);
-  });
-
-  backToTopButton.addEventListener("click", () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
+  categoryFilter.addEventListener("change", () => renderProducts(categoryFilter.value, searchInput.value));
+  searchButton.addEventListener("click", () => renderProducts(categoryFilter.value, searchInput.value));
+  searchInput.addEventListener("keyup", (e) => {
+    if (e.key === "Enter") renderProducts(categoryFilter.value, searchInput.value);
   });
 
   /* ============================
