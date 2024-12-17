@@ -310,3 +310,116 @@ footer a:hover {
 .redes-sociales img:hover {
   transform: scale(1.2);
 }
+/*Belo y Link*/
+.highlight-belo {
+  display: inline-block;
+  color: #ace9ff;
+  background-color: #162b6f;
+  border-radius: 4px;
+  transition: transform 0.3s ease;
+}
+
+.highlight-belo:hover {
+  transform: scale(1.1);
+}
+
+.highlight-link {
+  display: inline-block;
+  color: #0096c6;
+  transition: transform 0.3s ease;
+}
+
+.highlight-link:hover {
+  transform: scale(1.1);
+}
+/* =========================================================
+   NAVEGACIÓN
+   ========================================================= */
+   nav {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    background: linear-gradient(180deg, rgba(22, 43, 111, 0.95), rgba(22, 43, 111, 0.8));
+    border-radius: 0px 0px 15px 15px;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3);
+    transition: all 0.5s ease;
+    z-index: 1000;
+  }
+  
+  nav.active {
+    display: flex;
+  }
+  
+  nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    animation: slideIn 0.6s forwards;
+  }
+  
+  @keyframes slideIn {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  nav ul li {
+    width: 100%;
+    text-align: center;
+    margin: 0;
+    padding: 10px 0;
+    font-weight: bold;
+  }
+  
+  /* Agregamos :focus-visible para accesibilidad de tab en enlaces */
+  nav ul li a:focus-visible {
+    outline: 2px solid var(--secondary-color);
+    outline-offset: 4px;
+  }
+  
+  nav ul li a {
+    display: block;
+    padding: 15px 0;
+    color: var(--secondary-color);
+    text-decoration: none;
+    font-weight: 600;
+    border-bottom: 1px solid rgba(0, 51, 102, 0.3);
+    transition: background-color 0.3s ease, transform 0.3s ease, letter-spacing 0.3s ease;
+  }
+  
+  nav ul li a:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    transform: scale(1.05);
+    letter-spacing: 1px;
+  }
+  
+  .close-menu {
+    display: none;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 16px;
+    color: var(--secondary-color);
+    cursor: pointer;
+  }
+  
+  nav.active .close-menu {
+    display: block; /* El botón solo se muestra cuando el menú está activo */
+  }
