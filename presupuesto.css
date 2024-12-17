@@ -325,3 +325,122 @@ footer a {
     grid-template-columns: 1fr;
   }
 }
+/* ============================================================
+   PRODUCTOS: TARJETAS E IMÁGENES
+============================================================ */
+.product-card {
+  background-color: var(--white);
+  border: 1px solid var(--gray-light);
+  border-radius: 8px;
+  box-shadow: var(--box-shadow);
+  padding: 15px;
+  text-align: center;
+  transition: var(--transition);
+}
+
+.product-card img {
+  width: 100%;            /* Ajusta al 100% del ancho del contenedor */
+  max-width: 180px;       /* Limita el tamaño máximo de la imagen */
+  height: auto;           /* Mantiene la proporción original */
+  object-fit: contain;    /* Ajusta la imagen sin recortar */
+  border-radius: 5px;     /* Bordes redondeados */
+  margin: 0 auto 10px;    /* Centra la imagen horizontalmente y añade margen inferior */
+}
+
+.product-card h3 {
+  color: var(--primary-color);
+  font-size: 1.1rem;
+  margin: 10px 0;
+}
+
+.product-card p {
+  color: var(--highlight-color);
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.product-card button {
+  background-color: var(--primary-color);
+  color: var(--white);
+  padding: 8px 12px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.product-card button:hover {
+  background-color: var(--highlight-color);
+  transform: scale(1.05);
+}
+/* Estilo base del menú oculto */
+nav {
+  display: none; /* Ocultar el menú por defecto */
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background-color: var(--primary-color);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+
+/* Mostrar el menú cuando se activa */
+nav.active {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px 0;
+}
+
+nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+nav ul li {
+  margin: 10px 0;
+}
+
+nav ul li a {
+  color: var(--secondary-color);
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1.1rem;
+  transition: color 0.3s;
+}
+
+nav ul li a:hover {
+  color: var(--highlight-color);
+}
+
+/* Estilo del icono toggle */
+.menu-toggle {
+  width: 40px;
+  height: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.menu-toggle div {
+  width: 100%;
+  height: 4px;
+  background-color: var(--secondary-color);
+  transition: all 0.3s ease;
+}
+
+/* Animación del icono cuando se activa */
+.menu-toggle.active div:nth-child(1) {
+  transform: rotate(45deg) translateY(10px);
+}
+
+.menu-toggle.active div:nth-child(2) {
+  opacity: 0;
+}
+
+.menu-toggle.active div:nth-child(3) {
+  transform: rotate(-45deg) translateY(-10px);
+}

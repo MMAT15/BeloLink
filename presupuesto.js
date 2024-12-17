@@ -19,13 +19,13 @@ document.addEventListener("DOMContentLoaded", () => {
      LISTA DE PRODUCTOS
   ============================ */
   const products = [
-    { id: 1, name: "Cámara Exterior", price: 200, img: "img/Camaraexterior.webp", category: "camaras" },
+    { id: 1, name: "Cámara Exterior", price: 200, img: "img/ezviz.jpg", category: "camaras" },
     { id: 2, name: "Luces Inteligentes", price: 50, img: "img/phillipshue.jpeg", category: "luces" },
     { id: 3, name: "Sensor de Movimiento", price: 40, img: "img/sensormov.jpeg", category: "sensores" },
     { id: 4, name: "Switch Inteligente", price: 100, img: "img/switch.jpg", category: "switches" },
     { id: 5, name: "Cable de Red", price: 20, img: "img/cablered.jpg", category: "cables" },
     { id: 6, name: "Router Inteligente", price: 150, img: "img/router.webp", category: "routers" },
-    { id: 7, name: "Cámara Inteligente", price: 220, img: "img/Camaraexterior.webp", category: "camaras" },
+    { id: 7, name: "Cámara Inteligente", price: 220, img: "img/eufy.jpg", category: "camaras" },
     { id: 8, name: "Foco Philips Hue", price: 60, img: "img/phillipshue.jpeg", category: "luces" },
   ];
 
@@ -75,7 +75,6 @@ document.addEventListener("DOMContentLoaded", () => {
     } else {
       cart.push({ ...product, quantity: 1 });
     }
-
     updateCartUI();
   };
 
@@ -131,6 +130,30 @@ document.addEventListener("DOMContentLoaded", () => {
   clearCartButton.addEventListener("click", () => {
     cart = [];
     updateCartUI();
+    alert("El carrito ha sido vaciado.");
+  });
+
+  /* ============================
+     DESCARGAR PDF
+  ============================ */
+  downloadPDFButton.addEventListener("click", () => {
+    const { jsPDF } = window.jspdf;
+    const pdf = new jsPDF();
+    let y = 10;
+
+    pdf.text("Resumen del Carrito", 10, y);
+    y += 10;
+
+    cart.forEach((item) => {
+      pdf.text(`${item.name} x${item.quantity} - $${item.price}`, 10, y);
+      y += 10;
+    });
+
+    pdf.text(`Subtotal: $${subtotalSpan.textContent}`, 10, y += 10);
+    pdf.text(`Mano de Obra: $${laborCostSpan.textContent}`, 10, y += 10);
+    pdf.text(`Total: $${totalSpan.textContent}`, 10, y += 10);
+
+    pdf.save("resumen-carrito.pdf");
   });
 
   /* ============================
@@ -146,4 +169,5 @@ document.addEventListener("DOMContentLoaded", () => {
      INICIALIZACIÓN
   ============================ */
   renderProducts();
+  updateCartUI();
 });

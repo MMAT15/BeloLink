@@ -82,6 +82,7 @@
       </div>
       <div class="cart-buttons">
         <button id="clear-cart">Vaciar Carrito</button>
+        <button id="download-pdf">Descargar PDF</button>
       </div>
     </section>
   </main>
@@ -105,7 +106,18 @@
       </a>
     </div>
   </footer>
-
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const menuToggle = document.getElementById("menu-toggle");
+      const nav = document.getElementById("nav");
+  
+      menuToggle.addEventListener("click", () => {
+        nav.classList.toggle("active"); // Mostrar/ocultar el menú
+        menuToggle.classList.toggle("active"); // Animación del icono
+      });
+    });
+  </script>
   <script src="presupuesto.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
 </body>
 </html>
