@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Registrarse | BeloLink</title>
+  <title>Iniciar Sesión | BeloLink</title>
   <link rel="stylesheet" href="presupuesto.css">
 </head>
 <body>
@@ -14,46 +14,68 @@
       <a href="index.html">
         <img src="principal.PNG" alt="BeloLink Logo" class="logo">
       </a>
-      <h1> <span class="highlight-belo">Belo</span><span class="highlight-link">Link </span></h1>
+      <h1><span class="highlight-belo">Belo</span><span class="highlight-link">Link </span></h1>
     </div>
   </header>
 
-  <!-- Formulario de Registro -->
+  <!-- Formulario de Inicio de Sesión -->
   <main>
     <section class="auth-section">
       <div class="form-container">
-        <h2>Regístrate</h2>
-        <form id="register-form">
-          <input type="email" id="register-email" placeholder="Correo Electrónico" required>
-          <input type="password" id="register-password" placeholder="Contraseña" required>
-          <button type="submit">Registrar</button>
+        <h2>Iniciar Sesión</h2>
+        <form id="login-form">
+          <input type="email" id="login-email" placeholder="Correo Electrónico" required>
+          <input type="password" id="login-password" placeholder="Contraseña" required>
+          <div class="privacy-checkbox">
+            <label>
+              <input type="checkbox" id="accept-privacy" required> 
+              Acepto la <a href="privacidad.html" target="_blank">Política de Privacidad</a>.
+            </label>
+          </div>
+          <button type="submit" id="submit-btn" disabled>Iniciar Sesión</button>
           <div class="form-footer">
-            <p>¿Ya tienes cuenta? <a href="iniciar.html">Inicia sesión</a></p>
+            <p>¿No tienes cuenta? <a href="registrar.html">Regístrate</a></p>
           </div>
         </form>
+        <p id="error-msg" style="color: red; display: none;">Debe aceptar la Política de Privacidad para continuar.</p>
       </div>
     </section>
   </main>
 
   <script>
     document.addEventListener("DOMContentLoaded", () => {
-      const registerForm = document.getElementById("register-form");
+      const loginForm = document.getElementById("login-form");
+      const submitBtn = document.getElementById("submit-btn");
+      const acceptPrivacy = document.getElementById("accept-privacy");
+      const errorMsg = document.getElementById("error-msg");
 
-      // Al enviar el formulario de registro
-      registerForm.addEventListener("submit", (e) => {
+      // Habilitar el botón de enviar solo si se acepta la política de privacidad
+      acceptPrivacy.addEventListener('change', () => {
+        if (acceptPrivacy.checked) {
+          submitBtn.disabled = false; // Habilitar el botón si acepta
+          errorMsg.style.display = "none"; // Ocultar el mensaje de error
+        } else {
+          submitBtn.disabled = true; // Deshabilitar el botón si no acepta
+        }
+      });
+
+      // Al enviar el formulario de inicio de sesión
+      loginForm.addEventListener("submit", (e) => {
         e.preventDefault();
-        
-        const email = document.getElementById("register-email").value;
-        const password = document.getElementById("register-password").value;
 
-        // Guardar el email y la contraseña en localStorage
-        localStorage.setItem("email", email);
-        localStorage.setItem("password", password);
+        const email = document.getElementById("login-email").value;
+        const password = document.getElementById("login-password").value;
 
-        alert("Registro exitoso. Ahora puedes iniciar sesión.");
-        
-        // Redirigir a la página de inicio de sesión
-        window.location.href = "iniciar.html";
+        // Verificar si el usuario está registrado en localStorage
+        const storedEmail = localStorage.getItem("email");
+        const storedPassword = localStorage.getItem("password");
+
+        if (storedEmail === email && storedPassword === password) {
+          // Si las credenciales son correctas, redirigir a presupuesto.html
+          window.location.href = "presupuesto.html";
+        } else {
+          alert("Correo electrónico o contraseña incorrectos.");
+        }
       });
     });
   </script>

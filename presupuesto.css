@@ -607,3 +607,19 @@ footer a:hover {
     padding: 20px;
   }
 }
+/* Checkbox de aceptación de política */
+.privacy-checkbox {
+  margin: 15px 0;
+}
+
+.privacy-checkbox label {
+  font-size: 14px;
+  color: var(--text-color);
+}
+
+/* Estilo de error */
+#error-msg {
+  font-size: 14px;
+  color: red;
+  margin-top: 10px;
+}

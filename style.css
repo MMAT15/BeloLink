@@ -1,7 +1,6 @@
-
 /* =========================================================
    FUENTES LOCALES
-   ========================================================= */
+========================================================= */
 @font-face {
   font-family: 'Open Sans';
   src: url('./fonts/OpenSans-Regular.ttf') format('truetype');
@@ -29,24 +28,25 @@
   font-weight: 700;
   font-style: italic;
 }
+
 /* =========================================================
    VARIABLES Y RESETEO BÁSICO
-   ========================================================= */
+========================================================= */
 :root {
-  /* Paleta de colores principal */
+  /* Colores primarios */
   --primary-color: #162b6f;
   --secondary-color: #ace9ff;
   --text-color: #333;
   --background-color: #f4f4f4;
   --white: #fff;
 
-  /* Modo oscuro opcional */
+  /* Modo oscuro */
   --background-dark: #121212;
   --text-dark: #e0e0e0;
   --primary-dark: #1f4b8e;
   --secondary-dark: #4e9cca;
 
-  /* Nueva variable para mejorar el contraste en hover de botones/enlaces */
+  /* Colores de interacción */
   --hover-bg-color: #f0f8ff;
 }
 
@@ -63,10 +63,9 @@ body {
   line-height: 1.6;
   width: 100%;
 }
-
 /* =========================================================
    ESTILOS DE HEADER
-   ========================================================= */
+========================================================= */
 header {
   background-color: var(--primary-color);
   color: var(--white);
@@ -80,18 +79,10 @@ header {
   width: 100%;
 }
 
-/* Cuando el header se hace "sticky" podría mejorarse la navegación
-   (posible futura mejora con position: sticky) */
-/* header {
-  position: sticky;
-  top: 0;
-  ... 
-} */
-
 .logo-container {
   display: flex;
   align-items: center;
-  gap: 10px; /* Espacio entre el logo y el título */
+  gap: 10px; /* Espacio entre logo y título */
   transition: opacity 0.3s ease;
 }
 
@@ -106,8 +97,8 @@ header {
 
 .logo-container:hover .logo {
   transform: scale(1.1) rotate(10deg); /* Escala y rotación suave */
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25); /* Sombra más visible */
-  filter: brightness(1.2); /* Aumenta el brillo para destacar */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+  filter: brightness(1.2); /* Aumenta el brillo */
 }
 
 header h1 {
@@ -118,7 +109,7 @@ header h1 {
 
 /* =========================================================
    MENÚ HAMBURGUESA
-   ========================================================= */
+========================================================= */
 .menu-toggle {
   width: 40px;
   height: 30px;
@@ -163,7 +154,7 @@ header h1 {
 
 /* =========================================================
    NAVEGACIÓN
-   ========================================================= */
+========================================================= */
 nav {
   display: none;
   position: absolute;
@@ -215,7 +206,6 @@ nav ul li {
   font-weight: bold;
 }
 
-/* Agregamos :focus-visible para accesibilidad de tab en enlaces */
 nav ul li a:focus-visible {
   outline: 2px solid var(--secondary-color);
   outline-offset: 4px;
@@ -236,26 +226,9 @@ nav ul li a:hover {
   transform: scale(1.05);
   letter-spacing: 1px;
 }
-
-.close-menu {
-  display: none;
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background: none;
-  border: none;
-  font-size: 16px;
-  color: var(--secondary-color);
-  cursor: pointer;
-}
-
-nav.active .close-menu {
-  display: block; /* El botón solo se muestra cuando el menú está activo */
-}
-
 /* =========================================================
    MAIN CONTENT
-   ========================================================= */
+========================================================= */
 main.content {
   padding: 60px 20px;
   background-color: var(--background-color);
@@ -280,6 +253,7 @@ main.content h3 {
   font-weight: 600;
   text-align: center;
 }
+
 main.content p {
   text-align: center;
   margin-bottom: 20px;
@@ -303,24 +277,9 @@ main.content img:hover {
   border: 1px solid rgba(22, 43, 111, 0.3);
 }
 
-main.content img::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: 15px;
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.2), rgba(22, 43, 111, 0.05));
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  z-index: -1;
-}
-
-main.content img:hover::after {
-  opacity: 1;
-}
-
 /* =========================================================
    BENEFICIOS Y CONTACTO
-   ========================================================= */
+========================================================= */
 .beneficio,
 .contacto-item {
   display: flex;
@@ -376,10 +335,9 @@ main.content img:hover::after {
   margin: 0 auto;
   max-width: 90%;
 }
-
 /* =========================================================
    FOOTER
-   ========================================================= */
+========================================================= */
 footer {
   background-color: var(--primary-color);
   color: var(--white);
@@ -437,10 +395,9 @@ footer p {
   background-color: var(--hover-bg-color);
   transform: scale(1.1);
 }
-
 /* =========================================================
    FORMULARIO
-   ========================================================= */
+========================================================= */
 form {
   background-color: var(--background-color);
   padding: 20px;
@@ -488,7 +445,7 @@ form button:hover {
 
 /* =========================================================
    ENLACES Y CLASES DESTACADAS
-   ========================================================= */
+========================================================= */
 a {
   color: #0096c6;
   text-decoration: none;
@@ -520,25 +477,12 @@ a:hover {
 .highlight-link:hover {
   transform: scale(1.1);
 }
-
-.bot-logo {
-  width: 50px;
-  height: auto;
-  cursor: pointer;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.bot-logo:hover {
-  transform: scale(1.1);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
 /* =========================================================
    PRODUCTOS Y IMÁGENES COMENTARIOS
-   ========================================================= */
- .producto-imagen {
- width: 400px; /* Ajusta el ancho */
- height: auto; /* Permite mantener proporción */
+========================================================= */
+.producto-imagen {
+  width: 400px; /* Ajusta el ancho */
+  height: auto; /* Permite mantener proporción */
   object-fit: cover;
   margin-bottom: 15px;
   border-radius: 8px;
@@ -546,79 +490,75 @@ a:hover {
 }
 
 .imagen-comentario {
-  font-size: 14px;
-  color: #666;
-  text-align: center;
-  margin-top: 5px;
-  font-style: italic;
+ font-size: 14px;
+ color: #666;
+ text-align: center;
+ margin-top: 5px;
+ font-style: italic;
 }
 
 /* =========================================================
-   BOTÓN FLOTANTE DE INSTAGRAM
-   ========================================================= */
+  BOTÓN FLOTANTE DE INSTAGRAM
+========================================================= */
 #instagram-float {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background-color: rgba(172, 233, 255, 0.8);
-  border-radius: 50%;
-  width: 65px;
-  height: 65px;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+ position: fixed;
+ bottom: 20px;
+ right: 20px;
+ background-color: rgba(172, 233, 255, 0.8);
+ border-radius: 50%;
+ width: 65px;
+ height: 65px;
+ box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ z-index: 1000;
+ transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
 }
 
 #instagram-float:hover {
-  transform: scale(1.1);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-  background-color: rgba(172, 233, 255, 1);
+ transform: scale(1.1);
+ box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+ background-color: rgba(172, 233, 255, 1);
 }
 
 #instagram-float img {
-  width: 36px;
-  height: 36px;
-  transition: transform 0.3s ease, filter 0.3s ease;
+ width: 36px;
+ height: 36px;
+ transition: transform 0.3s ease, filter 0.3s ease;
 }
 
 #instagram-float img:hover {
-  transform: scale(1.2);
-  filter: brightness(1.2);
+ transform: scale(1.2);
+ filter: brightness(1.2);
 }
 
 #close-float {
-  position: absolute;
-  top: -10px;
-  right: -10px;
-  background-color: #00a3d7;
-  color: white;
-  border-radius: 50%;
-  width: 20px;
-  height: 20px;
-  font-size: 14px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
+ position: absolute;
+ top: -10px;
+ right: -10px;
+ background-color: #00a3d7;
+ color: white;
+ border-radius: 50%;
+ width: 20px;
+ height: 20px;
+ font-size: 14px;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ cursor: pointer;
 }
-
 /* =========================================================
    COOKIE BANNER
-   ========================================================= */
+========================================================= */
 .cookie-banner {
- 
   position: fixed;
   bottom: 0;
   width: 100%;
   background-color: var(--primary-color);
   color: var(--white);
-  
   text-align: center;
   z-index: 1000;
- 
   font-family: Arial, sans-serif;
 }
 
@@ -657,103 +597,70 @@ a:hover {
   background-color: #0095c2;
   transform: scale(1);
 }
-
 /* =========================================================
    ALERT-BOX MEJORADO
-   ========================================================= */
-   .alert-box {
-    /* Centrado absoluto en la pantalla */
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    
-    /* Estilos visuales */
-    background-color: var(--secondary-color);
-    color: var(--text-color);
-    padding: 20px 30px;
-    border-radius: 12px; /* Bordes más suaves */
-    font-weight: 600;
-    text-align: center;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2), inset 0 0 8px rgba(255, 255, 255, 0.2);
-    border-left: 8px solid var(--primary-color);
-    
-    /* Transiciones */
-    transition: all 0.3s ease;
-    z-index: 9999; /* Se asegura de estar por encima de todo */
-    opacity: 0.95; /* Opacidad ligera */
-    max-width: 90%;
-    width: auto; /* Adapta el tamaño al contenido */
-  }
-  
-  /* Opcional: hover */
-  .alert-box:hover {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1.05); /* Efecto de escala suave */
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
-  }
-  
-  /* Ícono de advertencia */
-  .alert-box::before {
-    content: "⚠️";
-    font-size: 24px;
-    color: var(--primary-color);
-    margin-right: 12px;
-    display: inline-block;
-    vertical-align: middle;
-  }
-  
-  /* Botón de cerrar */
-  .alert-box .close-btn {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    cursor: pointer;
-    font-size: 18px;
-    color: var(--primary-color);
-    background: rgba(255, 255, 255, 0.7);
-    border: none;
-    border-radius: 50%;
-    padding: 4px 8px;
-    transition: all 0.3s ease;
-  }
-  
-  .alert-box .close-btn:hover {
-    background-color: rgba(0, 0, 0, 0.1);
-    transform: scale(1.2);
-  }
-  
-  .alert-box .close-btn:focus {
-    outline: 2px solid var(--primary-color);
-    transform: scale(1.15);
-  }
-  
-  /* RESPONSIVO: Ajustes en pantallas más pequeñas */
-  @media (max-width: 768px) {
-    .alert-box {
-      top: auto;
-      bottom: 20px; /* Se posiciona abajo en dispositivos móviles */
-      transform: translateX(-50%);
-      width: 95%; /* Ocupa casi todo el ancho */
-      padding: 15px 20px;
-      border-radius: 8px;
-      font-size: 14px;
-    }
-  
-    .alert-box::before {
-      font-size: 18px;
-    }
-  
-    .alert-box .close-btn {
-      top: 5px;
-      right: 5px;
-      font-size: 16px;
-      padding: 2px 6px;
-    }
-  }
+========================================================= */
+.alert-box {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--secondary-color);
+  color: var(--text-color);
+  padding: 20px 30px;
+  border-radius: 12px;
+  font-weight: 600;
+  text-align: center;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2), inset 0 0 8px rgba(255, 255, 255, 0.2);
+  border-left: 8px solid var(--primary-color);
+  transition: all 0.3s ease;
+  z-index: 9999;
+  opacity: 0.95;
+  max-width: 90%;
+  width: auto;
+}
+
+.alert-box:hover {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1.05);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+}
+
+.alert-box::before {
+  content: "⚠️";
+  font-size: 24px;
+  color: var(--primary-color);
+  margin-right: 12px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.alert-box .close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  font-size: 18px;
+  color: var(--primary-color);
+  background: rgba(255, 255, 255, 0.7);
+  border: none;
+  border-radius: 50%;
+  padding: 4px 8px;
+  transition: all 0.3s ease;
+}
+
+.alert-box .close-btn:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+  transform: scale(1.2);
+}
+
+.alert-box .close-btn:focus {
+  outline: 2px solid var(--primary-color);
+  transform: scale(1.15);
+}
 /* =========================================================
    RESPONSIVE BREAKPOINTS
-   ========================================================= */
+========================================================= */
 
 /* ------- Desktop Large (max-width: 1200px) ------- */
 @media (max-width: 1200px) {
@@ -790,25 +697,27 @@ a:hover {
   .redes-sociales a img {
     margin: 5px;
   }
-/* Estilo del GIF en pantallas grandes */
-.footer-gif {
-  width: 150px; /* Ajusta el tamaño deseado para computadoras */
-  height: auto; /* Mantiene la proporción */
-  margin: 0 auto; /* Centrado adicional */
-  display: block; /* Evita márgenes extra */
-}
 
-/* Ajuste para pantallas pequeñas (móviles y tablets) */
-@media (max-width: 768px) {
+  /* Estilo del GIF en pantallas grandes */
   .footer-gif {
-    width: 100px; /* Tamaño más pequeño para móviles */
+    width: 150px; /* Ajusta el tamaño deseado para computadoras */
     height: auto; /* Mantiene la proporción */
+    margin: 0 auto; /* Centrado adicional */
+    display: block; /* Evita márgenes extra */
   }
-}
+
+  /* Ajuste para pantallas pequeñas (móviles y tablets) */
+  @media (max-width: 768px) {
+    .footer-gif {
+      width: 100px; /* Tamaño más pequeño para móviles */
+      height: auto; /* Mantiene la proporción */
+    }
+  }
   .back-to-top {
     padding: 8px 16px;
   }
 }
+
 /* Corrige el desbordamiento de listas */
 ul, ol {
   padding-left: 1.5rem; /* Ajuste más ligero */
@@ -822,7 +731,6 @@ li {
   word-break: break-word; /* Rompe palabras largas si es necesario */
   line-height: 1.5; /* Mejora la legibilidad */
 }
-
 /* Estilos para el enlace "Iniciar sesión" */
 .login-link {
   font-size: 1rem;
@@ -837,9 +745,11 @@ li {
 .login-link:hover {
   color: var(--highlight-color);
 }
+
 .login-link i {
   margin-right: 8px; /* Espacio entre el icono y el texto */
 }
+
 /* Estilo para el menu toggle y "Iniciar sesión" alineados a la derecha */
 .header-right {
   display: flex;
