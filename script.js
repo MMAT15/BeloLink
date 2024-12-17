@@ -78,9 +78,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
   if (rejectCookiesBtn) {
     rejectCookiesBtn.addEventListener("click", function () {
-      setCookie("cookiesAccepted", "false", 365);
-      cookieBanner.style.display = "none";
-      deleteCookie("optionalCookie1"); // Borra cookies adicionales
+      deleteCookie("cookiesAccepted"); // Elimina la cookie en lugar de establecer "false"
+      cookieBanner.style.display = "flex"; // Vuelve a mostrar el banner
+      deleteCookie("optionalCookie1"); 
       deleteCookie("optionalCookie2");
     });
   }
