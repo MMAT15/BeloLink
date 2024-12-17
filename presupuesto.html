@@ -3,17 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Calcula tu Presupuesto - BeloLink</title>
+  <title>Calcula tu Presupuesto</title>
   <link rel="stylesheet" href="presupuesto.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <!-- Header -->
+  <!-- HEADER -->
   <header>
     <div class="logo-container">
-      <a href="index.html"><img src="principal.PNG" alt="Logo" class="logo"></a>
-      <h1>Calcula tu Presupuesto</h1>
+      <a href="index.html">
+        <img src="principal.PNG" alt="BeloLink Logo" class="logo">
+      </a>
+      <h1 id="header-title">
+        <span class="highlight-belo">Calcula</span>
+        <span class="highlight-link">tu Presupuesto</span>
+      </h1>
     </div>
     <div class="menu-toggle" id="menu-toggle">
       <div></div>
@@ -24,89 +27,94 @@
       <ul>
         <li><a href="index.html">Inicio</a></li>
         <li><a href="productos.html">Productos</a></li>
-        <li><a href="presupuesto.html">Simula tu Presupuesto</a></li>
-        <li><a href="contacto.html">Contacto</a></li>
+        <li><a href="casos.html">Casos de Éxito</a></li>
+        <li><a href="info.html">Más Info</a></li>
+        <li><a href="presupuesto.html">Calcula tu Presupuesto</a></li>
       </ul>
     </nav>
   </header>
 
-  <!-- Main Content -->
+  <!-- MAIN -->
   <main>
-    <!-- Productos -->
+    <!-- SECCIÓN DE PRODUCTOS -->
     <section class="products">
-      <h2>Selecciona tus Productos</h2>
-      <div class="product-filters">
-        <input type="text" id="search-bar" placeholder="Buscar productos..." />
-        <select id="filter-category">
-          <option value="">Todas las categorías</option>
-          <option value="router">Routers</option>
-          <option value="switch">Switch</option>
-          <option value="cable">Cables de Red</option>
-          <option value="camera">Cámaras</option>
-          <option value="lights">Luces Inteligentes</option>
-          <option value="sensor">Sensores</option>
-        </select>
-      </div>
+      <h2>Selecciona tus <span class="highlight-belo">Productos</span></h2>
       <div class="product-list" id="product-list">
-        <!-- Productos insertados dinámicamente -->
+        <!-- Tarjetas de Productos -->
+        <div class="product-card">
+          <img src="img/Camaraexterior.webp" alt="Cámara Inteligente Exterior">
+          <h3>Cámara Inteligente Exterior</h3>
+          <p>Precio: $12,000</p>
+          <button class="add-to-cart-btn" data-id="1">Agregar</button>
+        </div>
+        <div class="product-card">
+          <img src="img/phillipshue.jpeg" alt="Luces Inteligentes Phillips Hue">
+          <h3>Luces Phillips Hue</h3>
+          <p>Precio: $8,000</p>
+          <button class="add-to-cart-btn" data-id="2">Agregar</button>
+        </div>
+        <div class="product-card">
+          <img src="img/sensormov.jpeg" alt="Sensor Movimiento">
+          <h3>Sensor de Movimiento</h3>
+          <p>Precio: $4,500</p>
+          <button class="add-to-cart-btn" data-id="3">Agregar</button>
+        </div>
+        <div class="product-card">
+          <img src="img/switch.jpg" alt="Switch Gigabit">
+          <h3>Switch Gigabit</h3>
+          <p>Precio: $7,000</p>
+          <button class="add-to-cart-btn" data-id="4">Agregar</button>
+        </div>
+        <div class="product-card">
+          <img src="img/cablered.jpg" alt="Cables de Red">
+          <h3>Cables de Red 20m</h3>
+          <p>Precio: $3,000</p>
+          <button class="add-to-cart-btn" data-id="5">Agregar</button>
+        </div>
+        <div class="product-card">
+          <img src="img/router.webp" alt="Router Inteligente">
+          <h3>Router Inteligente</h3>
+          <p>Precio: $15,000</p>
+          <button class="add-to-cart-btn" data-id="6">Agregar</button>
+        </div>
       </div>
     </section>
 
-    <!-- Carrito -->
+    <!-- SECCIÓN DEL CARRITO -->
     <section class="cart">
-      <h2>Tu Presupuesto</h2>
-      <div class="cart-container">
-        <table id="cart-table">
-          <thead>
-            <tr>
-              <th>Producto</th>
-              <th>Precio</th>
-              <th>Cantidad</th>
-              <th>Subtotal</th>
-              <th>Acción</th>
-            </tr>
-          </thead>
-          <tbody></tbody>
-        </table>
-        <div class="cart-summary">
-          <p>Subtotal: $<span id="subtotal">0.00</span></p>
-          <p>Mano de Obra (15%): $<span id="labor-cost">0.00</span></p>
-          <p>Total: $<span id="total">0.00</span></p>
-          <button id="clear-cart" class="btn-secondary">Vaciar Carrito</button>
-          <button id="download-pdf" class="btn-primary">Descargar Presupuesto</button>
-        </div>
+      <h2>Resumen del <span class="highlight-belo">Presupuesto</span></h2>
+      <table id="cart-table">
+        <thead>
+          <tr>
+            <th>Producto</th>
+            <th>Precio</th>
+            <th>Cantidad</th>
+            <th>Subtotal</th>
+            <th>Acción</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+      <div id="cart-summary">
+        <p>Subtotal: $<span id="subtotal">0.00</span></p>
+        <p>Mano de Obra (15%): $<span id="labor-cost">0.00</span></p>
+        <p><strong>Total: $<span id="total">0.00</span></strong></p>
       </div>
+      <button id="download-pdf" class="download-btn">Descargar PDF</button>
     </section>
 
-    <!-- Beneficios -->
-    <section class="benefits">
-      <h2>¿Por qué elegir BeloLink?</h2>
-      <div class="benefit-cards">
-        <div class="benefit-card">
-          <h3>Mano de Obra Transparente</h3>
-          <p>Calculamos un 15% sobre los productos seleccionados para ofrecer un servicio justo y eficiente.</p>
-        </div>
-        <div class="benefit-card">
-          <h3>Productos de Alta Calidad</h3>
-          <p>Seleccionamos las mejores marcas del mercado para garantizar la satisfacción y durabilidad.</p>
-        </div>
-        <div class="benefit-card">
-          <h3>Presupuesto Instantáneo</h3>
-          <p>Obtén un desglose claro de los costos y descárgalo en formato PDF en segundos.</p>
-        </div>
-      </div>
-    </section>
+    <!-- BOTÓN FLOTANTE DEL CARRITO -->
+    <button id="floating-cart-btn">🛒</button>
+
+    <!-- BOTÓN VOLVER ARRIBA -->
+    <button onclick="scrollToTop()" class="back-to-top">↑ Volver Arriba</button>
   </main>
 
-  <!-- Footer -->
+  <!-- FOOTER -->
   <footer>
     <div class="footer-content">
-      <p>© 2024 BeloLink - Todos los derechos reservados</p>
-      <ul>
-        <li><a href="privacidad.html">Política de Privacidad</a></li>
-        <li><a href="contacto.html">Contacto</a></li>
-      </ul>
-      <div class="social-icons">
+      <p>© 2024 <span class="highlight-belo">Belo</span><span class="highlight-link">Link</span></p>
+      <div class="redes-sociales">
         <a href="https://www.instagram.com/belolinkdomotica" target="_blank">
           <img src="img/instagram-png.png" alt="Instagram">
         </a>
@@ -115,10 +123,26 @@
         </a>
       </div>
     </div>
+    <p>¿Tienes alguna pregunta? Escríbenos a <a href="mailto:Belolink@proton.me">Belolink@proton.me</a></p>
   </footer>
 
-  <!-- Botón flotante para volver arriba -->
-  <button id="back-to-top" class="btn-primary">↑ Volver Arriba</button>
+  <!-- MODAL PARA CARRITO -->
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      <span id="close-modal" class="close-modal">&times;</span>
+      <h2>Resumen de tu Carrito</h2>
+      <table id="modal-cart-table">
+        <thead>
+          <tr>
+            <th>Producto</th>
+            <th>Cantidad</th>
+            <th>Subtotal</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
 
   <script src="presupuesto.js"></script>
 </body>
