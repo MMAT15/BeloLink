@@ -837,3 +837,10 @@ li {
 .login-link:hover {
   color: var(--highlight-color);
 }
+
+/* Estilo para el menu toggle y "Iniciar sesión" alineados a la derecha */
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 20px; /* Añadido espacio entre el menú y el enlace */
+}
