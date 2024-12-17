@@ -3,26 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Crea tu presupuesto en minutos con BeloLink. Selecciona productos, ajusta cantidades y descarga tu presupuesto en PDF.">
   <title>Calcula tu Presupuesto | BeloLink</title>
   <link rel="stylesheet" href="presupuesto.css">
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
 </head>
 <body>
   <!-- Header -->
   <header>
     <div class="logo-container">
       <a href="index.html">
-        <img src="principal.PNG" alt="BeloLink Logo" class="logo">
+        <img src="principal.PNG" alt="BeloLink Logo" class="logo" loading="lazy">
       </a>
       <h1 id="header-title">
         <span class="highlight-belo">Belo</span><span class="highlight-link">Link</span>
       </h1>
     </div>
-    <div class="menu-toggle" id="menu-toggle">
-      <div></div>
-      <div></div>
-      <div></div>
-    </div>
-    <nav id="nav">
+    <nav id="nav" aria-label="Navegación principal">
       <ul>
         <li><a href="index.html">Inicio</a></li>
         <li><a href="productos.html">Nuestras Soluciones</a></li>
@@ -34,110 +31,70 @@
     </nav>
   </header>
 
-  <!-- Bienvenida -->
-  <section class="welcome-section">
-    <h2>¡Construye tu presupuesto en minutos!</h2>
-    <p>Selecciona los productos que necesitas, ajusta las cantidades y obtén un presupuesto instantáneo.</p>
-  </section>
+  <!-- Main Content -->
+  <main>
+    <!-- Bienvenida -->
+    <section class="welcome-section">
+      <h2>¡Construye tu presupuesto en minutos!</h2>
+      <p>Selecciona los productos que necesitas, ajusta las cantidades y obtén un presupuesto instantáneo.</p>
+    </section>
 
-  <!-- Productos -->
-  <section class="products">
-    <h2>Elige tus productos</h2>
-    <div class="filter-bar">
-      <select id="category-filter">
-        <option value="all">Todos</option>
-        <option value="routers">Routers</option>
-        <option value="switches">Switches</option>
-        <option value="cables">Cables</option>
-        <option value="camaras">Cámaras</option>
-        <option value="luces">Luces</option>
-        <option value="sensores">Sensores</option>
-      </select>
-      <input type="text" id="search-input" placeholder="Buscar producto...">
-      <button id="search-button">Buscar</button>
-    </div>
-    <div class="product-list" id="product-list">
-      <!-- Los productos se renderizan aquí dinámicamente -->
-    </div>
-  </section>
+    <!-- Productos -->
+    <section class="products">
+      <h2>Elige tus productos</h2>
+      <div class="filter-bar">
+        <select id="category-filter" aria-label="Filtrar por categoría">
+          <option value="all">Todos</option>
+          <option value="routers">Routers</option>
+          <option value="switches">Switches</option>
+          <option value="cables">Cables</option>
+          <option value="camaras">Cámaras</option>
+          <option value="luces">Luces</option>
+          <option value="sensores">Sensores</option>
+        </select>
+        <input type="text" id="search-input" placeholder="Buscar producto..." aria-label="Buscar producto">
+        <button id="search-button" aria-label="Buscar producto">Buscar</button>
+      </div>
+      <div class="product-list" id="product-list"></div>
+    </section>
 
-  <!-- Carrito -->
-  <section class="cart">
-    <h2>Resumen del Carrito</h2>
-    <table id="cart-table">
-      <thead>
-        <tr>
-          <th>Producto</th>
-          <th>Precio</th>
-          <th>Cantidad</th>
-          <th>Subtotal</th>
-          <th>Acción</th>
-        </tr>
-      </thead>
-      <tbody></tbody>
-    </table>
-    <div id="cart-summary">
-      <p>Subtotal: $<span id="subtotal">0.00</span></p>
-      <p>Mano de Obra (15%): $<span id="labor-cost">0.00</span></p>
-      <p><strong>Total: $<span id="total">0.00</span></strong></p>
-    </div>
-    <div class="cart-buttons">
-      <button id="download-pdf">Descargar PDF</button>
-      <button id="clear-cart">Vaciar Carrito</button>
-      <button id="save-cart">Guardar Carrito</button>
-      <button id="load-cart">Cargar Carrito</button>
-    </div>
-  </section>
-
-  <!-- Historial del Carrito -->
-  <section class="history">
-    <h2>Historial del Carrito</h2>
-    <p>Accede a presupuestos guardados previamente.</p>
-    <div id="history-container">
-      <!-- Aquí se mostrarán los presupuestos previos -->
-    </div>
-  </section>
-
-  <!-- Preguntas Frecuentes -->
-  <section class="faq">
-    <h2>Preguntas Frecuentes</h2>
-    <div class="faq-item">
-      <h3>¿Cómo se calcula la mano de obra?</h3>
-      <p>La mano de obra se calcula automáticamente como un 15% del precio total.</p>
-    </div>
-    <div class="faq-item">
-      <h3>¿Puedo descargar mi presupuesto?</h3>
-      <p>Sí, puedes descargar tu presupuesto en formato PDF una vez completado.</p>
-    </div>
-    <div class="faq-item">
-      <h3>¿Qué pasa si quiero cambiar mi carrito?</h3>
-      <p>Puedes vaciar el carrito o ajustar cantidades en cualquier momento.</p>
-    </div>
-  </section>
-
-  <!-- Botón Volver Arriba -->
-  <button id="back-to-top" title="Volver arriba">⬆</button>
+    <!-- Carrito -->
+    <section class="cart">
+      <h2>Resumen del Carrito</h2>
+      <table id="cart-table" aria-label="Tabla de carrito">
+        <thead>
+          <tr>
+            <th>Producto</th>
+            <th>Precio</th>
+            <th>Cantidad</th>
+            <th>Subtotal</th>
+            <th>Acción</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+      <div id="cart-summary">
+        <p>Subtotal: $<span id="subtotal">0.00</span></p>
+        <p>Mano de Obra (15%): $<span id="labor-cost">0.00</span></p>
+        <p><strong>Total: $<span id="total">0.00</span></strong></p>
+      </div>
+      <div class="cart-buttons">
+        <button id="download-pdf">Descargar PDF</button>
+        <button id="clear-cart">Vaciar Carrito</button>
+        <button id="save-cart">Guardar Carrito</button>
+        <button id="load-cart">Cargar Carrito</button>
+      </div>
+    </section>
+  </main>
 
   <!-- Footer -->
   <footer>
     <p>© 2024 <span class="highlight-belo">Belo</span><span class="highlight-link">Link</span></p>
     <p>¿Tienes alguna pregunta? Escríbenos a <a href="mailto:Belolink@proton.me">Belolink@proton.me</a></p>
-    <ul>
-      <li><a href="privacidad.html">Política de Privacidad</a></li>
-    </ul>
-    <div class="redes-sociales">
-      <a href="https://www.instagram.com/belolinkdomotica" target="_blank">
-        <img src="img/instagram-png.png" alt="Instagram">
-      </a>
-      <a href="https://github.com/MMAT15" target="_blank">
-        <img src="img/github-mark.png" alt="GitHub">
-      </a>
-    </div>
-    <img src="DuckGIf/dancing-duck.gif" alt="Dancing Duck" class="footer-gif">
   </footer>
 
   <!-- Scripts -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
-  <script src="presupuesto.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js" defer></script>
+  <script src="presupuesto.js" defer></script>
 </body>
 </html>
