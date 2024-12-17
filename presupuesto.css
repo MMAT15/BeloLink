@@ -1,16 +1,41 @@
-/* ==========================================
-   VARIABLES Y ESTILO GLOBAL
-   ========================================== */
-   :root {
+/* =========================================================
+   FUENTES Y VARIABLES
+   ========================================================= */
+   @font-face {
+    font-family: 'Open Sans';
+    src: url('./fonts/OpenSans-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: 'Open Sans';
+    src: url('./fonts/OpenSans-Bold.ttf') format('truetype');
+    font-weight: 700;
+  }
+  
+  :root {
+    /* Paleta de colores */
     --primary-color: #162b6f;
     --secondary-color: #ace9ff;
     --accent-color: #0095c2;
-    --white: #fff;
-    --background-color: #f4f4f4;
+    --hover-color: #005f85;
+    --background-color: #f8f9fa;
+    --card-bg: #ffffff;
     --text-color: #333;
-    --border-radius: 8px;
+    --border-color: #ddd;
+    --shadow-color: rgba(0, 0, 0, 0.15);
+  
+    /* Fuentes */
+    --font-primary: 'Open Sans', sans-serif;
+  
+    /* Espaciado */
+    --spacing: 20px;
   }
   
+  /* =========================================================
+     RESETEO Y BASE
+     ========================================================= */
   * {
     margin: 0;
     padding: 0;
@@ -18,242 +43,281 @@
   }
   
   body {
-    font-family: 'Open Sans', sans-serif;
+    font-family: var(--font-primary);
     background-color: var(--background-color);
     color: var(--text-color);
     line-height: 1.6;
   }
   
-  /* ==========================================
-     HEADER
-     ========================================== */
+  /* =========================================================
+     HEADER Y NAVBAR
+     ========================================================= */
   header {
     background-color: var(--primary-color);
-    color: var(--white);
-    padding: 20px;
+    color: #fff;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    position: relative;
+    padding: 10px var(--spacing);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
   }
   
-  header .logo-container {
+  .logo-container {
     display: flex;
     align-items: center;
+    gap: 10px;
   }
   
-  header .logo {
+  .logo-container img {
     width: 50px;
     height: 50px;
     border-radius: 50%;
     border: 2px solid var(--secondary-color);
-    margin-right: 10px;
+    object-fit: cover;
+    transition: transform 0.3s ease, filter 0.3s ease;
+  }
+  
+  .logo-container:hover img {
+    transform: scale(1.1);
+    filter: brightness(1.2);
   }
   
   header h1 {
-    font-size: 24px;
-    font-weight: bold;
+    font-size: 1.8rem;
+    background: linear-gradient(90deg, var(--secondary-color), var(--accent-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
   
-  .highlight-belo {
-    color: var(--secondary-color);
-  }
-  
-  .highlight-link {
-    color: var(--accent-color);
-  }
-  
-  /* ==========================================
-     MENÚ HAMBURGUESA
-     ========================================== */
   .menu-toggle {
-    width: 40px;
-    height: 30px;
-    display: flex;
+    display: none;
     flex-direction: column;
-    justify-content: space-between;
     cursor: pointer;
   }
   
   .menu-toggle div {
-    width: 100%;
-    height: 4px;
+    width: 30px;
+    height: 3px;
+    margin: 4px;
     background-color: var(--secondary-color);
-    border-radius: 2px;
     transition: transform 0.3s ease;
   }
   
   nav {
-    display: none;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    width: 100%;
-    background-color: var(--primary-color);
-    z-index: 999;
-  }
-  
-  nav.active {
     display: flex;
-    flex-direction: column;
   }
   
   nav ul {
     list-style: none;
-    padding: 0;
-    margin: 0;
+    display: flex;
+  }
+  
+  nav ul li {
+    margin-left: var(--spacing);
   }
   
   nav ul li a {
     color: var(--secondary-color);
-    padding: 15px;
-    display: block;
-    text-align: center;
     text-decoration: none;
-    transition: background-color 0.3s ease;
+    font-weight: bold;
+    transition: color 0.3s ease;
   }
   
   nav ul li a:hover {
-    background-color: var(--accent-color);
-    color: var(--white);
+    color: var(--hover-color);
   }
   
-  /* ==========================================
-     PRODUCTOS
-     ========================================== */
+  @media (max-width: 768px) {
+    .menu-toggle {
+      display: flex;
+    }
+  
+    nav {
+      display: none;
+      flex-direction: column;
+      position: absolute;
+      top: 60px;
+      left: 0;
+      width: 100%;
+      background-color: var(--primary-color);
+    }
+  
+    nav.active {
+      display: flex;
+    }
+  
+    nav ul {
+      flex-direction: column;
+      text-align: center;
+    }
+  
+    nav ul li {
+      margin: 10px 0;
+    }
+  }
+  
+  /* =========================================================
+     SECCIÓN DE PRODUCTOS
+     ========================================================= */
   .products {
-    padding: 30px;
+    padding: var(--spacing);
     text-align: center;
   }
   
   .products h2 {
-    margin-bottom: 20px;
     color: var(--primary-color);
+    margin-bottom: var(--spacing);
   }
   
   .product-list {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 20px;
+    gap: var(--spacing);
   }
   
   .product-card {
-    background-color: var(--white);
-    border: 1px solid #ddd;
-    border-radius: var(--border-radius);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    text-align: center;
+    background-color: var(--card-bg);
     padding: 15px;
-    transition: transform 0.3s ease;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px var(--shadow-color);
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
   
   .product-card:hover {
-    transform: scale(1.05);
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px var(--shadow-color);
   }
   
   .product-card img {
     width: 100px;
     height: 100px;
     margin-bottom: 10px;
+    object-fit: contain;
   }
   
   .product-card h3 {
-    font-size: 18px;
+    font-size: 1.1rem;
     margin-bottom: 10px;
+  }
+  
+  .product-card p {
+    margin-bottom: 10px;
+    color: var(--text-color);
   }
   
   .product-card button {
     background-color: var(--accent-color);
-    color: var(--white);
+    color: #fff;
     border: none;
-    padding: 8px 12px;
-    border-radius: var(--border-radius);
+    padding: 10px;
+    border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
   }
   
   .product-card button:hover {
-    background-color: var(--secondary-color);
+    background-color: var(--hover-color);
   }
   
-  /* ==========================================
-     CARRITO
-     ========================================== */
+  /* =========================================================
+     CARRITO DE COMPRAS
+     ========================================================= */
   .cart {
-    padding: 30px;
-    background-color: var(--white);
-    border-radius: var(--border-radius);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin: 20px auto;
-    max-width: 800px;
+    padding: var(--spacing);
+    background-color: #fff;
+    box-shadow: 0 2px 8px var(--shadow-color);
+    border-radius: 8px;
+    margin: var(--spacing);
   }
   
   .cart h2 {
-    margin-bottom: 20px;
+    text-align: center;
     color: var(--primary-color);
+    margin-bottom: var(--spacing);
   }
   
-  .cart table {
+  #cart-table {
     width: 100%;
     border-collapse: collapse;
   }
   
-  .cart th, .cart td {
+  #cart-table th, #cart-table td {
     padding: 10px;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid var(--border-color);
     text-align: center;
   }
   
-  #cart-summary {
-    margin-top: 20px;
-    text-align: right;
+  #cart-table th {
+    background-color: var(--primary-color);
+    color: #fff;
   }
   
-  .download-btn {
-    display: inline-block;
-    margin-top: 20px;
-    padding: 10px 15px;
+  .cart-summary {
+    text-align: center;
+    margin-top: var(--spacing);
+  }
+  
+  .cart-summary p {
+    font-size: 1.1rem;
+    margin: 5px 0;
+  }
+  
+  .cart button {
+    display: block;
+    margin: 10px auto;
+    padding: 10px 20px;
     background-color: var(--primary-color);
-    color: var(--white);
+    color: #fff;
     border: none;
-    border-radius: var(--border-radius);
+    border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
   }
   
-  .download-btn:hover {
-    background-color: var(--accent-color);
+  .cart button:hover {
+    background-color: var(--hover-color);
   }
   
-  /* ==========================================
-     BOTÓN VOLVER ARRIBA
-     ========================================== */
+  /* =========================================================
+     BOTÓN FLOTANTE VOLVER ARRIBA
+     ========================================================= */
   .back-to-top {
     position: fixed;
     bottom: 20px;
     right: 20px;
-    background-color: var(--secondary-color);
-    color: var(--primary-color);
-    padding: 10px;
-    border-radius: 50%;
+    background-color: var(--accent-color);
+    color: #fff;
     border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
     cursor: pointer;
-    transition: transform 0.3s ease;
+    box-shadow: 0 4px 8px var(--shadow-color);
+    transition: background-color 0.3s ease, transform 0.3s ease;
   }
   
   .back-to-top:hover {
+    background-color: var(--hover-color);
     transform: scale(1.1);
   }
   
-  /* ==========================================
+  /* =========================================================
      FOOTER
-     ========================================== */
+     ========================================================= */
   footer {
     background-color: var(--primary-color);
-    color: var(--white);
+    color: #fff;
     text-align: center;
-    padding: 20px;
+    padding: 15px;
+    margin-top: var(--spacing);
   }
   
   footer a {
@@ -262,85 +326,16 @@
   }
   
   footer a:hover {
-    text-decoration: underline;
+    color: var(--hover-color);
   }
   
-  .redes-sociales img {
-    width: 24px;
-    height: 24px;
-    margin: 0 5px;
+  footer .redes-sociales img {
+    width: 30px;
+    height: 30px;
+    margin: 5px;
     transition: transform 0.3s ease;
   }
   
-  .redes-sociales img:hover {
+  footer .redes-sociales img:hover {
     transform: scale(1.2);
-  }
-  
-  /* ==========================================
-     MODAL
-     ========================================== */
-  .modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.6);
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-  }
-  
-  .modal-content {
-    background: var(--white);
-    padding: 20px;
-    border-radius: var(--border-radius);
-    width: 80%;
-    max-width: 600px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    position: relative;
-  }
-  
-  .close-modal {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 18px;
-    cursor: pointer;
-    color: var(--primary-color);
-  }
-  
-  #modal-cart-table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  #modal-cart-table th, #modal-cart-table td {
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
-    text-align: center;
-  }
-  
-  /* ==========================================
-     RESPONSIVE
-     ========================================== */
-  @media (max-width: 768px) {
-    .product-list {
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    }
-  
-    .cart table th, .cart table td {
-      font-size: 12px;
-      padding: 5px;
-    }
-  
-    header h1 {
-      font-size: 18px;
-    }
-  
-    .logo {
-      width: 40px;
-      height: 40px;
-    }
   }
