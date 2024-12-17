@@ -1,0 +1,15 @@
+{
+  "name": "belolink",
+  "version": "1.0.0",
+  "description": "**BeloLink** es un sitio web oficial diseñado para mostrar soluciones innovadoras en domótica, enfocadas en mejorar la **seguridad**, la **comodidad** y la **innovación** en los hogares.",
+  "main": "node.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "firebase": "^11.1.0"
+  }
+}
