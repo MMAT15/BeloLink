@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Iniciar Sesión | BeloLink</title>
+  <link rel="stylesheet" href="presupuesto.css">
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="logo-container">
+      <a href="index.html">
+        <img src="principal.PNG" alt="BeloLink Logo" class="logo">
+      </a>
+      <h1>BeloLink</h1>
+    </div>
+  </header>
+
+  <!-- Formulario de Inicio de Sesión -->
+  <main>
+    <section class="auth-section">
+      <div class="form-container">
+        <h2>Iniciar Sesión</h2>
+        <form id="login-form">
+          <input type="email" id="login-email" placeholder="Correo Electrónico" required>
+          <input type="password" id="login-password" placeholder="Contraseña" required>
+          <button type="submit">Iniciar Sesión</button>
+          <div class="form-footer">
+            <p>¿No tienes cuenta? <a href="registrar.html">Regístrate</a></p>
+          </div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const loginForm = document.getElementById("login-form");
+      
+      // Al enviar el formulario de inicio de sesión
+      loginForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        
+        const email = document.getElementById("login-email").value;
+        const password = document.getElementById("login-password").value;
+
+        // Verificar si el usuario está registrado
+        const storedEmail = localStorage.getItem("email");
+        const storedPassword = localStorage.getItem("password");
+
+        if (storedEmail === email && storedPassword === password) {
+          // Si las credenciales son correctas, redirigir a presupuesto.html
+          window.location.href = "presupuesto.html";
+        } else {
+          alert("Correo electrónico o contraseña incorrectos.");
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
