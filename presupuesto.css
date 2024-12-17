@@ -338,3 +338,207 @@ footer a {
 footer a:hover {
   text-decoration: underline;
 }
+/* =========================================================
+   ENLACES Y CLASES DESTACADAS
+   ========================================================= */
+   a {
+    color: #0096c6;
+    text-decoration: none;
+    display: block; /* Hace que el enlace ocupe todo el área del contenedor */
+  }
+  
+  a:hover {
+    cursor: pointer;
+  }
+  
+  .highlight-belo {
+    display: inline-block;
+    color: #ace9ff;
+    background-color: #162b6f;
+    border-radius: 4px;
+    transition: transform 0.3s ease;
+  }
+  
+  .highlight-belo:hover {
+    transform: scale(1.1);
+  }
+  
+  .highlight-link {
+    display: inline-block;
+    color: #0096c6;
+    transition: transform 0.3s ease;
+  }
+  
+  .highlight-link:hover {
+    transform: scale(1.1);
+  }
+  
+  .bot-logo {
+    width: 50px;
+    height: auto;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .bot-logo:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  /* =========================================================
+   FOOTER
+   ========================================================= */
+footer {
+  background-color: var(--primary-color);
+  color: var(--white);
+  text-align: center;
+  padding: 30px;
+  box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.redes-sociales {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.redes-sociales img {
+  width: 24px;
+  height: 24px;
+  margin: 0 5px;
+  transition: transform 0.3s ease;
+}
+
+.redes-sociales img:hover {
+  transform: scale(1.2);
+}
+
+footer p {
+  margin: 10px 0;
+}
+
+/* Contenedor del GIF */
+.gif-container {
+  display: flex; /* Centra el contenido */
+  justify-content: center; /* Centrado horizontal */
+  align-items: center; /* Centrado vertical (si es necesario) */
+  margin: 20px auto; /* Centrado con margen automático */
+  max-width: 100%; /* Asegura que no se desborde */
+}
+
+.back-to-top {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: var(--secondary-color);
+  color: var(--primary-color);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.back-to-top:hover {
+  background-color: var(--hover-bg-color);
+  transform: scale(1.1);
+}
+
+/* =========================================================
+   FORMULARIO
+   ========================================================= */
+form {
+  background-color: var(--background-color);
+  padding: 20px;
+  border-radius: 8px;
+}
+
+form label {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+form input,
+form textarea {
+  font-size: 16px;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 15px;
+  transition: box-shadow 0.3s ease;
+}
+
+form input:focus,
+form textarea:focus {
+  box-shadow: 0 0 0 3px rgba(172, 233, 255, 0.5);
+  outline: none; /* Dejar que el box-shadow maneje el foco */
+}
+
+form button {
+  background-color: var(--secondary-color);
+  color: var(--white);
+  font-size: 18px;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+form button:hover {
+  background-color: var(--primary-color);
+  transform: scale(1.05);
+}
+ESTILOS DE HEADER
+
+header {
+background-color: var(--primary-color);
+color: var(--white);
+padding: 20px;
+display: flex;
+justify-content: space-between;
+align-items: center;
+box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+position: relative;
+z-index: 2;
+width: 100%;
+}
+
+/* Cuando el header se hace "sticky" podría mejorarse la navegación
+(posible futura mejora con position: sticky) */
+/* header {
+position: sticky;
+top: 0;
+... 
+} */
+
+.logo-container {
+display: flex;
+align-items: center;
+gap: 10px; /* Espacio entre el logo y el título */
+transition: opacity 0.3s ease;
+}
+
+.logo {
+width: 50px;
+height: 50px;
+border-radius: 50%;
+border: 2px solid var(--secondary-color);
+object-fit: cover;
+transition: transform 0.5s ease, box-shadow 0.5s ease;
+}
+
+.logo-container:hover .logo {
+transform: scale(1.1) rotate(10deg); /* Escala y rotación suave */
+box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25); /* Sombra más visible */
+filter: brightness(1.2); /* Aumenta el brillo para destacar */
+}
+
+header h1 {
+margin: 0;
+font-weight: 600;
+transition: opacity 0.3s ease;
+}

@@ -11,13 +11,12 @@
   <header>
     <div class="logo-container">
       <a href="index.html">
-        <img src="principal.PNG" alt="BeloLink Logo" class="logo">
+        <img src="principal.PNG" alt="BeloLink Innovations Logo" class="logo">
       </a>
-      <h1 class="title">
-        <span class="highlight-belo">Belo</span><span class="highlight-link">Link</span> | <span class="highlight-title">Calcula tu Presupuesto</span>
+      <h1 id="header-title" onclick="changeHeaderText()">
+        <span class="highlight-belo">Belo</span><span class="highlight-link">Link </span>
       </h1>
     </div>
-    <!-- Menú Hamburguesa -->
     <div class="menu-toggle" id="menu-toggle">
       <div></div>
       <div></div>
@@ -30,6 +29,7 @@
         <li><a href="casos.html">Casos de éxito</a></li>
         <li><a href="info.html">Más info</a></li>
         <li><a href="empresas.html">Clientes Corporativos</a></li>
+        <li><a href="presupuesto.html"> Simulá tu presupuesto</a></li>
       </ul>
     </nav>
   </header>
@@ -113,16 +113,26 @@
 
   <!-- Footer -->
   <footer>
-    <p>© 2024 BeloLink - Todos los derechos reservados.</p>
-    <div class="redes-sociales">
-      <a href="https://www.instagram.com/belolinkdomotica" target="_blank">
-        <img src="img/instagram-png.png" alt="Instagram">
-      </a>
-      <a href="https://github.com/MMAT15" target="_blank">
-        <img src="img/github-mark.png" alt="GitHub">
-      </a>
-    </div>
-    <p>¿Tienes alguna pregunta? Contáctanos en <a href="mailto:belolink@proton.me">belolink@proton.me</a></p>
+    <footer>
+      <p>© 2024 <span class="highlight-belo">Belo</span><span class="highlight-link">Link</span>.</p>
+      <div class="gif-container">
+       <img src="DuckGIf/dancing-duck.gif" alt="Dancing Duck" class="footer-gif">
+     </div>
+         <p>¿Tienes alguna pregunta? Escríbenos a <a href="mailto:Belolink@proton.me">Belolink@proton.me</a></p>
+         <ul>
+           <li><a href="privacidad.html">Política de Privacidad</a></li>
+         </ul>
+     <div class="redes-sociales">
+       <a href="https://www.instagram.com/belolinkdomotica" target="_blank">
+         <img src="img/instagram-png.png" alt="Instagram" style="width:32px; height:32px;">
+       </a>
+       <a href="https://github.com/MMAT15" target="_blank">
+         <img src="img/github-mark.png" alt="GitHub" style="width:32px; height:32px;">
+       </a>
+     </div>
+      <button onclick="scrollToTop()" class="back-to-top">Volver arriba</button>
+     </body>
+       </footer>
   </footer>
 
   <!-- Scripts -->
