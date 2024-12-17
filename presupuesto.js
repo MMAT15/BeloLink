@@ -1,205 +1,155 @@
-document.addEventListener("DOMContentLoaded", function () {
-  // ==========================================
-  // VARIABLES Y ELEMENTOS DOM
-  // ==========================================
+document.addEventListener("DOMContentLoaded", () => {
+  // ================================
+  // VARIABLES GLOBALES
+  // ================================
   const productList = document.getElementById("product-list");
   const cartTableBody = document.querySelector("#cart-table tbody");
   const subtotalElement = document.getElementById("subtotal");
   const laborCostElement = document.getElementById("labor-cost");
   const totalElement = document.getElementById("total");
-  const floatingCartBtn = document.getElementById("floating-cart-btn");
-  const modal = document.getElementById("modal");
-  const closeModalBtn = document.getElementById("close-modal");
-  const downloadPdfBtn = document.getElementById("download-pdf");
-
-  const LABOR_PERCENTAGE = 0.15;
+  const backToTopBtn = document.getElementById("back-to-top");
+  const menuToggle = document.getElementById("menu-toggle");
+  const nav = document.querySelector("nav");
+  const downloadBtn = document.getElementById("download-pdf");
+  const modal = document.getElementById("cart-modal");
+  const closeModal = document.getElementById("close-modal");
   let cart = [];
 
-  // ==========================================
-  // PRODUCTOS DISPONIBLES
-  // ==========================================
+  // ================================
+  // DATOS DE PRODUCTOS
+  // ================================
   const products = [
-    {
-      id: 1,
-      name: "Cámara Inteligente Exterior",
-      price: 12000,
-      image: "img/Camaraexterior.webp",
-    },
-    {
-      id: 2,
-      name: "Luces Inteligentes Phillips Hue",
-      price: 8000,
-      image: "img/phillipshue.jpeg",
-    },
-    {
-      id: 3,
-      name: "Sensor de Movimiento Inteligente",
-      price: 4500,
-      image: "img/sensormov.jpeg",
-    },
-    {
-      id: 4,
-      name: "Switch Gigabit",
-      price: 7000,
-      image: "img/switch.jpg",
-    },
-    {
-      id: 5,
-      name: "Cables de Red 20m",
-      price: 3000,
-      image: "img/cablered.jpg",
-    },
-    {
-      id: 6,
-      name: "Router Inteligente",
-      price: 15000,
-      image: "img/router.webp",
-    },
+    { id: 1, name: "Cámara Exterior Inteligente", price: 120, img: "img/Camaraexterior.webp" },
+    { id: 2, name: "Luces Inteligentes Philips Hue", price: 50, img: "img/phillipshue.jpeg" },
+    { id: 3, name: "Sensor de Movimiento", price: 30, img: "img/sensormov.jpeg" },
+    { id: 4, name: "Switch Inteligente", price: 70, img: "img/switch.jpg" },
+    { id: 5, name: "Cable de Red (10m)", price: 10, img: "img/cablered.jpg" },
+    { id: 6, name: "Router Inteligente", price: 90, img: "img/router.webp" },
   ];
 
-  // ==========================================
-  // FUNCIONES PRINCIPALES
-  // ==========================================
-  function displayProducts() {
-    productList.innerHTML = "";
-    products.forEach((product) => {
-      const productCard = document.createElement("div");
-      productCard.classList.add("product-card");
-
-      productCard.innerHTML = `
-        <img src="${product.image}" alt="${product.name}" />
-        <h3>${product.name}</h3>
-        <p>Precio: $${product.price.toLocaleString()}</p>
-        <button class="add-to-cart-btn" data-id="${product.id}">Agregar</button>
+  // ================================
+  // FUNCIONES GENERALES
+  // ================================
+  function renderProducts() {
+    products.forEach(product => {
+      const productCard = `
+        <div class="product-card">
+          <img src="${product.img}" alt="${product.name}">
+          <h3>${product.name}</h3>
+          <p>Precio: $${product.price}</p>
+          <button onclick="addToCart(${product.id})">Agregar</button>
+        </div>
       `;
-      productList.appendChild(productCard);
+      productList.innerHTML += productCard;
     });
   }
 
   function addToCart(productId) {
-    const product = products.find((item) => item.id === productId);
-    const existingItem = cart.find((item) => item.id === productId);
+    const product = products.find(p => p.id === productId);
+    const existingItem = cart.find(item => item.id === productId);
 
     if (existingItem) {
       existingItem.quantity += 1;
     } else {
       cart.push({ ...product, quantity: 1 });
     }
-    updateCart();
-    showFloatingCart();
+
+    renderCart();
   }
 
-  function updateCart() {
-    cartTableBody.innerHTML = "";
+  function removeFromCart(productId) {
+    cart = cart.filter(item => item.id !== productId);
+    renderCart();
+  }
+
+  function updateQuantity(productId, quantity) {
+    const item = cart.find(item => item.id === productId);
+    if (item) {
+      item.quantity = parseInt(quantity, 10);
+      renderCart();
+    }
+  }
+
+  function calculateTotals() {
     let subtotal = 0;
-
-    cart.forEach((item, index) => {
-      const itemSubtotal = item.price * item.quantity;
-      subtotal += itemSubtotal;
-
-      const row = document.createElement("tr");
-      row.innerHTML = `
-        <td>${item.name}</td>
-        <td>$${item.price.toLocaleString()}</td>
-        <td>
-          <input type="number" value="${item.quantity}" min="1" data-index="${index}" class="cart-quantity-input" />
-        </td>
-        <td>$${itemSubtotal.toLocaleString()}</td>
-        <td>
-          <button class="remove-btn" data-index="${index}">🗑️</button>
-        </td>
-      `;
-      cartTableBody.appendChild(row);
+    cart.forEach(item => {
+      subtotal += item.price * item.quantity;
     });
-
-    const laborCost = subtotal * LABOR_PERCENTAGE;
+    const laborCost = subtotal * 0.15;
     const total = subtotal + laborCost;
 
-    subtotalElement.textContent = subtotal.toLocaleString();
-    laborCostElement.textContent = laborCost.toLocaleString();
-    totalElement.textContent = total.toLocaleString();
+    subtotalElement.textContent = subtotal.toFixed(2);
+    laborCostElement.textContent = laborCost.toFixed(2);
+    totalElement.textContent = total.toFixed(2);
   }
 
-  function removeFromCart(index) {
-    cart.splice(index, 1);
-    updateCart();
+  function renderCart() {
+    cartTableBody.innerHTML = "";
+    cart.forEach(item => {
+      const row = `
+        <tr>
+          <td>${item.name}</td>
+          <td>$${item.price}</td>
+          <td>
+            <input type="number" value="${item.quantity}" min="1" onchange="updateQuantity(${item.id}, this.value)">
+          </td>
+          <td>$${(item.price * item.quantity).toFixed(2)}</td>
+          <td>
+            <button onclick="removeFromCart(${item.id})" class="remove-btn">Eliminar</button>
+          </td>
+        </tr>
+      `;
+      cartTableBody.innerHTML += row;
+    });
+    calculateTotals();
   }
 
-  function changeQuantity(index, newQuantity) {
-    cart[index].quantity = parseInt(newQuantity, 10);
-    updateCart();
+  function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
-  function showFloatingCart() {
-    floatingCartBtn.classList.add("active");
+  function toggleMenu() {
+    nav.classList.toggle("active");
   }
 
   function downloadPDF() {
-    const doc = new jsPDF();
-    doc.text("Resumen del Presupuesto", 10, 10);
+    const element = document.querySelector(".cart");
+    const options = {
+      margin: 10,
+      filename: "presupuesto.pdf",
+      image: { type: "jpeg", quality: 0.98 },
+      html2canvas: { scale: 2 },
+      jsPDF: { unit: "mm", format: "a4", orientation: "portrait" }
+    };
 
-    let y = 20;
-    cart.forEach((item) => {
-      doc.text(
-        `${item.name} - Cantidad: ${item.quantity} - Precio: $${item.price.toLocaleString()}`,
-        10,
-        y
-      );
-      y += 10;
-    });
-
-    doc.text(`Subtotal: $${subtotalElement.textContent}`, 10, y + 10);
-    doc.text(`Mano de Obra (15%): $${laborCostElement.textContent}`, 10, y + 20);
-    doc.text(`Total: $${totalElement.textContent}`, 10, y + 30);
-
-    doc.save("presupuesto.pdf");
+    html2pdf().set(options).from(element).save();
   }
 
-  // ==========================================
-  // EVENTOS
-  // ==========================================
-  productList.addEventListener("click", (e) => {
-    if (e.target.classList.contains("add-to-cart-btn")) {
-      const productId = parseInt(e.target.dataset.id, 10);
-      addToCart(productId);
-    }
-  });
+  function openModal() {
+    modal.style.display = "flex";
+  }
 
-  cartTableBody.addEventListener("click", (e) => {
-    if (e.target.classList.contains("remove-btn")) {
-      const index = parseInt(e.target.dataset.index, 10);
-      removeFromCart(index);
-    }
-  });
-
-  cartTableBody.addEventListener("input", (e) => {
-    if (e.target.classList.contains("cart-quantity-input")) {
-      const index = parseInt(e.target.dataset.index, 10);
-      const newQuantity = e.target.value;
-      if (newQuantity > 0) {
-        changeQuantity(index, newQuantity);
-      }
-    }
-  });
-
-  floatingCartBtn.addEventListener("click", () => {
-    modal.style.display = "block";
-  });
-
-  closeModalBtn.addEventListener("click", () => {
+  function closeModalFunc() {
     modal.style.display = "none";
+  }
+
+  // ================================
+  // EVENTOS
+  // ================================
+  window.addToCart = addToCart;
+  window.removeFromCart = removeFromCart;
+  window.updateQuantity = updateQuantity;
+
+  backToTopBtn.addEventListener("click", scrollToTop);
+  menuToggle.addEventListener("click", toggleMenu);
+  downloadBtn.addEventListener("click", downloadPDF);
+  closeModal.addEventListener("click", closeModalFunc);
+  window.addEventListener("click", event => {
+    if (event.target === modal) closeModalFunc();
   });
 
-  window.addEventListener("click", (e) => {
-    if (e.target === modal) {
-      modal.style.display = "none";
-    }
-  });
-
-  downloadPdfBtn.addEventListener("click", downloadPDF);
-
-  // ==========================================
-  // INICIALIZAR
-  // ==========================================
-  displayProducts();
+  // ================================
+  // INICIALIZACIÓN
+  // ================================
+  renderProducts();
 });
