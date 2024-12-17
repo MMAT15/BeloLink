@@ -822,3 +822,18 @@ li {
   word-break: break-word; /* Rompe palabras largas si es necesario */
   line-height: 1.5; /* Mejora la legibilidad */
 }
+
+/* Estilos para el enlace "Iniciar sesión" */
+.login-link {
+  font-size: 1rem;
+  font-weight: bold;
+  color: var(--secondary-color);
+  text-decoration: none;
+  margin-left: 20px;  /* Separar del menu toggle */
+  align-self: center;  /* Centra el enlace verticalmente */
+  transition: color 0.3s ease;
+}
+
+.login-link:hover {
+  color: var(--highlight-color);
+}
