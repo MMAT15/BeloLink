@@ -12,6 +12,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const categoryFilter = document.getElementById("category-filter");
   const searchInput = document.getElementById("search-input");
   const searchButton = document.getElementById("search-button");
+  const floatingButton = document.getElementById("floating-button");
+  const floatingMenu = document.getElementById("floating-menu");
 
   let cart = [];
  
@@ -66,40 +68,45 @@ document.addEventListener("DOMContentLoaded", () => {
   /* ============================
      CARRITO DE COMPRAS
   ============================ */
-  const addToCart = (productId) => {
-    const product = products.find((item) => item.id === productId);
-    const item = cart.find((item) => item.id === productId);
-
-    if (item) {
-      item.quantity++;
-    } else {
-      cart.push({ ...product, quantity: 1 });
-    }
-    updateCartUI();
-  };
-
   const updateCartUI = () => {
+    const isMobile = window.innerWidth <= 768;
     cartTableBody.innerHTML = "";
+    const cartContainer = document.getElementById("mobile-cart");
+    if (isMobile) cartContainer.innerHTML = ""; // Limpia el contenedor móvil
+
     let subtotal = 0;
 
     cart.forEach((item) => {
       const itemSubtotal = item.price * item.quantity;
       subtotal += itemSubtotal;
 
-      const row = `
-        <tr>
-          <td>${item.name}</td>
-          <td>$${item.price.toFixed(2)}</td>
-          <td>
-            <button onclick="updateQuantity(${item.id}, -1)">-</button>
-            ${item.quantity}
-            <button onclick="updateQuantity(${item.id}, 1)">+</button>
-          </td>
-          <td>$${itemSubtotal.toFixed(2)}</td>
-          <td><button onclick="removeFromCart(${item.id})">❌</button></td>
-        </tr>
-      `;
-      cartTableBody.insertAdjacentHTML("beforeend", row);
+      if (isMobile) {
+        const itemDiv = document.createElement("div");
+        itemDiv.classList.add("cart-item");
+        itemDiv.innerHTML = `
+          <p><strong>${item.name}</strong></p>
+          <p>Precio: $${item.price.toFixed(2)}</p>
+          <p>Cantidad: ${item.quantity}</p>
+          <p>Subtotal: $${itemSubtotal.toFixed(2)}</p>
+          <button onclick="removeFromCart(${item.id})">Eliminar</button>
+        `;
+        cartContainer.appendChild(itemDiv);
+      } else {
+        const row = `
+          <tr>
+            <td>${item.name}</td>
+            <td>$${item.price.toFixed(2)}</td>
+            <td>
+              <button onclick="updateQuantity(${item.id}, -1)">-</button>
+              ${item.quantity}
+              <button onclick="updateQuantity(${item.id}, 1)">+</button>
+            </td>
+            <td>$${itemSubtotal.toFixed(2)}</td>
+            <td><button onclick="removeFromCart(${item.id})">❌</button></td>
+          </tr>
+        `;
+        cartTableBody.insertAdjacentHTML("beforeend", row);
+      }
     });
 
     const laborCost = subtotal * 0.15;
@@ -130,7 +137,7 @@ document.addEventListener("DOMContentLoaded", () => {
   clearCartButton.addEventListener("click", () => {
     cart = [];
     updateCartUI();
-    alert("El carrito ha sido vaciado.");
+    alert("Carrito vacío.");
   });
 
   /* ============================
@@ -163,6 +170,19 @@ document.addEventListener("DOMContentLoaded", () => {
   searchButton.addEventListener("click", () => renderProducts(categoryFilter.value, searchInput.value));
   searchInput.addEventListener("keyup", (e) => {
     if (e.key === "Enter") renderProducts(categoryFilter.value, searchInput.value);
+  });
+
+  /* ============================
+     MENÚ FLOTANTE
+  ============================ */
+  floatingButton.addEventListener("click", () => {
+    floatingMenu.classList.toggle("active");
+  });
+
+  document.addEventListener("click", (e) => {
+    if (!floatingMenu.contains(e.target) && !floatingButton.contains(e.target)) {
+      floatingMenu.classList.remove("active");
+    }
   });
 
   /* ============================
