@@ -686,3 +686,96 @@ footer a:hover {
   .floating-menu ul li a:hover {
     background-color: var(--secondary-color);
   }
+  @media (max-width: 768px) {
+    header {
+      flex-direction: column;
+      align-items: center;
+      padding: 10px;
+    }
+  
+    .logo-container {
+      justify-content: center;
+    }
+  
+    nav ul {
+      flex-direction: column;
+      align-items: center;
+      width: 100%; /* Que ocupe todo el ancho */
+    }
+  
+    nav ul li {
+      margin: 10px 0;
+    }
+  }
+  @media (max-width: 576px) {
+    .product-list {
+      grid-template-columns: 1fr; /* Solo una columna en pantallas muy pequeñas */
+    }
+  }
+  @media (max-width: 576px) {
+    .form-container {
+      width: 90%; /* Ajusta el ancho al viewport */
+      padding: 15px;
+    }
+  
+    .form-container input,
+    .form-container button {
+      font-size: 0.9rem; /* Reduce ligeramente el tamaño de texto */
+    }
+  }
+  @media (max-width: 576px) {
+    .menu-toggle {
+      width: 50px;
+      height: 40px;
+      padding: 5px;
+    }
+  
+    nav ul {
+      padding: 10px 0;
+      font-size: 1rem; /* Aumenta un poco el tamaño para facilitar el toque */
+    }
+  
+    nav ul li a {
+      padding: 15px 20px; /* Espaciado adicional para facilidad de interacción */
+    }
+  }
+  @media (max-width: 576px) {
+    .floating-button {
+      width: 50px;
+      height: 50px;
+      bottom: 15px; /* Ajusta el margen inferior */
+      right: 15px;
+    }
+  
+    .floating-menu {
+      bottom: 70px; /* Ajusta la posición del menú */
+      right: 15px;
+      width: calc(100% - 30px); /* Ocupa casi todo el ancho con márgenes */
+    }
+  
+    .floating-menu ul li {
+      text-align: center;
+    }
+  }
+  @media (max-width: 576px) {
+    .product-card img {
+      height: auto; /* Deja que la altura sea proporcional al ancho */
+      max-width: 100%; /* Asegura que no exceda el contenedor */
+    }
+  
+    .product-card h3 {
+      font-size: 1rem; /* Ajusta el tamaño del título */
+    }
+  
+    .product-card p {
+      font-size: 0.9rem; /* Ajusta el tamaño del precio */
+    }
+  }
+  @media (max-width: 576px) {
+    .welcome-section,
+    .info-section {
+      width: 90%;
+      padding: 15px;
+      margin: 10px auto;
+    }
+  }
