@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
   ============================ */
   const productList = document.getElementById("product-list");
   const cartTableBody = document.querySelector("#cart-table tbody");
-  const mobileCart = document.getElementById("mobile-cart"); // Nuevo contenedor móvil
+  const mobileCart = document.getElementById("mobile-cart");
   const subtotalSpan = document.getElementById("subtotal");
   const laborCostSpan = document.getElementById("labor-cost");
   const totalSpan = document.getElementById("total");
@@ -17,7 +17,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const floatingMenu = document.getElementById("floating-menu");
 
   let cart = [];
- 
+  let currentUser = null;
+
   /* ============================
      LISTA DE PRODUCTOS
   ============================ */
@@ -31,6 +32,31 @@ document.addEventListener("DOMContentLoaded", () => {
     { id: 7, name: "Cámara Inteligente", price: 220, img: "img/eufy.jpg", category: "camaras" },
     { id: 8, name: "Foco Philips Hue", price: 60, img: "img/phillipshue.jpeg", category: "luces" },
   ];
+
+  /* ============================
+     AUTENTICACIÓN DE USUARIO
+  ============================ */
+  const authenticateUser = async () => {
+    try {
+      const response = await fetch("https://script.google.com/macros/s/AKfycbwU1qGf3bC4cnXxnN2B1S3pZLO1L9aZmP1neq6QQ2PFcR1nPnrrOjcv_NRpCpFKsUHO/exec", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ action: "validate-session" }),
+      });
+
+      const result = await response.json();
+      if (result.success) {
+        currentUser = result.user;
+        alert(`¡Bienvenido de nuevo, ${currentUser.name}!`);
+      } else {
+        alert("No has iniciado sesión. Redirigiéndote a iniciar sesión...");
+        window.location.href = "iniciar.html";
+      }
+    } catch (error) {
+      console.error("Error al autenticar al usuario:", error);
+      alert("Hubo un problema al autenticar. Intenta de nuevo más tarde.");
+    }
+  };
 
   /* ============================
      RENDERIZAR PRODUCTOS
@@ -61,13 +87,11 @@ document.addEventListener("DOMContentLoaded", () => {
       productList.appendChild(productCard);
     });
 
-    assignAddToCartEvents(); // Asigna eventos
+    assignAddToCartEvents();
   };
 
   const assignAddToCartEvents = () => {
-    // Usa un Event Delegation para garantizar que los botones respondan en cualquier situación
     productList.addEventListener("click", (event) => {
-      // Verifica que el clic se realizó en un botón con la clase "add-to-cart"
       if (event.target.classList.contains("add-to-cart")) {
         const productId = parseInt(event.target.dataset.id);
         if (!isNaN(productId)) {
@@ -83,7 +107,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const updateCartUI = () => {
     const isMobile = window.innerWidth <= 768;
     cartTableBody.innerHTML = "";
-    if (isMobile) mobileCart.innerHTML = ""; // Limpia el contenedor móvil
+    if (isMobile) mobileCart.innerHTML = "";
 
     let subtotal = 0;
 
@@ -166,6 +190,7 @@ document.addEventListener("DOMContentLoaded", () => {
   /* ============================
      INICIALIZACIÓN
   ============================ */
+  authenticateUser();
   renderProducts();
   updateCartUI();
 });

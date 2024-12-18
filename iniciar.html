@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Iniciar Sesión | BeloLink </title>
+  <title>Iniciar Sesión | BeloLink</title>
   <link rel="stylesheet" href="presupuesto.css">
 </head>
 <body>
@@ -14,7 +14,7 @@
       <a href="index.html">
         <img src="principal.PNG" alt="BeloLink Logo" class="logo">
       </a>
-      <h1> <span class="highlight-belo">Belo</span><span class="highlight-link">Link </span></h1>
+      <h1><span class="highlight-belo">Belo</span><span class="highlight-link">Link</span></h1>
     </div>
   </header>
 
@@ -37,33 +37,45 @@
     <!-- Explicación para el usuario -->
     <section class="info-section">
       <h3>¿Por qué iniciar sesión?</h3>
-      <p>Al iniciar sesión, podrás acceder a una herramienta que te permitirá simular tu presupuesto de manera rápida y sencilla. Podrás seleccionar los productos que deseas, ajustar las cantidades y obtener un presupuesto en tiempo real.</p>
-      <p>Una vez que hayas simulado tu presupuesto, tendrás la opción de descargar un PDF con todos los detalles de tu solicitud. Además, podrás enviarnos este archivo por correo electrónico para agilizar el proceso y recibir tu propuesta más rápido.</p>
-      <p>El inicio de sesión nos permite mantener tus datos y preferencias, asegurando una experiencia más personalizada y eficiente. Recuerda que si no tienes cuenta, puedes registrarte fácilmente desde <a href="registrar.html">aquí</a>.</p>
+      <p>Al iniciar sesión, podrás acceder a una herramienta que te permitirá simular tu presupuesto de manera rápida y sencilla.</p>
+      <p>Podrás seleccionar productos, ajustar cantidades, descargar un PDF con tu presupuesto y enviarlo por correo electrónico para recibir tu propuesta.</p>
     </section>
-    
   </main>
 
+  <!-- Script de Inicio de Sesión -->
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       const loginForm = document.getElementById("login-form");
-      
-      // Al enviar el formulario de inicio de sesión
-      loginForm.addEventListener("submit", (e) => {
+
+      loginForm.addEventListener("submit", async (e) => {
         e.preventDefault();
-        
+
         const email = document.getElementById("login-email").value;
         const password = document.getElementById("login-password").value;
 
-        // Verificar si el usuario está registrado
-        const storedEmail = localStorage.getItem("email");
-        const storedPassword = localStorage.getItem("password");
+        try {
+          // Enviar los datos al script de Google Apps Script
+          const response = await fetch("https://script.google.com/macros/s/AKfycbwU1qGf3bC4cnXxnN2B1S3pZLO1L9aZmP1neq6QQ2PFcR1nPnrrOjcv_NRpCpFKsUHO/exec", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              action: "login",
+              email: email,
+              password: password,
+            }),
+          });
 
-        if (storedEmail === email && storedPassword === password) {
-          // Si las credenciales son correctas, redirigir a presupuesto.html
-          window.location.href = "presupuesto.html";
-        } else {
-          alert("Correo electrónico o contraseña incorrectos.");
+          const result = await response.json();
+
+          if (result.success) {
+            alert(`¡Bienvenido, ${result.name || "Usuario"}!`);
+            window.location.href = "presupuesto.html"; // Redirigir a presupuesto.html
+          } else {
+            alert("Correo electrónico o contraseña incorrectos.");
+          }
+        } catch (error) {
+          console.error("Error en el inicio de sesión:", error);
+          alert("Hubo un problema al iniciar sesión. Intenta de nuevo más tarde.");
         }
       });
     });
