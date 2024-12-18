@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
   ============================ */
   const productList = document.getElementById("product-list");
   const cartTableBody = document.querySelector("#cart-table tbody");
+  const mobileCart = document.getElementById("mobile-cart"); // Nuevo contenedor móvil
   const subtotalSpan = document.getElementById("subtotal");
   const laborCostSpan = document.getElementById("labor-cost");
   const totalSpan = document.getElementById("total");
@@ -60,6 +61,10 @@ document.addEventListener("DOMContentLoaded", () => {
       productList.appendChild(productCard);
     });
 
+    assignAddToCartEvents(); // Asigna eventos
+  };
+
+  const assignAddToCartEvents = () => {
     document.querySelectorAll(".add-to-cart").forEach((button) => {
       button.addEventListener("click", () => addToCart(parseInt(button.dataset.id)));
     });
@@ -71,8 +76,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const updateCartUI = () => {
     const isMobile = window.innerWidth <= 768;
     cartTableBody.innerHTML = "";
-    const cartContainer = document.getElementById("mobile-cart");
-    if (isMobile) cartContainer.innerHTML = ""; // Limpia el contenedor móvil
+    if (isMobile) mobileCart.innerHTML = ""; // Limpia el contenedor móvil
 
     let subtotal = 0;
 
@@ -90,7 +94,7 @@ document.addEventListener("DOMContentLoaded", () => {
           <p>Subtotal: $${itemSubtotal.toFixed(2)}</p>
           <button onclick="removeFromCart(${item.id})">Eliminar</button>
         `;
-        cartContainer.appendChild(itemDiv);
+        mobileCart.appendChild(itemDiv);
       } else {
         const row = `
           <tr>
@@ -117,6 +121,18 @@ document.addEventListener("DOMContentLoaded", () => {
     totalSpan.textContent = total.toFixed(2);
   };
 
+  const addToCart = (productId) => {
+    const product = products.find((item) => item.id === productId);
+    const item = cart.find((item) => item.id === productId);
+
+    if (item) {
+      item.quantity++;
+    } else {
+      cart.push({ ...product, quantity: 1 });
+    }
+    updateCartUI();
+  };
+
   window.updateQuantity = (productId, change) => {
     const item = cart.find((item) => item.id === productId);
     if (item) {
@@ -138,51 +154,6 @@ document.addEventListener("DOMContentLoaded", () => {
     cart = [];
     updateCartUI();
     alert("Carrito vacío.");
-  });
-
-  /* ============================
-     DESCARGAR PDF
-  ============================ */
-  downloadPDFButton.addEventListener("click", () => {
-    const { jsPDF } = window.jspdf;
-    const pdf = new jsPDF();
-    let y = 10;
-
-    pdf.text("Resumen del Carrito", 10, y);
-    y += 10;
-
-    cart.forEach((item) => {
-      pdf.text(`${item.name} x${item.quantity} - $${item.price}`, 10, y);
-      y += 10;
-    });
-
-    pdf.text(`Subtotal: $${subtotalSpan.textContent}`, 10, y += 10);
-    pdf.text(`Mano de Obra: $${laborCostSpan.textContent}`, 10, y += 10);
-    pdf.text(`Total: $${totalSpan.textContent}`, 10, y += 10);
-
-    pdf.save("resumen-carrito.pdf");
-  });
-
-  /* ============================
-     FILTRAR Y BUSCAR PRODUCTOS
-  ============================ */
-  categoryFilter.addEventListener("change", () => renderProducts(categoryFilter.value, searchInput.value));
-  searchButton.addEventListener("click", () => renderProducts(categoryFilter.value, searchInput.value));
-  searchInput.addEventListener("keyup", (e) => {
-    if (e.key === "Enter") renderProducts(categoryFilter.value, searchInput.value);
-  });
-
-  /* ============================
-     MENÚ FLOTANTE
-  ============================ */
-  floatingButton.addEventListener("click", () => {
-    floatingMenu.classList.toggle("active");
-  });
-
-  document.addEventListener("click", (e) => {
-    if (!floatingMenu.contains(e.target) && !floatingButton.contains(e.target)) {
-      floatingMenu.classList.remove("active");
-    }
   });
 
   /* ============================
