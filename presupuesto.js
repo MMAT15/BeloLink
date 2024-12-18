@@ -26,8 +26,8 @@ document.addEventListener("DOMContentLoaded", async () => {
   ============================ */
   const configureAuth0 = async () => {
     auth0 = await createAuth0Client({
-      domain: "YOUR_AUTH0_DOMAIN", // Reemplaza con tu dominio de Auth0
-      clientId: "YOUR_AUTH0_CLIENT_ID", // Reemplaza con tu Client ID
+      domain: "dev-2zwsngd50sx2meco.us.auth0.com", // Reemplaza con tu dominio de Auth0
+      clientId: "Dy2cBcYHam3IFtXzYo3vTkvPEknafOa4", // Reemplaza con tu Client ID
       authorizationParams: {
         redirect_uri: window.location.origin,
       },
