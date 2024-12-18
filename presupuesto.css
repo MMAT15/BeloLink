@@ -811,4 +811,21 @@ footer a:hover {
     box-sizing: border-box;
     overflow: hidden;
   }
+  @media (max-width: 768px) {
+    #cart-table {
+      display: none; /* Oculta la tabla en móviles */
+    }
   
+    .cart-item {
+      display: flex;
+      flex-direction: column;
+      border: 1px solid var(--gray-light);
+      margin-bottom: 10px;
+      padding: 10px;
+      border-radius: var(--border-radius);
+    }
+  
+    .cart-item p {
+      margin: 5px 0;
+    }
+  }
