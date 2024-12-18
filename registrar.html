@@ -42,6 +42,7 @@
     </section>
   </main>
 
+  <!-- Script de Registro -->
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       const registerForm = document.getElementById("register-form");
@@ -60,20 +61,37 @@
       });
 
       // Al enviar el formulario de registro
-      registerForm.addEventListener("submit", (e) => {
+      registerForm.addEventListener("submit", async (e) => {
         e.preventDefault();
 
         const email = document.getElementById("register-email").value;
         const password = document.getElementById("register-password").value;
 
-        // Guardar el correo electrónico y la contraseña en localStorage
-        localStorage.setItem("email", email);
-        localStorage.setItem("password", password);
+        // Enviar los datos al script de Google Apps Script
+        try {
+          const response = await fetch("https://script.google.com/macros/s/AKfycbwU1qGf3bC4cnXxnN2B1S3pZLO1L9aZmP1neq6QQ2PFcR1nPnrrOjcv_NRpCpFKsUHO/exec", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              action: "register",
+              email: email,
+              password: password,
+              name: "Usuario" // Aquí puedes agregar un campo si tienes un input para "Nombre"
+            }),
+          });
 
-        alert("¡Registro exitoso! Ahora puedes iniciar sesión.");
+          const result = await response.json();
 
-        // Redirigir al inicio de sesión
-        window.location.href = "iniciar.html";
+          if (result.success) {
+            alert("¡Registro exitoso! Ahora puedes iniciar sesión.");
+            window.location.href = "iniciar.html";
+          } else {
+            alert(result.message || "Ocurrió un error. Inténtalo de nuevo.");
+          }
+        } catch (error) {
+          console.error("Error en el registro:", error);
+          alert("Ocurrió un error. Verifica tu conexión e intenta de nuevo.");
+        }
       });
     });
   </script>
