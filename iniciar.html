@@ -46,19 +46,23 @@
     let auth0 = null;
   
     const configureAuth0 = async () => {
-      try {
-        auth0 = await createAuth0Client({
-          domain: "dev-2zwsngd50sx2meco.us.auth0.com", // Tu dominio de Auth0
-          clientId: "Dy2cBcYHam3IFtXzYo3vTkvPEknafOa4", // Tu Client ID
-          authorizationParams: {
-            redirect_uri: window.location.origin // URL a redirigir después del login
-          }
-        });
-        console.log("Auth0 configurado correctamente:", auth0);
-      } catch (error) {
-        console.error("Error al configurar Auth0:", error);
-      }
-    };
+  try {
+    if (typeof createAuth0Client === "function") {
+      auth0 = await createAuth0Client({
+        domain: "dev-2zwsngd50sx2meco.us.auth0.com",
+        clientId: "Dy2cBcYHam3IFtXzYo3vTkvPEknafOa4",
+        authorizationParams: {
+          redirect_uri: window.location.origin
+        }
+      });
+      console.log("Auth0 configurado correctamente:", auth0);
+    } else {
+      console.error("createAuth0Client no está definido");
+    }
+  } catch (error) {
+    console.error("Error al configurar Auth0:", error);
+  }
+};
   
     const login = async () => {
       try {
