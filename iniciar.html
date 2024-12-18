@@ -5,13 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Iniciar Sesión | BeloLink</title>
   <link rel="stylesheet" href="presupuesto.css">
-  <script src="auth0-spa-js.production.js" 
-        onload="console.log('Auth0 SDK cargado correctamente')"
-        onerror="console.error('Error al cargar Auth0 SDK')">
-</script>
-<script>
-  console.log("¿Existe createAuth0Client?:", typeof createAuth0Client);
-</script>
+  <script src="https://cdn.auth0.com/js/auth0-spa-js/2.0/auth0-spa-js.production.js" defer></script>
+  <script>
+    console.log("¿Existe createAuth0Client?:", typeof createAuth0Client);
+  </script>
 </head>
 <body>
 
