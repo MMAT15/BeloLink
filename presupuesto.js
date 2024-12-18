@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
   /* ============================
      VARIABLES GLOBALES
   ============================ */
@@ -15,47 +15,40 @@ document.addEventListener("DOMContentLoaded", () => {
   const searchButton = document.getElementById("search-button");
   const floatingButton = document.getElementById("floating-button");
   const floatingMenu = document.getElementById("floating-menu");
+  const logoutButton = document.getElementById("logout-button");
 
   let cart = [];
   let currentUser = null;
+  let auth0 = null;
 
   /* ============================
-     LISTA DE PRODUCTOS
+     CONFIGURAR AUTH0
   ============================ */
-  const products = [
-    { id: 1, name: "Cámara Exterior", price: 200, img: "img/ezviz.jpg", category: "camaras" },
-    { id: 2, name: "Luces Inteligentes", price: 50, img: "img/phillipshue.jpeg", category: "luces" },
-    { id: 3, name: "Sensor de Movimiento", price: 40, img: "img/sensormov.jpeg", category: "sensores" },
-    { id: 4, name: "Switch Inteligente", price: 100, img: "img/switch.jpg", category: "switches" },
-    { id: 5, name: "Cable de Red", price: 20, img: "img/cablered.jpg", category: "cables" },
-    { id: 6, name: "Router Inteligente", price: 150, img: "img/router.webp", category: "routers" },
-    { id: 7, name: "Cámara Inteligente", price: 220, img: "img/eufy.jpg", category: "camaras" },
-    { id: 8, name: "Foco Philips Hue", price: 60, img: "img/phillipshue.jpeg", category: "luces" },
-  ];
+  const configureAuth0 = async () => {
+    auth0 = await createAuth0Client({
+      domain: "YOUR_AUTH0_DOMAIN", // Reemplaza con tu dominio de Auth0
+      clientId: "YOUR_AUTH0_CLIENT_ID", // Reemplaza con tu Client ID
+      authorizationParams: {
+        redirect_uri: window.location.origin,
+      },
+    });
+  };
 
   /* ============================
-     AUTENTICACIÓN DE USUARIO
+     VALIDAR SESIÓN
   ============================ */
-  const authenticateUser = async () => {
-    try {
-      const response = await fetch("https://script.google.com/macros/s/AKfycbwU1qGf3bC4cnXxnN2B1S3pZLO1L9aZmP1neq6QQ2PFcR1nPnrrOjcv_NRpCpFKsUHO/exec", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ action: "validate-session" }),
-      });
+  const checkAuthentication = async () => {
+    const isAuthenticated = await auth0.isAuthenticated();
 
-      const result = await response.json();
-      if (result.success) {
-        currentUser = result.user;
-        alert(`¡Bienvenido de nuevo, ${currentUser.name}!`);
-      } else {
-        alert("No has iniciado sesión. Redirigiéndote a iniciar sesión...");
-        window.location.href = "iniciar.html";
-      }
-    } catch (error) {
-      console.error("Error al autenticar al usuario:", error);
-      alert("Hubo un problema al autenticar. Intenta de nuevo más tarde.");
+    if (!isAuthenticated) {
+      alert("No has iniciado sesión. Redirigiéndote a iniciar sesión...");
+      window.location.href = "iniciar.html";
+      return;
     }
+
+    currentUser = await auth0.getUser();
+    console.log("Usuario autenticado:", currentUser);
+    alert(`¡Bienvenido, ${currentUser.name || "Usuario"}!`);
   };
 
   /* ============================
@@ -190,7 +183,8 @@ document.addEventListener("DOMContentLoaded", () => {
   /* ============================
      INICIALIZACIÓN
   ============================ */
-  authenticateUser();
+  await configureAuth0();
+  await checkAuthentication();
   renderProducts();
   updateCartUI();
 });
