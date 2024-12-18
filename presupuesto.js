@@ -65,8 +65,15 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   const assignAddToCartEvents = () => {
-    document.querySelectorAll(".add-to-cart").forEach((button) => {
-      button.addEventListener("click", () => addToCart(parseInt(button.dataset.id)));
+    // Usa un Event Delegation para garantizar que los botones respondan en cualquier situación
+    productList.addEventListener("click", (event) => {
+      // Verifica que el clic se realizó en un botón con la clase "add-to-cart"
+      if (event.target.classList.contains("add-to-cart")) {
+        const productId = parseInt(event.target.dataset.id);
+        if (!isNaN(productId)) {
+          addToCart(productId);
+        }
+      }
     });
   };
 
