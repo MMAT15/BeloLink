@@ -793,3 +793,22 @@ footer a:hover {
       max-width: 100%; /* Asegura que no se desborde */
     }
   }
+  @media (max-width: 576px) {
+    .floating-button {
+      bottom: 15px;   /* Reduce el margen inferior */
+      right: 5px;     /* Ajusta el margen derecho para que no sobresalga */
+    }
+  
+    .floating-menu {
+      bottom: 60px;   /* Ajusta la posición del menú desplegado */
+      right: 5px;
+      width: calc(100% - 10px); /* Asegura que no sobresalga horizontalmente */
+    }
+  }
+  .floating-menu {
+    position: fixed;
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+  
