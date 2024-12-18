@@ -779,3 +779,17 @@ footer a:hover {
       margin: 10px auto;
     }
   }
+  * {
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+  html, body {
+    overflow-x: hidden;
+  }
+  @media (max-width: 576px) {
+    .container, header, nav, .welcome-section, .info-section, .product-list {
+      padding: 0 10px; /* Reduce el padding para evitar desbordamientos */
+      margin: 0 auto;  /* Centra el contenido */
+      max-width: 100%; /* Asegura que no se desborde */
+    }
+  }
