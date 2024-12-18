@@ -44,8 +44,8 @@
 
     const configureAuth0 = async () => {
       auth0 = await createAuth0Client({
-        domain: "dev-2zwsngd50sx2meco.us.auth0.com",       // Reemplaza con tu dominio de Auth0
-        clientId: "Dy2cBcYHam3IFtXzYo3vTkvPEknafOa4",  // Reemplaza con tu Client ID de Auth0
+        domain: "dev-2zwsngd50sx2meco.us.auth0.com", // Reemplaza con tu dominio de Auth0
+        clientId: "Dy2cBcYHam3IFtXzYo3vTkvPEknafOa4", // Reemplaza con tu Client ID de Auth0
         authorizationParams: {
           redirect_uri: window.location.origin // Redirige a la página principal
         }
@@ -53,18 +53,37 @@
     };
 
     const login = async () => {
-      await auth0.loginWithRedirect();
+      try {
+        const isAuthenticated = await auth0.isAuthenticated();
+        if (isAuthenticated) {
+          const user = await auth0.getUser();
+          console.log("Ya autenticado:", user);
+          alert(`Ya estás autenticado como ${user.name}.`);
+          return;
+        }
+        await auth0.loginWithRedirect();
+      } catch (error) {
+        console.error("Error al iniciar sesión con Auth0:", error);
+        alert("Hubo un problema al iniciar sesión. Intenta nuevamente.");
+      }
     };
 
     const checkAuth = async () => {
-      await auth0.handleRedirectCallback(); // Maneja la redirección después del login
-      const isAuthenticated = await auth0.isAuthenticated();
+      try {
+        if (window.location.search.includes("code=") && window.location.search.includes("state=")) {
+          await auth0.handleRedirectCallback(); // Maneja la redirección después del login
+        }
 
-      if (isAuthenticated) {
-        const user = await auth0.getUser();
-        console.log("Usuario autenticado:", user);
-        alert(`¡Bienvenido, ${user.name}!`);
-        window.location.href = "presupuesto.html"; // Redirige a presupuesto.html
+        const isAuthenticated = await auth0.isAuthenticated();
+        if (isAuthenticated) {
+          const user = await auth0.getUser();
+          console.log("Usuario autenticado:", user);
+          alert(`¡Bienvenido, ${user.name || "Usuario"}!`);
+          window.location.href = "presupuesto.html"; // Redirige a presupuesto.html
+        }
+      } catch (error) {
+        console.error("Error al manejar la autenticación:", error);
+        alert("Error en la autenticación. Por favor, intenta nuevamente.");
       }
     };
 
