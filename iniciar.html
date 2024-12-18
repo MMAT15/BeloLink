@@ -5,8 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Iniciar Sesión | BeloLink</title>
   <link rel="stylesheet" href="presupuesto.css">
+  
+  <!-- Cargar el SDK de Auth0 -->
   <script src="https://cdn.auth0.com/js/auth0-spa-js/2.0/auth0-spa-js.production.js" defer></script>
+  
   <script>
+    // Confirmar si el SDK de Auth0 se carga correctamente
     console.log("¿Existe createAuth0Client?:", typeof createAuth0Client);
   </script>
 </head>
@@ -15,7 +19,7 @@
   <!-- Header -->
   <header>
     <div class="logo-container">
-        <a href="index.html">
+      <a href="index.html">
         <img src="principal.PNG" alt="BeloLink Logo" class="logo">
       </a>
       <h1><span class="highlight-belo">Belo</span><span class="highlight-link">Link</span></h1>
@@ -28,8 +32,7 @@
       <div class="form-container">
         <h2>Iniciar Sesión</h2>
         <button id="login-button">Iniciar Sesión con Auth0</button>
-        <div class="form-footer">
-        </div>
+        <div class="form-footer"></div>
       </div>
     </section>
 
@@ -42,52 +45,101 @@
   </main>
 
   <!-- Script de Auth0 -->
-<script>
+  <script>
     let auth0 = null;
-  
-    const configureAuth0 = async () => {
-  try {
-    if (typeof createAuth0Client === "function") {
-      auth0 = await createAuth0Client({
-        domain: "dev-2zwsngd50sx2meco.us.auth0.com",
-        clientId: "Dy2cBcYHam3IFtXzYo3vTkvPEknafOa4",
-        authorizationParams: {
-          redirect_uri: window.location.origin
-        }
+
+    /**
+     * Esperar a que el SDK esté disponible
+     */
+    const waitForAuth0 = () => {
+      return new Promise((resolve, reject) => {
+        const checkAuth0 = () => {
+          if (typeof createAuth0Client === "function") {
+            resolve(true);
+          } else {
+            console.warn("Esperando a Auth0 SDK...");
+            setTimeout(checkAuth0, 100);
+          }
+        };
+        checkAuth0();
       });
-      console.log("Auth0 configurado correctamente:", auth0);
-    } else {
-      console.error("createAuth0Client no está definido");
-    }
-  } catch (error) {
-    console.error("Error al configurar Auth0:", error);
-  }
-};
-  
+    };
+
+    /**
+     * Configuración de Auth0
+     */
+    const configureAuth0 = async () => {
+      try {
+        await waitForAuth0();
+        auth0 = await createAuth0Client({
+          domain: "dev-2zwsngd50sx2meco.us.auth0.com", // Reemplaza con tu dominio de Auth0
+          clientId: "Dy2cBcYHam3IFtXzYo3vTkvPEknafOa4", // Reemplaza con tu Client ID
+          authorizationParams: {
+            redirect_uri: window.location.origin
+          }
+        });
+        console.log("Auth0 configurado correctamente:", auth0);
+      } catch (error) {
+        console.error("Error al configurar Auth0:", error);
+      }
+    };
+
+    /**
+     * Iniciar sesión con Auth0
+     */
     const login = async () => {
       try {
         console.log("Iniciando sesión...");
+        if (!auth0) {
+          console.error("Auth0 no está configurado. Verifica el dominio y Client ID.");
+          return;
+        }
         await auth0.loginWithRedirect();
       } catch (error) {
         console.error("Error al iniciar sesión con Auth0:", error);
       }
     };
-  
+
+    /**
+     * Manejar la autenticación después del redireccionamiento
+     */
+    const checkAuth = async () => {
+      try {
+        if (window.location.search.includes("code=") && window.location.search.includes("state=")) {
+          await auth0.handleRedirectCallback();
+        }
+
+        const isAuthenticated = await auth0.isAuthenticated();
+        if (isAuthenticated) {
+          const user = await auth0.getUser();
+          console.log("Usuario autenticado:", user);
+          alert(`¡Bienvenido, ${user.name || "Usuario"}!`);
+          window.location.href = "presupuesto.html"; // Redirige a presupuesto.html
+        }
+      } catch (error) {
+        console.error("Error al verificar autenticación:", error);
+      }
+    };
+
+    /**
+     * Evento principal
+     */
     document.addEventListener("DOMContentLoaded", async () => {
+      console.log("Inicializando Auth0...");
       await configureAuth0();
-  
+
+      // Verificar autenticación existente
+      await checkAuth();
+
+      // Asignar evento al botón
       const loginButton = document.getElementById("login-button");
       if (loginButton) {
         console.log("Botón encontrado:", loginButton);
-        loginButton.addEventListener("click", () => {
-          console.log("Botón clickeado");
-          login();
-        });
+        loginButton.addEventListener("click", login);
       } else {
         console.error("Botón no encontrado en el DOM");
       }
     });
   </script>
-
 </body>
 </html>
