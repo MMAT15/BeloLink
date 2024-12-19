@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="presupuesto.css">
   
   <!-- Cargar el SDK de Auth0 con la URL correcta -->
-  <script src="https://cdn.auth0.com/js/auth0-spa-js/2.1.3/auth0-spa-js.production.js" defer></script>
+  <script src="https://cdn.auth0.com/js/auth0-spa-js/2.0/auth0-spa-js.production.js" defer></script>
 </head>
 <body>
 
@@ -75,7 +75,7 @@
         await waitForAuth0();
         auth0 = await createAuth0Client({
           domain: "dev-2zwsngd50sx2meco.us.auth0.com", // Reemplaza con tu dominio de Auth0
-          client_id: "Dy2cBcYHam3IFtXzYo3vTkvPEknafOa4", // Reemplaza con tu Client ID
+          clientId: "Dy2cBcYHam3IFtXzYo3vTkvPEknafOa4", // Reemplaza con tu Client ID
           authorizationParams: {
             redirect_uri: window.location.origin + "/iniciar.html"
           }
