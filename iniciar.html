@@ -2,17 +2,12 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Iniciar Sesión | BeloLink</title>
   <link rel="stylesheet" href="presupuesto.css">
   
   <!-- Cargar el SDK de Auth0 -->
-  <script src="https://cdn.auth0.com/js/auth0-spa-js/2.0/auth0-spa-js.production.js" defer></script>
-  
-  <script>
-    // Confirmar si el SDK de Auth0 se carga correctamente
-    console.log("¿Existe createAuth0Client?:", typeof createAuth0Client);
-  </script>
+  <script src="https://cdn.auth0.com/js/auth0-spa-js/1.33/auth0-spa-js.production.js" defer></script>
 </head>
 <body>
 
@@ -45,7 +40,7 @@
   </main>
 
   <!-- Script de Auth0 -->
-  <script>
+  <script defer>
     let auth0 = null;
 
     /**
@@ -73,9 +68,9 @@
         await waitForAuth0();
         auth0 = await createAuth0Client({
           domain: "dev-2zwsngd50sx2meco.us.auth0.com", // Reemplaza con tu dominio de Auth0
-          clientId: "Dy2cBcYHam3IFtXzYo3vTkvPEknafOa4", // Reemplaza con tu Client ID
+          client_id: "Dy2cBcYHam3IFtXzYo3vTkvPEknafOa4", // Reemplaza con tu Client ID
           authorizationParams: {
-            redirect_uri: window.location.origin
+            redirect_uri: window.location.origin + "/iniciar.html"
           }
         });
         console.log("Auth0 configurado correctamente:", auth0);
@@ -103,12 +98,23 @@
     /**
      * Manejar la autenticación después del redireccionamiento
      */
-    const checkAuth = async () => {
+    const handleRedirectCallback = async () => {
       try {
-        if (window.location.search.includes("code=") && window.location.search.includes("state=")) {
+        const query = window.location.search;
+        if (query.includes("code=") && query.includes("state=")) {
           await auth0.handleRedirectCallback();
+          window.history.replaceState({}, document.title, "/iniciar.html");
         }
+      } catch (error) {
+        console.error("Error al manejar el callback de Auth0:", error);
+      }
+    };
 
+    /**
+     * Verificar si el usuario está autenticado
+     */
+    const checkAuthentication = async () => {
+      try {
         const isAuthenticated = await auth0.isAuthenticated();
         if (isAuthenticated) {
           const user = await auth0.getUser();
@@ -128,8 +134,11 @@
       console.log("Inicializando Auth0...");
       await configureAuth0();
 
-      // Verificar autenticación existente
-      await checkAuth();
+      // Manejar el callback de Auth0 si existe
+      await handleRedirectCallback();
+
+      // Verificar si el usuario ya está autenticado
+      await checkAuthentication();
 
       // Asignar evento al botón
       const loginButton = document.getElementById("login-button");
