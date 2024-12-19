@@ -111,7 +111,7 @@
         const query = window.location.search;
         if (query.includes("code=") && query.includes("state=")) {
           await auth0.handleRedirectCallback();
-          window.history.replaceState({}, document.title, "/iniciar.html");
+          window.history.replaceState({}, document.title, "https://mmat15.github.io/BeloLink/iniciar.html");
         }
       } catch (error) {
         console.error("Error al manejar el callback de Auth0:", error);
@@ -128,7 +128,7 @@
           const user = await auth0.getUser();
           console.log("Usuario autenticado:", user);
           alert(`¡Bienvenido, ${user.name || "Usuario"}!`);
-          window.location.href = "presupuesto.html"; // Redirige a presupuesto.html
+          window.location.href = "https://mmat15.github.io/BeloLink/presupuesto.html";
         }
       } catch (error) {
         console.error("Error al verificar autenticación:", error);
