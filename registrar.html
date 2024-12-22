@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Registrar | BeloLink</title>
-  <link rel="stylesheet" href="styles.css">
+  <title>Registrar Usuario | BeloLink</title>
+  <link rel="stylesheet" href="presupuesto.css">
 </head>
 <body>
   <!-- Header -->
@@ -13,16 +13,24 @@
       <a href="index.html">
         <img src="logo.png" alt="BeloLink Logo" class="logo">
       </a>
-      <h1 id="header-title">
-        <span class="highlight-belo">Belo</span><span class="highlight-link">Link</span>
-      </h1>
+      <h1><span class="highlight-belo">Belo</span><span class="highlight-link">Link</span></h1>
     </div>
-    <nav>
+    <div class="header-right">
+      <div class="menu-toggle" id="menu-toggle">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+      <a href="iniciar.html" class="login-link">
+        <i class="fas fa-sign-in-alt"></i> Iniciar Sesión
+      </a>
+    </div>
+    <nav id="nav">
       <ul>
         <li><a href="index.html">Inicio</a></li>
         <li><a href="productos.html">Productos</a></li>
-        <li><a href="casos.html">Casos de éxito</a></li>
-        <li><a href="info.html">Más info</a></li>
+        <li><a href="casos.html">Casos de Éxito</a></li>
+        <li><a href="info.html">Más Info</a></li>
       </ul>
     </nav>
   </header>
@@ -31,16 +39,17 @@
   <main>
     <section class="auth-section">
       <div class="form-container">
-        <h2>Registrar</h2>
-        <p class="form-description">Crea tu cuenta para empezar a gestionar tus presupuestos.</p>
+        <h2>Registro de Usuario</h2>
         <form id="register-form">
-          <input type="text" id="new-username" placeholder="Usuario" required>
+          <input type="text" id="username" placeholder="Nombre de Usuario" required>
           <input type="email" id="email" placeholder="Correo Electrónico" required>
-          <input type="password" id="new-password" placeholder="Contraseña" required>
-          <input type="password" id="confirm-password" placeholder="Confirmar Contraseña" required>
+          <input type="password" id="password" placeholder="Contraseña" required>
           <button type="submit">Registrarse</button>
         </form>
-        <div id="register-error-msg" class="error-message"></div>
+        <div id="error-msg" class="error-message"></div>
+        <p class="form-footer">
+          Al registrarte, aceptas nuestra <a href="privacidad.html">política de privacidad</a>.
+        </p>
         <p class="form-footer">¿Ya tienes cuenta? <a href="iniciar.html">Inicia sesión aquí</a>.</p>
       </div>
     </section>
@@ -50,38 +59,52 @@
   <footer>
     <p>&copy; 2024 BeloLink. Todos los derechos reservados.</p>
     <div class="redes-sociales">
-      <a href="https://www.instagram.com/belolinkdomotica" target="_blank">
-        <img src="img/instagram-png.png" alt="Instagram">
-      </a>
-      <a href="https://github.com/MMAT15" target="_blank">
-        <img src="img/github-mark.png" alt="GitHub">
-      </a>
+      <a href="#"><img src="instagram-icon.png" alt="Instagram"></a>
+      <a href="#"><img src="github-icon.png" alt="GitHub"></a>
     </div>
-    <button onclick="scrollToTop()" class="back-to-top">Volver arriba</button>
+    <img src="footer-gif.gif" alt="Dancing Duck" class="footer-gif">
+    <button class="back-to-top" onclick="scrollToTop()">Volver arriba</button>
   </footer>
 
+  <!-- Scripts -->
   <script>
-    document.getElementById("register-form").addEventListener("submit", (event) => {
-      event.preventDefault();
-      const username = document.getElementById("new-username").value.trim();
-      const email = document.getElementById("email").value.trim();
-      const password = document.getElementById("new-password").value;
-      const confirmPassword = document.getElementById("confirm-password").value;
-      const errorMsg = document.getElementById("register-error-msg");
+    document.addEventListener("DOMContentLoaded", () => {
+      const registerForm = document.getElementById("register-form");
+      const errorMsg = document.getElementById("error-msg");
 
-      if (!username || !email || !password || !confirmPassword) {
-        errorMsg.textContent = "Por favor, completa todos los campos.";
-        return;
-      }
+      registerForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
 
-      if (password !== confirmPassword) {
-        errorMsg.textContent = "Las contraseñas no coinciden.";
-        return;
-      }
+        const username = document.getElementById("username").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const password = document.getElementById("password").value.trim();
 
-      alert("Registro exitoso. Redirigiendo a la página de inicio de sesión...");
-      window.location.href = "iniciar.html";
+        try {
+          const response = await fetch("http://localhost:3000/register", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ username, email, password }),
+          });
+
+          const data = await response.json();
+
+          if (response.ok) {
+            alert("Registro exitoso. Redirigiéndote a la página de inicio de sesión...");
+            window.location.href = "iniciar.html";
+          } else {
+            errorMsg.textContent = data.message || "Error al registrar.";
+          }
+        } catch (error) {
+          errorMsg.textContent = "Error al conectar con el servidor.";
+        }
+      });
     });
+
+    // Botón de volver arriba
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
   </script>
+  <script src="registrar.js"></script>
 </body>
 </html>
