@@ -5,7 +5,7 @@ const fs = require('fs');
 const { v4: uuidv4 } = require('uuid');
 
 const app = express();
-const PORT = 3000;
+const PORT = 4000;
 
 app.use(bodyParser.json());
 app.use(cookieParser());
