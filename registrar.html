@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registrar | BeloLink</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="logo-container">
+      <a href="index.html">
+        <img src="logo.png" alt="BeloLink Logo" class="logo">
+      </a>
+      <h1 id="header-title">
+        <span class="highlight-belo">Belo</span><span class="highlight-link">Link</span>
+      </h1>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="productos.html">Productos</a></li>
+        <li><a href="casos.html">Casos de éxito</a></li>
+        <li><a href="info.html">Más info</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+    <section class="auth-section">
+      <div class="form-container">
+        <h2>Registrar</h2>
+        <p class="form-description">Crea tu cuenta para empezar a gestionar tus presupuestos.</p>
+        <form id="register-form">
+          <input type="text" id="new-username" placeholder="Usuario" required>
+          <input type="email" id="email" placeholder="Correo Electrónico" required>
+          <input type="password" id="new-password" placeholder="Contraseña" required>
+          <input type="password" id="confirm-password" placeholder="Confirmar Contraseña" required>
+          <button type="submit">Registrarse</button>
+        </form>
+        <div id="register-error-msg" class="error-message"></div>
+        <p class="form-footer">¿Ya tienes cuenta? <a href="iniciar.html">Inicia sesión aquí</a>.</p>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2024 BeloLink. Todos los derechos reservados.</p>
+    <div class="redes-sociales">
+      <a href="https://www.instagram.com/belolinkdomotica" target="_blank">
+        <img src="img/instagram-png.png" alt="Instagram">
+      </a>
+      <a href="https://github.com/MMAT15" target="_blank">
+        <img src="img/github-mark.png" alt="GitHub">
+      </a>
+    </div>
+    <button onclick="scrollToTop()" class="back-to-top">Volver arriba</button>
+  </footer>
+
+  <script>
+    document.getElementById("register-form").addEventListener("submit", (event) => {
+      event.preventDefault();
+      const username = document.getElementById("new-username").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("new-password").value;
+      const confirmPassword = document.getElementById("confirm-password").value;
+      const errorMsg = document.getElementById("register-error-msg");
+
+      if (!username || !email || !password || !confirmPassword) {
+        errorMsg.textContent = "Por favor, completa todos los campos.";
+        return;
+      }
+
+      if (password !== confirmPassword) {
+        errorMsg.textContent = "Las contraseñas no coinciden.";
+        return;
+      }
+
+      alert("Registro exitoso. Redirigiendo a la página de inicio de sesión...");
+      window.location.href = "iniciar.html";
+    });
+  </script>
+</body>
+</html>

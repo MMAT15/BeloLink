@@ -2,55 +2,72 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Iniciar Sesión | BeloLink</title>
-  <link rel="stylesheet" href="presupuesto.css">
+  <link rel="stylesheet" href="styles.css">
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const loginForm = document.getElementById("login-form");
+      const errorMsg = document.getElementById("error-msg");
+
+      // Verificar si ya hay un token guardado
+      const checkActiveSession = () => {
+        const token = localStorage.getItem("authToken");
+        if (token) {
+          alert("Sesión activa. Redirigiéndote a la página de presupuesto.");
+          window.location.href = "presupuesto.html";
+        }
+      };
+
+      checkActiveSession();
+
+      loginForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const username = document.getElementById("username").value.trim();
+        const password = document.getElementById("password").value.trim();
+
+        try {
+          // Enviar datos al servidor para verificar credenciales
+          const response = await fetch("http://localhost:3000/login", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ username, password }),
+          });
+
+          const data = await response.json();
+
+          if (response.ok) {
+            // Guardar token en localStorage
+            localStorage.setItem("authToken", data.token);
+
+            alert("Inicio de sesión exitoso. Redirigiendo a la página de presupuesto...");
+            window.location.href = "presupuesto.html";
+          } else {
+            errorMsg.textContent = data.message || "Error al iniciar sesión.";
+          }
+        } catch (error) {
+          errorMsg.textContent = "Error de conexión con el servidor.";
+        }
+      });
+    });
+  </script>
 </head>
 <body>
-
-  <!-- Header -->
-  <header>
-    <div class="logo-container">
-      <a href="index.html">
-        <img src="logo.png" alt="BeloLink Logo" class="logo">
-      </a>
-      <h1>Belo<span class="highlight-link">Link</span></h1>
-    </div>
-    <nav>
-      <ul>
-        <li><a href="index.html">Inicio</a></li>
-        <li><a href="#about">Acerca</a></li>
-        <li><a href="#contact">Contacto</a></li>
-      </ul>
-    </nav>
-  </header>
-
-  <!-- Main Content -->
   <main>
     <section class="auth-section">
       <div class="form-container">
         <h2>Iniciar Sesión</h2>
-        <p class="form-description">Accede a tu cuenta para gestionar tus presupuestos.</p>
         <form id="login-form">
           <input type="text" id="username" placeholder="Usuario" required>
           <input type="password" id="password" placeholder="Contraseña" required>
           <button type="submit">Iniciar Sesión</button>
         </form>
         <div id="error-msg" class="error-message"></div>
-        <p class="form-footer">¿No tienes cuenta? <a href="register.html">Regístrate aquí</a>.</p>
       </div>
     </section>
   </main>
-
-  <!-- Footer -->
-  <footer>
-    <p>&copy; 2024 BeloLink. Todos los derechos reservados.</p>
-    <div class="social-links">
-      <a href="#"><img src="facebook-icon.png" alt="Facebook"></a>
-      <a href="#"><img src="twitter-icon.png" alt="Twitter"></a>
-      <a href="#"><img src="instagram-icon.png" alt="Instagram"></a>
-    </div>
-  </footer>
-
 </body>
 </html>
