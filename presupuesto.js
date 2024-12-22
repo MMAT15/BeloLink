@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", async () => {
+document.addEventListener("DOMContentLoaded", () => {
   /* ============================
      VARIABLES GLOBALES
   ============================ */
@@ -9,46 +9,31 @@ document.addEventListener("DOMContentLoaded", async () => {
   const laborCostSpan = document.getElementById("labor-cost");
   const totalSpan = document.getElementById("total");
   const clearCartButton = document.getElementById("clear-cart");
-  const downloadPDFButton = document.getElementById("download-pdf");
   const categoryFilter = document.getElementById("category-filter");
   const searchInput = document.getElementById("search-input");
   const searchButton = document.getElementById("search-button");
-  const floatingButton = document.getElementById("floating-button");
-  const floatingMenu = document.getElementById("floating-menu");
-  const logoutButton = document.getElementById("logout-button");
 
   let cart = [];
   let currentUser = null;
-  let auth0 = null;
 
   /* ============================
-     CONFIGURAR AUTH0
+     VALIDAR SESIÓN LOCAL
   ============================ */
-  const configureAuth0 = async () => {
-    auth0 = await createAuth0Client({
-      domain: "dev-2zwsngd50sx2meco.us.auth0.com", // Reemplaza con tu dominio de Auth0
-      clientId: "Dy2cBcYHam3IFtXzYo3vTkvPEknafOa4", // Reemplaza con tu Client ID
-      authorizationParams: {
-        redirect_uri: window.location.origin,
-      },
-    });
+  const validCredentials = {
+    username: "admin",
+    password: "1234"
   };
 
-  /* ============================
-     VALIDAR SESIÓN
-  ============================ */
-  const checkAuthentication = async () => {
-    const isAuthenticated = await auth0.isAuthenticated();
-
-    if (!isAuthenticated) {
+  const checkAuthentication = () => {
+    const username = sessionStorage.getItem("username");
+    if (!username) {
       alert("No has iniciado sesión. Redirigiéndote a iniciar sesión...");
       window.location.href = "iniciar.html";
-      return;
+      return false;
     }
-
-    currentUser = await auth0.getUser();
-    console.log("Usuario autenticado:", currentUser);
-    alert(`¡Bienvenido, ${currentUser.name || "Usuario"}!`);
+    currentUser = username;
+    alert(`¡Bienvenido, ${currentUser}!`);
+    return true;
   };
 
   /* ============================
@@ -183,8 +168,8 @@ document.addEventListener("DOMContentLoaded", async () => {
   /* ============================
      INICIALIZACIÓN
   ============================ */
-  await configureAuth0();
-  await checkAuthentication();
-  renderProducts();
-  updateCartUI();
+  if (checkAuthentication()) {
+    renderProducts();
+    updateCartUI();
+  }
 });
