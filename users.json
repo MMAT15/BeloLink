@@ -10,5 +10,11 @@
     "username": "nuevoUsuario",
     "email": "nuevo@example.com",
     "password": "nuevaPassword"
+  },
+  {
+    "id": "a53dc320-35bc-4a4c-99d8-be73b1b1cc82",
+    "username": "nuevo_usuario",
+    "email": "nuevo_usuario@example.com",
+    "password": "password123"
   }
 ]
