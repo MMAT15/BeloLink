@@ -16,5 +16,11 @@
     "username": "nuevo_usuario",
     "email": "nuevo_usuario@example.com",
     "password": "password123"
+  },
+  {
+    "id": "0fe179f4-b0ac-433f-b9fb-eddb5ecc5370",
+    "username": "mateo",
+    "email": "lazyduckgo@duck.com",
+    "password": "marcos"
   }
 ]
