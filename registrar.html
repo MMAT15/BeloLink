@@ -11,7 +11,7 @@
   <header>
     <div class="logo-container">
       <a href="index.html">
-        <img src="logo.png" alt="BeloLink Logo" class="logo">
+        <img src="principal.PNG" alt="BeloLink Logo" class="logo">
       </a>
       <h1><span class="highlight-belo">Belo</span><span class="highlight-link">Link</span></h1>
     </div>
@@ -80,7 +80,7 @@
         const password = document.getElementById("password").value.trim();
 
         try {
-          const response = await fetch("http://localhost:3000/register", {
+          const response = await fetch("http://localhost:4000/register", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ username, email, password }),
