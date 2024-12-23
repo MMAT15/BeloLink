@@ -1,6 +1,7 @@
-import { readUsers, saveUsers } from './utils.js ';
+const { readUsers, saveUsers } = require('./utils');
+const { v4: uuidv4 } = require('uuid');
 
-export default async (req, res) => {
+module.exports = (req, res) => {
   if (req.method === 'POST') {
     const { username, email, password } = req.body;
 
@@ -14,7 +15,7 @@ export default async (req, res) => {
       return res.status(409).json({ message: 'El correo ya está registrado.' });
     }
 
-    const newUser = { username, email, password };
+    const newUser = { id: uuidv4(), username, email, password };
     users.push(newUser);
     saveUsers(users);
 
