@@ -1,10 +1,10 @@
-import { readUsers } from './utils.js ';
+const { readUsers } = require('./utils');
 
-export default async (req, res) => {
+module.exports = (req, res) => {
   if (req.method === 'POST') {
     const { email, password } = req.body;
-    const users = readUsers();
 
+    const users = readUsers();
     const user = users.find((user) => user.email === email && user.password === password);
 
     if (!user) {

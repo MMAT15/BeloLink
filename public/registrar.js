@@ -10,12 +10,11 @@ document.addEventListener("DOMContentLoaded", () => {
       const password = document.getElementById("password").value.trim();
   
       try {
-        const response = await fetch("/register", {
+        const response = await fetch("https://belo-link-527tvaci3-mateos-projects-ef5d7e66.vercel.app/api/register", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ username, email, password }),
         });
-  
         const data = await response.json();
   
         if (response.ok) {
