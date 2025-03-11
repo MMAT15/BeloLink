@@ -1,4 +1,4 @@
-import { readUsers } from './utils.js ';
+import { readUsers } from './utils.js';
 
 export default async (req, res) => {
   if (req.method === 'POST') {
