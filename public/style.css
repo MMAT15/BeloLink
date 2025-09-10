@@ -50,6 +50,14 @@
   --hover-bg-color: #f0f8ff;
 }
 
+/* Modo oscuro (sobrescribe variables en body.dark) */
+body.dark {
+  --background-color: var(--background-dark);
+  --text-color: var(--text-dark);
+  --primary-color: var(--primary-dark);
+  --secondary-color: var(--secondary-dark);
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -63,6 +71,10 @@ body {
   line-height: 1.6;
   width: 100%;
 }
+
+body.no-scroll {
+  overflow: hidden;
+}
 /* =========================================================
    ESTILOS DE HEADER
 ========================================================= */
@@ -74,7 +86,9 @@ header {
   justify-content: space-between;
   align-items: center;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  position: relative;
+  position: sticky;
+  top: 0;
+  backdrop-filter: saturate(160%) blur(4px);
   z-index: 2;
   width: 100%;
 }
@@ -106,6 +120,23 @@ header h1 {
   font-weight: 600;
   transition: opacity 0.3s ease;
 }
+
+/* Botón de tema */
+#theme-toggle {
+  margin-left: 10px;
+  border: none;
+  background: rgba(255,255,255,0.15);
+  color: #fff;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+#theme-toggle:hover { transform: scale(1.05); background: rgba(255,255,255,0.25); }
 
 /* =========================================================
    MENÚ HAMBURGUESA
@@ -211,6 +242,9 @@ nav ul li a:focus-visible {
   outline-offset: 4px;
 }
 
+/* Accesibilidad global */
+button:focus-visible, a:focus-visible { outline: 2px solid var(--secondary-color); outline-offset: 3px; border-radius: 6px; }
+
 nav ul li a {
   display: block;
   padding: 15px 0;
@@ -218,7 +252,8 @@ nav ul li a {
   text-decoration: none;
   font-weight: 600;
   border-bottom: 1px solid rgba(0, 51, 102, 0.3);
-  transition: background-color 0.3s ease, transform 0.3s ease, letter-spacing 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.3s ease, letter-spacing 0.3s ease, color 0.3s ease;
+  position: relative;
 }
 
 nav ul li a:hover {
@@ -226,6 +261,24 @@ nav ul li a:hover {
   transform: scale(1.05);
   letter-spacing: 1px;
 }
+
+nav ul li a.active {
+  background-color: rgba(255,255,255,0.12);
+  color: #fff;
+}
+
+/* Subrayado animado */
+nav ul li a::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: 6px;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--secondary-color), #0096c6);
+  transition: width .25s ease, left .25s ease;
+}
+nav ul li a:hover::after, nav ul li a.active::after { width: 40%; left: 30%; }
 /* =========================================================
    MAIN CONTENT
 ========================================================= */
@@ -239,12 +292,15 @@ main.content {
 main.content section {
   margin-bottom: 120px;
   padding: 30px;
-  background-color: #f8f8f3;
+  background-color: rgba(248, 248, 243, 0.9);
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   max-width: 1000px;
   margin: 0 auto; /* Centra cada sección */
 }
+
+/* Ajustes en modo oscuro para secciones */
+body.dark main.content section { background-color: rgba(30, 30, 30, 0.6); }
 
 main.content h2,
 main.content h3 {
@@ -275,6 +331,53 @@ main.content img:hover {
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
   filter: brightness(1.05);
   border: 1px solid rgba(22, 43, 111, 0.3);
+}
+
+/* Animaciones de aparición */
+.reveal { opacity: 0; transform: translateY(12px); transition: opacity .6s ease, transform .6s ease; }
+.reveal--visible { opacity: 1; transform: none; }
+
+/* Hero/Intro estilizado */
+main#inicio .intro {
+  background: linear-gradient(135deg, rgba(22,43,111,0.08), rgba(172,233,255,0.08));
+  border: 1px solid rgba(22,43,111,0.15);
+  position: relative;
+  overflow: hidden;
+}
+.intro::before {
+  content: '';
+  position: absolute;
+  inset: -40%;
+  background: radial-gradient( circle at 20% 30%, rgba(172,233,255,0.25), transparent 35%),
+              radial-gradient( circle at 80% 20%, rgba(22,43,111,0.20), transparent 35%),
+              radial-gradient( circle at 50% 80%, rgba(0,150,198,0.18), transparent 30%);
+  filter: blur(30px);
+  animation: floatBg 12s ease-in-out infinite alternate;
+}
+@keyframes floatBg {
+  from { transform: translateY(0) scale(1); }
+  to { transform: translateY(-10px) scale(1.05); }
+}
+.cta-group { display: flex; gap: 12px; justify-content: center; margin: 16px 0 8px; }
+.btn {
+  background: var(--secondary-color);
+  color: #0a2a4a;
+  padding: 10px 18px;
+  border-radius: 999px;
+  font-weight: 700;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+  transition: transform .2s ease, box-shadow .2s ease, background .2s ease, color .2s ease;
+}
+.btn:hover { transform: translateY(-1px); box-shadow: 0 6px 14px rgba(0,0,0,0.18); }
+.btn.btn-secondary { background: transparent; color: var(--primary-color); border: 2px solid var(--secondary-color); }
+body.dark .btn.btn-secondary { color: var(--white); border-color: var(--secondary-color); }
+
+/* Grids para secciones de inicio */
+.beneficios-content, .contacto-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+  align-items: stretch;
 }
 
 /* =========================================================
@@ -388,12 +491,29 @@ footer p {
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s, transform 0.3s;
+  transition: background-color 0.3s, transform 0.3s, opacity .3s ease;
+  opacity: 0;
+  pointer-events: none;
 }
 
 .back-to-top:hover {
   background-color: var(--hover-bg-color);
   transform: scale(1.1);
+}
+
+/* Barra de progreso de scroll */
+#scroll-progress-container {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  z-index: 9999;
+  background: transparent;
+}
+#scroll-progress-bar {
+  height: 100%;
+  width: 0;
+  background: linear-gradient(90deg, #7fcfe7, #0096c6);
+  transition: width .15s ease-out;
 }
 /* =========================================================
    FORMULARIO
@@ -488,6 +608,30 @@ a:hover {
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
+
+/* Productos: grillas limpias sin tocar textos */
+section.productos ul {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  align-items: start;
+}
+section.productos ul li {
+  background: rgba(255,255,255,0.6);
+  border: 1px solid rgba(22,43,111,0.12);
+  border-radius: 10px;
+  padding: 10px 12px;
+}
+body.dark section.productos ul li { background: rgba(255,255,255,0.06); }
+section.productos ul .producto-imagen { width: 100%; border-radius: 12px; }
+section.productos .producto, section.productos .paquete {
+  background: linear-gradient(180deg, rgba(172,233,255,0.08), rgba(22,43,111,0.06));
+  border: 1px solid rgba(22,43,111,0.15);
+  border-radius: 16px;
+  padding: 18px;
+  margin: 16px 0;
+}
+section.productos h3 { text-align: center; margin-bottom: 12px; }
 
 .imagen-comentario {
  font-size: 14px;
@@ -755,4 +899,39 @@ li {
   display: flex;
   align-items: center;
   gap: 20px; /* Añadido espacio entre el menú y el enlace */
+}
+
+/* Toast notificaciones */
+#toast {
+  position: fixed;
+  bottom: 90px;
+  right: 20px;
+  background: rgba(0,0,0,0.75);
+  color: #fff;
+  padding: 10px 14px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity .25s ease, transform .25s ease;
+  z-index: 10000;
+}
+#toast.show { opacity: 1; transform: translateY(0); }
+
+/* Header shrink */
+header.shrink { padding: 12px 20px; }
+header.shrink .logo { width: 42px; height: 42px; }
+
+/* Scrollbar fino (WebKit) */
+*::-webkit-scrollbar { height: 10px; width: 10px; }
+*::-webkit-scrollbar-thumb { background: linear-gradient(180deg, #7fcfe7, #0096c6); border-radius: 8px; }
+*::-webkit-scrollbar-track { background: rgba(0,0,0,0.05); }
+
+/* Desktop navbar */
+@media (min-width: 992px) {
+  nav { display: block; position: static; background: transparent; box-shadow: none; border-radius: 0; }
+  nav ul { flex-direction: row; justify-content: flex-end; gap: 8px; animation: none; opacity: 1; transform: none; }
+  nav ul li { width: auto; padding: 0; }
+  nav ul li a { border-bottom: none; padding: 10px 14px; border-radius: 8px; }
+  .menu-toggle { display: none; }
 }

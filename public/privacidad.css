@@ -16,6 +16,14 @@
   --focus-border: rgba(172, 233, 255, 0.5);
 }
 
+/* Modo oscuro */
+body.dark {
+  --background-color: #121212;
+  --text-color: #e0e0e0;
+  --primary-color: #1f4b8e;
+  --secondary-color: #4e9cca;
+}
+
 /* Reset básico y estilos globales */
 * {
   box-sizing: border-box;
@@ -46,6 +54,8 @@ header {
   text-align: center;
   box-shadow: 0 4px 8px var(--shadow-color);
 }
+
+header { position: sticky; top: 0; z-index: 5; backdrop-filter: saturate(160%) blur(4px); }
 
 header h1 {
   margin: 0;
@@ -86,6 +96,10 @@ button:hover, a:hover {
   background-color: var(--secondary-color);
   color: var(--white);
 }
+
+/* Botón de tema */
+#theme-toggle { margin-left: 10px; border: none; background: rgba(255,255,255,0.15); color: #fff; width: 36px; height: 36px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; transition: transform .2s ease, background .2s ease; }
+#theme-toggle:hover { transform: scale(1.05); background: rgba(255,255,255,0.25); }
 
 /* Estilo base para enlaces */
 a {
@@ -185,9 +199,14 @@ main {
   box-shadow: 0 4px 8px var(--shadow-color);
 }
 
+body.dark main { background-color: rgba(30,30,30,0.6); }
+
 section {
   margin-bottom: 40px;
 }
+/* Reveal animations */
+.reveal { opacity: 0; transform: translateY(12px); transition: opacity .6s ease, transform .6s ease; }
+.reveal--visible { opacity: 1; transform: none; }
 
 section h2 {
   margin: 0 auto 20px;
@@ -328,6 +347,14 @@ footer p {
 .cookie-buttons button:active {
   transform: scale(1);
 }
+
+/* Barra de progreso de scroll */
+#scroll-progress-container { position: fixed; top: 0; left: 0; right: 0; height: 3px; z-index: 9999; background: transparent; }
+#scroll-progress-bar { height: 100%; width: 0; background: linear-gradient(90deg, #7fcfe7, #0096c6); transition: width .15s ease-out; }
+
+/* Toast */
+#toast { position: fixed; bottom: 90px; right: 20px; background: rgba(0,0,0,0.75); color: #fff; padding: 10px 14px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.25); opacity: 0; transform: translateY(8px); transition: opacity .25s ease, transform .25s ease; z-index: 10000; }
+#toast.show { opacity: 1; transform: translateY(0); }
 
 /* RESPONSIVO: Mejora en dispositivos pequeños */
 @media (max-width: 768px) {
