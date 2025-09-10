@@ -1,0 +1,109 @@
+/* Assistant (BeloLink) - modern floating helper */
+:root {
+  --assistant-bg: rgba(22, 43, 111, 0.68);
+  --assistant-accent: var(--secondary-color, #ace9ff);
+  --assistant-text: #ecf0f1;
+  --assistant-btn: rgba(52, 152, 219, 0.9);
+  --assistant-radius: 16px;
+}
+
+/* Floating open button */
+#assistant-button {
+  position: fixed;
+  bottom: calc(20px + env(safe-area-inset-bottom)); right: 20px;
+  width: 58px; height: 58px;
+  border-radius: 50%;
+  background: var(--primary-color, #162b6f);
+  color: var(--assistant-text);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 28px;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+  transition: transform .2s ease, opacity .2s ease, box-shadow .2s ease;
+  z-index: 99998;
+}
+#assistant-button:hover { transform: scale(1.08); box-shadow: 0 10px 24px rgba(0,0,0,0.28); }
+#assistant-button:active { transform: scale(0.98); }
+
+/* Panel */
+#assistant-panel {
+  position: fixed;
+  bottom: calc(20px + env(safe-area-inset-bottom)); right: 20px;
+  width: 360px; max-width: 92vw;
+  display: none; flex-direction: column; gap: 14px;
+  color: var(--assistant-text);
+  background: var(--assistant-bg);
+  backdrop-filter: blur(14px) saturate(130%);
+  border: 1px solid rgba(172,233,255,0.25);
+  border-radius: var(--assistant-radius);
+  box-shadow: 0 10px 28px rgba(0,0,0,0.28);
+  padding: 16px;
+  transform: translateY(16px) scale(0.98);
+  opacity: 0;
+  transition: transform .25s ease, opacity .25s ease;
+  z-index: 99999;
+  max-height: 70vh;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+}
+#assistant-panel.active { display: flex; opacity: 1; transform: translateY(0) scale(1); }
+
+.assistant-header { display: flex; align-items: center; justify-content: space-between; gap: 10px; cursor: grab; touch-action: none; }
+.assistant-header:active { cursor: grabbing; }
+.assistant-id { display:flex; align-items:center; gap:10px; }
+.assistant-avatar { width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,0.15); display:flex; align-items:center; justify-content:center; font-size: 22px; }
+.assistant-titles p { margin: 0; font-weight: 700; }
+.assistant-titles span { font-size: 12px; opacity: 0.9; }
+.assistant-close { background: none; border: none; color: var(--assistant-text); font-size: 24px; cursor: pointer; line-height: 1; }
+
+/* Scrim background when panel open */
+#assistant-scrim { position: fixed; inset: 0; background: rgba(0,0,0,0.35); backdrop-filter: blur(2px); z-index: 99997; opacity: 0; pointer-events: none; transition: opacity .2s ease; }
+#assistant-scrim.active { opacity: 1; pointer-events: auto; }
+
+/* Voice control */
+.assistant-controls { display:flex; align-items:center; gap:8px; }
+#assistant-voice { width: 36px; height: 36px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.35); background: rgba(255,255,255,0.15); color: #fff; display:flex; align-items:center; justify-content:center; cursor:pointer; transition: transform .2s ease, background .2s ease, border-color .2s ease; }
+#assistant-voice:hover { transform: scale(1.05); background: rgba(255,255,255,0.22); }
+#assistant-voice.listening { background: rgba(231, 76, 60, 0.9); border-color: rgba(255,255,255,0.6); animation: pulse 1.2s ease-in-out infinite; }
+@keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(231,76,60,.6);} 70% { box-shadow: 0 0 0 10px rgba(231,76,60,0);} 100% { box-shadow: 0 0 0 0 rgba(231,76,60,0);} }
+
+.assistant-search { position: relative; }
+.assistant-search input { width: 100%; border-radius: 10px; border: 1px solid rgba(255,255,255,0.25); padding: 10px 12px 10px 34px; background: rgba(255,255,255,0.08); color: #fff; }
+.assistant-search .icon { position: absolute; top: 50%; left: 10px; transform: translateY(-50%); opacity: .8; }
+
+.assistant-sections { display: grid; grid-template-columns: 1fr; gap: 12px; }
+.assistant-section h4 { margin: 0 0 8px; font-size: 14px; opacity: .95; }
+.assistant-buttons { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 8px; }
+
+.assistant-btn { display: flex; align-items: center; gap: 8px; padding: 10px 12px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.22); background: rgba(255,255,255,0.08); color: #fff; cursor: pointer; transition: transform .2s ease, background .2s ease, border-color .2s ease; }
+.assistant-btn:hover { transform: translateY(-1px); background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.35); }
+.assistant-btn .icon { font-size: 18px; }
+.assistant-btn strong { font-size: 14px; }
+.assistant-btn span { font-size: 12px; opacity: .85; }
+
+/* Slider (temperatura) */
+.assistant-slider { display:flex; align-items:center; gap:10px; }
+.assistant-slider input[type="range"] { flex:1; accent-color: var(--assistant-accent); }
+.assistant-slider .value { min-width: 46px; text-align: right; font-weight: 700; }
+
+/* Overlays */
+.bl-overlay { position: fixed; inset: 0; display:flex; align-items:center; justify-content:center; pointer-events:none; opacity: 0; transition: opacity .25s ease; z-index: 9990; }
+.bl-overlay.active { opacity: 1; }
+.bl-overlay .label { color: #fff; font-size: 22px; font-weight: 800; text-shadow: 0 2px 8px rgba(0,0,0,.4); }
+.bl-camera { position: fixed; width: 74px; height: 46px; background: rgba(0,0,0,0.32); border-radius: 8px; color:#fff; display:flex; align-items:center; justify-content:center; font-size: 20px; pointer-events:none; z-index: 9991; }
+
+/* Utilities */
+@media (max-width: 480px) {
+  #assistant-panel { right: 10px; left: 10px; width: auto; }
+  .assistant-buttons { grid-template-columns: 1fr; }
+}
+
+/* Body effects toggled by the assistant */
+body.energy-saver { filter: brightness(0.98) contrast(0.98); }
+body.scene-night { background-image: radial-gradient( circle at 20% 20%, rgba(0,0,50,.15), transparent 40% ), radial-gradient( circle at 80% 10%, rgba(0,0,50,.15), transparent 40% ); }
+body.scene-work { background-image: radial-gradient( circle at 10% 90%, rgba(200,230,255,.18), transparent 40% ); }
+body.scene-away { background-image: radial-gradient( circle at 50% 50%, rgba(0,150,198,.12), transparent 50% ); }
+
+/* Optional visual hint when lights on */
+body.lights-on { box-shadow: inset 0 0 0 9999px rgba(255, 248, 225, 0.08); }
