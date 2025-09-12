@@ -43,6 +43,9 @@ body {
   line-height: 1.6;
   width: 100%;
 }
+/* Evita desplazamiento horizontal accidental en móviles */
+html, body { max-width: 100%; overflow-x: hidden; }
+img, video { max-width: 100%; height: auto; }
 
 /* =========================================================
    HEADER
