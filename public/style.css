@@ -120,6 +120,11 @@ header h1 {
   font-weight: 600;
   transition: opacity 0.3s ease;
 }
+/* Evita corte en dos líneas del título del header en escritorio */
+@media (min-width: 992px) {
+  .logo-container { min-width: max-content; }
+  header h1 { white-space: nowrap; }
+}
 
 /* Botón de tema */
 #theme-toggle {
@@ -396,6 +401,17 @@ body.dark .btn.btn-secondary { color: var(--white); border-color: var(--secondar
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   height: 100%;
 }
+
+/* Mejor contraste en modo oscuro para tarjetas */
+body.dark .beneficio,
+body.dark .contacto-item {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+body.dark .beneficio h3,
+body.dark .contacto-item h3 { color: var(--secondary-color); }
+body.dark .beneficio p,
+body.dark .contacto-item p { color: var(--text-dark); }
 
 .beneficio:hover,
 .contacto-item:hover {
@@ -742,65 +758,39 @@ section.productos h3 { text-align: center; margin-bottom: 12px; }
   transform: scale(1);
 }
 /* =========================================================
-   ALERT-BOX MEJORADO
+   ALERT-BOX COMO POPUP (no bloquea contenido)
 ========================================================= */
 .alert-box {
   position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: var(--secondary-color);
-  color: var(--text-color);
-  padding: 20px 30px;
-  border-radius: 12px;
+  right: 24px;
+  bottom: 24px;
+  background: linear-gradient(180deg, var(--secondary-color), #8fd4ee);
+  color: #063a55;
+  padding: 16px 44px 16px 44px;
+  border-radius: 14px;
   font-weight: 600;
-  text-align: center;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2), inset 0 0 8px rgba(255, 255, 255, 0.2);
-  border-left: 8px solid var(--primary-color);
-  transition: all 0.3s ease;
+  text-align: left;
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.22);
+  border: 1px solid rgba(0,0,0,0.08);
   z-index: 9999;
-  opacity: 0.95;
-  max-width: 90%;
-  width: auto;
+  max-width: min(520px, 92vw);
+  opacity: 0;
+  transform: translateY(12px);
+  pointer-events: none;
+  transition: opacity .35s ease, transform .35s ease;
 }
-
-.alert-box:hover {
-  opacity: 1;
-  transform: translate(-50%, -50%) scale(1.05);
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
-}
-
-.alert-box::before {
-  content: "⚠️";
-  font-size: 24px;
-  color: var(--primary-color);
-  margin-right: 12px;
-  display: inline-block;
-  vertical-align: middle;
-}
-
+.alert-box::before { content: "⚠️"; font-size: 22px; margin-right: 10px; vertical-align: middle; }
+.alert-box.show { opacity: 1; transform: none; pointer-events: auto; }
+.alert-box:hover { box-shadow: 0 14px 32px rgba(0,0,0,.26); }
 .alert-box .close-btn {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  cursor: pointer;
-  font-size: 18px;
-  color: var(--primary-color);
-  background: rgba(255, 255, 255, 0.7);
-  border: none;
-  border-radius: 50%;
-  padding: 4px 8px;
-  transition: all 0.3s ease;
+  position: absolute; top: 10px; right: 10px; cursor: pointer; font-size: 16px;
+  color: #063a55; background: rgba(255,255,255,0.75); border: none; border-radius: 50%; width: 26px; height: 26px; display:flex; align-items:center; justify-content:center;
+  transition: transform .2s ease, background .2s ease;
 }
-
-.alert-box .close-btn:hover {
-  background-color: rgba(0, 0, 0, 0.1);
-  transform: scale(1.2);
-}
-
-.alert-box .close-btn:focus {
-  outline: 2px solid var(--primary-color);
-  transform: scale(1.15);
+.alert-box .close-btn:hover { transform: scale(1.08); background: rgba(255,255,255,0.9); }
+.alert-box .close-btn:focus { outline: 2px solid rgba(0,0,0,0.2); }
+@media (max-width: 520px) {
+  .alert-box { left: 12px; right: 12px; bottom: 12px; padding: 14px 40px 14px 40px; }
 }
 /* =========================================================
    RESPONSIVE BREAKPOINTS

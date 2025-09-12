@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Simulador BeloLink</title>
+  <link rel="stylesheet" href="simulador.css" />
+  <!-- Three.js (no-module build + helpers) -->
+  <script src="https://unpkg.com/three@0.159.0/build/three.min.js"></script>
+  <script src="https://unpkg.com/three@0.159.0/examples/js/controls/PointerLockControls.js"></script>
+  <script src="https://unpkg.com/three@0.159.0/examples/js/controls/OrbitControls.js"></script>
+  <script src="https://unpkg.com/three@0.159.0/examples/js/loaders/GLTFLoader.js"></script>
+  <script src="https://unpkg.com/three@0.159.0/examples/js/loaders/RGBELoader.js"></script>
+  <script src="https://unpkg.com/three@0.159.0/examples/js/loaders/DRACOLoader.js"></script>
+  <script src="https://unpkg.com/three@0.159.0/examples/js/loaders/KTX2Loader.js"></script>
+</head>
+<body>
+  <div id="hud">
+    <div class="row">
+      <button id="btn-start">Entrar</button>
+      <button id="btn-lights">Luces</button>
+      <button id="btn-leds">LEDs</button>
+      <button id="btn-curtains">Cortinas</button>
+      <button id="btn-tv">TV</button>
+      <button id="btn-speakers">Parlantes</button>
+      <button id="btn-ac">Aire</button>
+      <button id="btn-heat">Calefacción</button>
+      <button id="btn-robot">Aspiradora</button>
+      <button id="btn-alarm" class="danger">Alarma</button>
+      <button id="btn-cam" class="secondary">Cámaras</button>
+      <button id="btn-reset" class="secondary">Reset</button>
+    </div>
+    <div id="thermostat" class="panel hidden">
+      <label>Temperatura: <span id="temp-read">22</span>°C</label>
+      <input type="range" id="temp" min="18" max="28" value="22" />
+    </div>
+    <div id="hint" class="hint hidden"></div>
+    <div class="help">WASD/⬅️➡️ para moverse · Click para mirar · E para usar · Esc para salir</div>
+  </div>
+
+  <canvas id="sim"></canvas>
+  <div id="reticle"></div>
+  <div id="inspector" class="panel hidden" style="position:fixed; right:12px; top:10px; max-width:340px; z-index:12;"></div>
+
+  <script type="module" src="sim/main.js"></script>
+</body>
+</html>

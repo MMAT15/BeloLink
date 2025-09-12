@@ -21,7 +21,7 @@
 
   <div class="logo-container">
     <a href="index.html">
-      <img src="img/principal.PNG" alt="BeloLink Innovations Logo" class="logo" loading="lazy">
+      <img src="img/nuevologo.PNG" alt="BeloLink Innovations Logo" class="logo" loading="lazy">
     </a>
     <h1 id="header-title" onclick="changeHeaderText()">
       <span class="highlight-belo">Belo</span><span class="highlight-link">Link</span>
@@ -39,6 +39,7 @@
       <li><a href="casos.html">Casos de Éxito</a></li>
       <li><a href="info.html">Más Información</a></li>
       <li><a href="empresas.html">Clientes Corporativos</a></li>
+      <li><a href="simulador.html">Simulador</a></li>
     </ul>
   </nav>
 </header>
@@ -239,11 +240,24 @@
 
   function closeAlertBox() {
     const alertBox = document.getElementById('alert-box');
-    alertBox.style.opacity = '0';
-    setTimeout(() => {
-      alertBox.style.display = 'none';
-    }, 600); // Match the transition duration
+    alertBox.classList.remove('show');
+    sessionStorage.setItem('sales_popup_dismissed','1');
+    setTimeout(() => { alertBox.style.display = 'none'; }, 360);
   }
+</script>
+<script>
+  // Mostrar el popup como toast no bloqueante y recordar cierre por sesión
+  document.addEventListener('DOMContentLoaded', () => {
+    const alertBox = document.getElementById('alert-box');
+    if (!alertBox) return;
+    const dismissed = sessionStorage.getItem('sales_popup_dismissed') === '1';
+    if (!dismissed) {
+      // ligera demora para que no tape el header inmediatamente
+      setTimeout(() => alertBox.classList.add('show'), 600);
+    } else {
+      alertBox.style.display = 'none';
+    }
+  });
 </script>
   <script src="script.js"></script>
 </body>

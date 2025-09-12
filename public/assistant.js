@@ -2,7 +2,7 @@
 // Injects UI and provides quick smart-home style actions (demo/UX)
 
 (function() {
-  const EXCLUDE = /(^|\/)empresas\.html$/i;
+  const EXCLUDE = /(^|\/)(empresas|simulador)\.html$/i;
   if (EXCLUDE.test(location.pathname)) return; // do not inject in corporate clients page
 
   const ready = (fn) => (document.readyState !== 'loading') ? fn() : document.addEventListener('DOMContentLoaded', fn);
@@ -19,6 +19,13 @@
     btn.tabIndex = 0;
     btn.textContent = '🤖';
     document.body.appendChild(btn);
+
+    // Hint sutil una sola vez por sesión
+    if (!sessionStorage.getItem('bl_asst_hint')) {
+      btn.classList.add('attention');
+      setTimeout(()=> btn.classList.remove('attention'), 4000);
+      sessionStorage.setItem('bl_asst_hint','1');
+    }
 
     // Scrim for outside click
     const scrim = document.createElement('div');
@@ -44,7 +51,7 @@
       </div>
       <div class="assistant-search">
         <span class="icon">🔎</span>
-        <input id="assistant-search-input" type="text" placeholder="Acción rápida (ej: seguridad)">
+        <input id="assistant-search-input" type="text" placeholder="Acción rápida (ej: Instagram)">
       </div>
       <div class="assistant-sections">
         <div class="assistant-section">
@@ -57,17 +64,10 @@
               <div class="assistant-slider"><input id="bl-temp-range" type="range" min="18" max="26" value="22"><span class="value" id="bl-temp-value">22°C</span></div>
             </div>
             <button class="assistant-btn" id="bl-locks"><span class="icon">🔐</span><div><strong>Puertas</strong><br><span>Bloquear/Desbloquear</span></div></button>
-          </div>
-        </div>
-        <div class="assistant-section">
-          <h4>Escenas</h4>
-          <div class="assistant-buttons">
-            <button class="assistant-btn" id="bl-scene-night"><span class="icon">🌙</span><div><strong>Noche</strong><br><span>Ambiente tenue</span></div></button>
-            <button class="assistant-btn" id="bl-scene-work"><span class="icon">💼</span><div><strong>Trabajo</strong><br><span>Foco y claridad</span></div></button>
-            <button class="assistant-btn" id="bl-scene-away"><span class="icon">🚪</span><div><strong>Fuera</strong><br><span>Modo ausente</span></div></button>
             <button class="assistant-btn" id="bl-energy"><span class="icon">⚡</span><div><strong>Ahorro</strong><br><span>Reducir consumo</span></div></button>
           </div>
         </div>
+        
         <div class="assistant-section">
           <h4>Utilidades</h4>
           <div class="assistant-buttons">
@@ -75,6 +75,8 @@
             <button class="assistant-btn" id="bl-top"><span class="icon">⬆️</span><div><strong>Arriba</strong><br><span>Volver al inicio</span></div></button>
             <button class="assistant-btn" id="bl-support"><span class="icon">📧</span><div><strong>Soporte</strong><br><span>Contactar por email</span></div></button>
             <button class="assistant-btn" id="bl-reminder"><span class="icon">⏰</span><div><strong>Recordatorio</strong><br><span>En 30s (demo)</span></div></button>
+            <button class="assistant-btn" id="bl-instagram"><span class="icon">📨</span><div><strong>Instagram</strong><br><span>Enviar DM</span></div></button>
+            <button class="assistant-btn" id="bl-theme"><span class="icon">🌓</span><div><strong>Tema</strong><br><span>Claro/Oscuro</span></div></button>
           </div>
         </div>
       </div>
@@ -196,24 +198,15 @@
 
     // Overlay helpers
     const addOverlay = (id, bg, text) => {
-      if (document.getElementById(id)) return;
-      const ov = document.createElement('div'); ov.id = id; ov.className = 'bl-overlay'; ov.style.background = bg;
+      const oid = 'ov-' + id;
+      if (document.getElementById(oid)) return;
+      const ov = document.createElement('div'); ov.id = oid; ov.className = 'bl-overlay'; ov.style.background = bg;
       const label = document.createElement('div'); label.className = 'label'; label.textContent = text; ov.appendChild(label);
       document.body.appendChild(ov); setTimeout(() => ov.classList.add('active'), 30);
     };
-    const removeOverlay = (id) => { const ov = document.getElementById(id); if (ov) { ov.classList.remove('active'); setTimeout(() => ov.remove(), 220); } };
+    const removeOverlay = (id) => { const ov = document.getElementById('ov-' + id); if (ov) { ov.classList.remove('active'); setTimeout(() => ov.remove(), 220); } };
 
-    // Cameras
-    const createCams = () => {
-      const pts = [ ['10px','10px'], ['10px', null], [null,'10px'] ];
-      ['bl-cam-1','bl-cam-2','bl-cam-3'].forEach((cid, i) => {
-        if (document.getElementById(cid)) return;
-        const c = document.createElement('div'); c.id = cid; c.className = 'bl-camera'; c.textContent = '📷';
-        const [top,left] = pts[i]; if (top) c.style.top = top; else c.style.bottom = '10px'; if (left) c.style.left = left; else c.style.right = '10px';
-        document.body.appendChild(c);
-      });
-    };
-    const removeCams = () => { ['bl-cam-1','bl-cam-2','bl-cam-3'].forEach(cid => document.getElementById(cid)?.remove()); };
+    // Cameras removed para evitar elementos superpuestos innecesarios
 
     // States
     // Restore state
@@ -235,16 +228,14 @@
     const toggleLights = () => { lights = !lights; toast(lights ? 'Luces encendidas' : 'Luces apagadas'); document.body.classList.toggle('lights-on', lights); sessionStorage.setItem('bl_lights', lights ? '1' : '0'); };
     const toggleSecurity = () => {
       security = !security; toast(security ? 'Seguridad activada' : 'Seguridad desactivada');
-      if (security) { addOverlay('bl-security', 'rgba(231,76,60,0.35)', 'Seguridad Activada'); createCams(); }
-      else { removeOverlay('bl-security'); removeCams(); }
+      if (security) { addOverlay('bl-security', 'rgba(231,76,60,0.35)', 'Seguridad Activada'); }
+      else { removeOverlay('bl-security'); }
       sessionStorage.setItem('bl_security', security ? '1' : '0');
     };
-    const setTemp = (v) => { temp = Number(v)||22; document.getElementById('bl-temp-value').textContent = `${temp}°C`; addOverlay('bl-temp', 'rgba(243,156,18,0.25)', `Temp: ${temp}°C`); setTimeout(() => removeOverlay('bl-temp'), 1000); sessionStorage.setItem('bl_temp', String(temp)); };
+    const setTemp = (v) => { temp = Number(v)||22; const tv = document.getElementById('bl-temp-value'); if (tv) tv.textContent = `${temp}°C`; addOverlay('bl-temp', 'rgba(243,156,18,0.25)', `Temp: ${temp}°C`); setTimeout(() => removeOverlay('bl-temp'), 1000); sessionStorage.setItem('bl_temp', String(temp)); };
     const toggleLocks = () => { locks = !locks; toast(locks ? 'Puertas bloqueadas' : 'Puertas desbloqueadas'); if (locks) addOverlay('bl-lock', 'rgba(46,204,113,0.25)','Puertas Bloqueadas'); else removeOverlay('bl-lock'); sessionStorage.setItem('bl_locks', locks ? '1' : '0'); };
 
-    const sceneNight = () => { document.body.classList.add('scene-night'); document.body.classList.remove('scene-work','scene-away'); toast('Escena: Noche'); };
-    const sceneWork = () => { document.body.classList.add('scene-work'); document.body.classList.remove('scene-night','scene-away'); toast('Escena: Trabajo'); };
-    const sceneAway = () => { document.body.classList.add('scene-away'); document.body.classList.remove('scene-night','scene-work'); toast('Escena: Fuera'); };
+    // Se eliminan escenas
     const toggleEnergy = () => { energy = !energy; document.body.classList.toggle('energy-saver', energy); toast(energy ? 'Ahorro activado' : 'Ahorro desactivado'); sessionStorage.setItem('bl_energy', energy ? '1' : '0'); };
 
     const quickNav = () => {
@@ -262,6 +253,14 @@
     const goTop = () => window.scrollTo({top:0, behavior:'smooth'});
     const support = () => { const email = 'Belolink@proton.me'; navigator.clipboard?.writeText(email).then(()=>toast('Email copiado: ' + email)); location.href = 'mailto:' + email; };
     const reminder = () => { toast('Recordatorio en 30 segundos'); setTimeout(()=> toast('⏰ Recordatorio BeloLink'), 30000); };
+    const toggleTheme = () => {
+      document.body.classList.toggle('dark');
+      const isDark = document.body.classList.contains('dark');
+      try { localStorage.setItem('theme', isDark ? 'dark' : 'light'); } catch(_){ }
+      const tbtn = document.getElementById('theme-toggle');
+      if (tbtn) tbtn.textContent = isDark ? '☀️' : '🌙';
+      toast(isDark ? 'Modo oscuro activado' : 'Modo claro activado');
+    };
 
     // Bind
     document.getElementById('bl-light')?.addEventListener('click', toggleLights);
@@ -269,15 +268,15 @@
     document.getElementById('bl-temp-range')?.addEventListener('input', (e)=> setTemp(e.target.value));
     document.getElementById('bl-locks')?.addEventListener('click', toggleLocks);
 
-    document.getElementById('bl-scene-night')?.addEventListener('click', sceneNight);
-    document.getElementById('bl-scene-work')?.addEventListener('click', sceneWork);
-    document.getElementById('bl-scene-away')?.addEventListener('click', sceneAway);
     document.getElementById('bl-energy')?.addEventListener('click', toggleEnergy);
 
     document.getElementById('bl-nav')?.addEventListener('click', quickNav);
     document.getElementById('bl-top')?.addEventListener('click', goTop);
     document.getElementById('bl-support')?.addEventListener('click', support);
     document.getElementById('bl-reminder')?.addEventListener('click', reminder);
+    document.getElementById('bl-theme')?.addEventListener('click', toggleTheme);
+    const instagramDM = () => { try { window.open('https://ig.me/m/belolinkdomotica', '_blank'); } catch(_){} toast('Abriendo Instagram…'); };
+    document.getElementById('bl-instagram')?.addEventListener('click', instagramDM);
 
     // Search quick action
     const commands = [
@@ -285,9 +284,10 @@
       ['seguridad', toggleSecurity], ['security', toggleSecurity],
       ['temperatura', () => setTemp(temp)], ['clima', () => setTemp(temp)], ['temp', () => setTemp(temp)],
       ['puertas', toggleLocks], ['cerradura', toggleLocks], ['puerta', toggleLocks],
-      ['noche', sceneNight], ['trabajo', sceneWork], ['fuera', sceneAway],
       ['ahorro', toggleEnergy], ['arriba', goTop], ['soporte', support], ['contacto', support],
-      ['navegar', quickNav], ['nav', quickNav], ['recordatorio', reminder]
+      ['tema', toggleTheme], ['oscuro', toggleTheme], ['claro', toggleTheme],
+      ['navegar', quickNav], ['nav', quickNav], ['recordatorio', reminder],
+      ['instagram', instagramDM], ['ig', instagramDM], ['dm', instagramDM], ['mensaje', instagramDM], ['directo', instagramDM]
     ];
     const levenshtein = (a,b) => {
       a = a.toLowerCase(); b = b.toLowerCase();
