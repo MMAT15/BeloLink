@@ -108,14 +108,6 @@ document.addEventListener("DOMContentLoaded", () => {
       nav.classList.toggle('active', expanded);
       menuToggle.setAttribute('aria-expanded', expanded ? 'true' : 'false');
     });
-
-    // Cerrar al hacer click en un enlace del menú (móvil)
-    $$('#nav a').forEach(a => a.addEventListener('click', () => {
-      nav.classList.remove('active');
-      menuToggle.classList.remove('active');
-      menuToggle.setAttribute('aria-expanded','false');
-      document.body.classList.remove('no-scroll');
-    }));
   }
 
   // ==========================================
