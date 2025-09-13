@@ -54,6 +54,20 @@
         <input id="assistant-search-input" type="text" placeholder="Acción rápida (ej: Instagram)">
       </div>
       <div class="assistant-sections">
+        <!-- Utilidades primero: fila 1 Soporte/Instagram, fila 2 Arriba/Tema, fila 3 Navegar/Recordatorio -->
+        <div class="assistant-section">
+          <h4>Utilidades</h4>
+          <div class="assistant-buttons">
+            <button class="assistant-btn" id="bl-support"><span class="icon">📧</span><div><strong>Soporte</strong><br><span>Contactar por email</span></div></button>
+            <button class="assistant-btn" id="bl-instagram"><span class="icon">📨</span><div><strong>Instagram</strong><br><span>Enviar DM</span></div></button>
+            <button class="assistant-btn" id="bl-top"><span class="icon">⬆️</span><div><strong>Arriba</strong><br><span>Volver al inicio</span></div></button>
+            <button class="assistant-btn" id="bl-theme"><span class="icon">🌓</span><div><strong>Tema</strong><br><span>Claro/Oscuro</span></div></button>
+            <button class="assistant-btn" id="bl-nav"><span class="icon">🧭</span><div><strong>Navegar</strong><br><span>Ir a una página</span></div></button>
+            <button class="assistant-btn" id="bl-reminder"><span class="icon">⏰</span><div><strong>Recordatorio</strong><br><span>En 30s (demo)</span></div></button>
+          </div>
+        </div>
+
+        <!-- Acciones rápidas después -->
         <div class="assistant-section">
           <h4>Acciones rápidas</h4>
           <div class="assistant-buttons">
@@ -65,18 +79,6 @@
             </div>
             <button class="assistant-btn" id="bl-locks"><span class="icon">🔐</span><div><strong>Puertas</strong><br><span>Bloquear/Desbloquear</span></div></button>
             <button class="assistant-btn" id="bl-energy"><span class="icon">⚡</span><div><strong>Ahorro</strong><br><span>Reducir consumo</span></div></button>
-          </div>
-        </div>
-        
-        <div class="assistant-section">
-          <h4>Utilidades</h4>
-          <div class="assistant-buttons">
-            <button class="assistant-btn" id="bl-nav"><span class="icon">🧭</span><div><strong>Navegar</strong><br><span>Ir a una página</span></div></button>
-            <button class="assistant-btn" id="bl-top"><span class="icon">⬆️</span><div><strong>Arriba</strong><br><span>Volver al inicio</span></div></button>
-            <button class="assistant-btn" id="bl-support"><span class="icon">📧</span><div><strong>Soporte</strong><br><span>Contactar por email</span></div></button>
-            <button class="assistant-btn" id="bl-reminder"><span class="icon">⏰</span><div><strong>Recordatorio</strong><br><span>En 30s (demo)</span></div></button>
-            <button class="assistant-btn" id="bl-instagram"><span class="icon">📨</span><div><strong>Instagram</strong><br><span>Enviar DM</span></div></button>
-            <button class="assistant-btn" id="bl-theme"><span class="icon">🌓</span><div><strong>Tema</strong><br><span>Claro/Oscuro</span></div></button>
           </div>
         </div>
       </div>

@@ -90,6 +90,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // ==========================================
   const nav = $("#nav");
   const menuToggle = $("#menu-toggle");
+  if (menuToggle && !menuToggle.hasAttribute('aria-expanded')) menuToggle.setAttribute('aria-expanded','false');
 
   if (nav && menuToggle) {
     document.addEventListener("click", ({ target }) => {
@@ -97,12 +98,24 @@ document.addEventListener("DOMContentLoaded", () => {
         nav.classList.remove("active");
         menuToggle.classList.remove("active");
         document.body.classList.remove('no-scroll');
+        menuToggle.setAttribute('aria-expanded','false');
       }
     });
 
     menuToggle.addEventListener('click', () => {
       document.body.classList.toggle('no-scroll');
+      const expanded = menuToggle.classList.toggle('active');
+      nav.classList.toggle('active', expanded);
+      menuToggle.setAttribute('aria-expanded', expanded ? 'true' : 'false');
     });
+
+    // Cerrar al hacer click en un enlace del menú (móvil)
+    $$('#nav a').forEach(a => a.addEventListener('click', () => {
+      nav.classList.remove('active');
+      menuToggle.classList.remove('active');
+      menuToggle.setAttribute('aria-expanded','false');
+      document.body.classList.remove('no-scroll');
+    }));
   }
 
   // ==========================================
@@ -234,4 +247,12 @@ document.addEventListener("DOMContentLoaded", () => {
     toast.classList.add('show');
     setTimeout(() => toast.classList.remove('show'), 2200);
   }
+
+  // ==========================================
+  // Endurecer seguridad de enlaces externos
+  // ==========================================
+  $$('a[target="_blank"]').forEach(a => {
+    const rel = (a.getAttribute('rel') || '').toLowerCase();
+    if (!rel.includes('noopener')) a.setAttribute('rel', (rel + ' noopener noreferrer').trim());
+  });
 });
