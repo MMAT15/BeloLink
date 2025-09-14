@@ -247,4 +247,13 @@ document.addEventListener("DOMContentLoaded", () => {
     const rel = (a.getAttribute('rel') || '').toLowerCase();
     if (!rel.includes('noopener')) a.setAttribute('rel', (rel + ' noopener noreferrer').trim());
   });
+
+  // ==========================================
+  // Mejora de rendimiento de imágenes
+  // ==========================================
+  $$('img').forEach(img => {
+    if (!img.hasAttribute('decoding')) img.setAttribute('decoding','async');
+    if (!img.hasAttribute('loading')) img.setAttribute('loading','lazy');
+    img.setAttribute('referrerpolicy','no-referrer');
+  });
 });
