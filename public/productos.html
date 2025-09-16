@@ -1,259 +1,311 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
- 
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nuestras Soluciones - BeloLink</title>
-  <meta name="description" content="Soluciones de domótica e IoT: seguridad, redes, sensores y paquetes a medida.">
+  <title>Soluciones IoT y Domótica | BeloLink</title>
+  <meta name="description" content="Consultoría, instalación y soporte de sistemas de domótica e IoT. Cámaras, redes, automatización y paquetes llave en mano para hogares y empresas.">
   <meta name="theme-color" content="#162b6f">
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="assistant.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="icon" href="img/nuevologo.PNG" type="image/png">
+  <script src="script.js" defer></script>
   <script src="assistant.js" defer></script>
 </head>
 <body>
-    <div id="cookie-banner" class="cookie-banner">
-      <p>Este sitio web utiliza cookies para optimizar su experiencia de navegación. El uso de cookies es opcional, y en BeloLink valoramos su privacidad. Para conocer más sobre cómo gestionamos sus datos, consulte nuestra <a href="privacidad.html">Política de privacidad</a></p>
-      <div class="cookie-buttons">
-        <button id="accept-cookies-btn">Aceptar</button>
-        <button id="reject-cookies-btn">Rechazar</button>
+  <div id="cookie-banner" class="cookie-banner" role="dialog" aria-live="polite">
+    <p>Este sitio utiliza cookies para ofrecer estadísticas y personalización opcional. Puede ajustar su preferencia cuando quiera. Conozca más en la <a href="privacidad.html">Política de Privacidad</a>.</p>
+    <div class="cookie-buttons">
+      <button id="accept-cookies-btn" type="button">Aceptar cookies</button>
+      <button id="reject-cookies-btn" type="button">Rechazar</button>
+    </div>
+  </div>
+
+  <header>
+    <div class="logo-container">
+      <a href="index.html" aria-label="Volver al inicio">
+        <img src="img/nuevologo.PNG" alt="Logo BeloLink" class="logo">
+      </a>
+      <h1 id="header-title" onclick="changeHeaderText()">
+        <span class="highlight-belo">Belo</span><span class="highlight-link">Link</span>
+      </h1>
+    </div>
+    <div class="header-right">
+      <button id="theme-toggle" type="button" aria-label="Cambiar tema">🌙</button>
+      <div class="menu-toggle" id="menu-toggle" aria-label="Abrir menú" role="button" tabindex="0">
+        <div></div>
+        <div></div>
+        <div></div>
       </div>
     </div>
-<header>
+    <nav id="nav" aria-label="Navegación principal">
+      <ul>
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="productos.html">Nuestras Soluciones</a></li>
+        <li><a href="casos.html">Casos de éxito</a></li>
+        <li><a href="info.html">Más Información</a></li>
+        <li><a href="empresas.html">Clientes Corporativos</a></li>
+      </ul>
+    </nav>
+  </header>
 
-  <div class="logo-container">
-    <a href="index.html">
-      <img src="img/nuevologo.PNG" alt="BeloLink Innovations Logo" class="logo" loading="lazy">
-    </a>
-    <h1 id="header-title" onclick="changeHeaderText()">
-      <span class="highlight-belo">Belo</span><span class="highlight-link">Link</span>
-    </h1>
+  <div class="alert-box" id="alert-box">
+    <strong>Soluciones a medida:</strong> trabajamos con particulares, pymes y corporaciones. Adaptamos hardware, software y soporte a cada escenario.
+    <span class="close-btn" onclick="closeAlertBox()">✖</span>
   </div>
-  <div class="menu-toggle" id="menu-toggle" aria-label="Abrir menú" role="button" tabindex="0">
-    <div></div>
-    <div></div>
-    <div></div>
-  </div>
-  <nav id="nav" aria-label="Navegación principal">
+
+  <main class="content" id="soluciones">
+    <section class="intro">
+      <div class="hero-copy">
+        <span class="eyebrow">Servicios integrales</span>
+        <h2>Implementamos ecosistemas IoT listos para escalar</h2>
+        <p>Analizamos cada espacio, definimos arquitectura tecnológica y acompañamos durante la operación. Usted obtiene un proyecto llave en mano con soporte continuo.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#contacto">Solicitar propuesta</a>
+          <a class="btn btn-ghost" href="casos.html">Ver casos de éxito</a>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <img src="img/camarainterior.webp" alt="Equipamiento inteligente instalado por BeloLink">
+      </div>
+    </section>
+
+    <section class="servicios-clave">
+      <div class="section-lead">
+        <span class="eyebrow">Metodología BeloLink</span>
+        <h2>Acompañamiento 360° en cada proyecto</h2>
+        <p>Nuestro enfoque combina consultoría estratégica, ingeniería de implementación y seguimiento operativo para asegurar resultados sostenibles.</p>
+      </div>
+      <div class="section-content">
+        <article>
+          <span class="feature-icon" aria-hidden="true"><i class="fa-solid fa-compass-drafting"></i></span>
+          <h3>Consultoría y diseño</h3>
+          <p>Relevamos objetivos, infraestructura existente y presupuesto para definir la hoja de ruta tecnológica ideal.</p>
+          <ul>
+            <li>Workshops técnicos y funcionales</li>
+            <li>Arquitectura de red y domótica documentada</li>
+            <li>Roadmap de escalabilidad y mantenimiento</li>
+          </ul>
+        </article>
+        <article>
+          <span class="feature-icon" aria-hidden="true"><i class="fa-solid fa-plug-circle-bolt"></i></span>
+          <h3>Instalación y configuración</h3>
+          <p>Coordinamos logística, montaje y puesta en marcha respetando normas de seguridad eléctrica y de datos.</p>
+          <ul>
+            <li>Integración multiproveedor</li>
+            <li>Tests funcionales en sitio</li>
+            <li>Capacitación al equipo interno</li>
+          </ul>
+        </article>
+        <article>
+          <span class="feature-icon" aria-hidden="true"><i class="fa-solid fa-headset"></i></span>
+          <h3>Soporte y mantenimiento</h3>
+          <p>Supervisamos la operación 24/7 con monitoreo proactivo y actualizaciones preventivas.</p>
+          <ul>
+            <li>Dashboard de incidencias y métricas</li>
+            <li>Mantenimiento remoto y on site</li>
+            <li>Planes SLA adaptables</li>
+          </ul>
+        </article>
+        <article>
+          <span class="feature-icon" aria-hidden="true"><i class="fa-solid fa-mobile-screen-button"></i></span>
+          <h3>Desarrollo de aplicaciones</h3>
+          <p>Construimos experiencias móviles y web para que administre sus dispositivos y métricas desde cualquier lugar.</p>
+          <ul>
+            <li>Apps personalizadas iOS/Android</li>
+            <li>Portales web seguros</li>
+            <li>Integraciones con APIs y dashboards BI</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="productos">
+      <div class="section-lead">
+        <span class="eyebrow">Hardware recomendado</span>
+        <h2>Categorías de equipamiento compatibles</h2>
+        <p>Seleccionamos fabricantes confiables y escalables para garantizar interoperabilidad y soporte a largo plazo.</p>
+      </div>
+      <div class="producto-grid">
+        <article class="producto">
+          <h3>Sistema de seguridad</h3>
+          <p>Kit modular con analítica inteligente, sensores y almacenamiento híbrido.</p>
+          <ul>
+            <li>Cámaras IP para interior y exterior</li>
+            <li>Almacenamiento seguro en SD y nube</li>
+            <li>Sensores de movimiento y apertura</li>
+          </ul>
+          <div class="producto-gallery">
+            <img src="img/Camaraexterior .webp" alt="Cámara exterior" class="producto-imagen">
+            <img src="img/camarainterior.webp" alt="Cámara interior" class="producto-imagen">
+            <img src="img/sdmemory.jpg" alt="Memoria SD" class="producto-imagen">
+          </div>
+          <p class="imagen-comentario">Imágenes referenciales.</p>
+        </article>
+        <article class="producto">
+          <h3>Red Wi-Fi administrada</h3>
+          <p>Implementación de redes empresariales con gestión centralizada y priorización de tráfico.</p>
+          <ul>
+            <li>Controladores Omada para múltiples sitios</li>
+            <li>Segmentación y políticas de acceso</li>
+            <li>Integración con cámaras y domótica</li>
+          </ul>
+        </article>
+        <article class="producto">
+          <h3>Equipos de red</h3>
+          <p>Infraestructura física para garantizar disponibilidad, seguridad y baja latencia.</p>
+          <ul>
+            <li>Racks y gabinetes profesionales</li>
+            <li>Routers, switches y controladores</li>
+            <li>Cableado estructurado y patch panels</li>
+          </ul>
+          <div class="producto-gallery">
+            <img src="img/rack.webp" alt="Rack de servidores" class="producto-imagen">
+            <img src="img/router.webp" alt="Router" class="producto-imagen">
+            <img src="img/switch.jpg" alt="Switch" class="producto-imagen">
+            <img src="img/controladorred.jpg" alt="Controlador de red" class="producto-imagen">
+            <img src="img/cablered.jpg" alt="Cable de red" class="producto-imagen">
+          </div>
+          <p class="imagen-comentario">Imágenes referenciales.</p>
+        </article>
+        <article class="producto">
+          <h3>Infraestructura de red</h3>
+          <p>Diseño de redes a medida y conectividad segura entre sedes y servicios críticos.</p>
+          <ul>
+            <li>Arquitectura site-to-site con VPN</li>
+            <li>Segmentación de redes industriales y corporativas</li>
+            <li>Monitoreo centralizado y alertas personalizadas</li>
+          </ul>
+          <p>¿Nuevo en el mundo VPN? Descubra más en <a href="https://protonvpn.com/es-es/what-is-a-vpn" target="_blank" rel="noopener">¿Qué es una VPN y cómo funciona?</a>.</p>
+        </article>
+        <article class="producto">
+          <h3>Mano de obra especializada</h3>
+          <p>El equipo de BeloLink se encarga de instalación, configuración y documentación. La mano de obra representa el 15% del hardware instalado.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="paquetes">
+      <div class="section-lead">
+        <span class="eyebrow">Paquetes sugeridos</span>
+        <h2>Ejemplos para distintos perfiles de usuario</h2>
+        <p>Cada proyecto se adapta a sus necesidades. Estos combos muestran configuraciones frecuentes.</p>
+      </div>
+      <div class="paquetes-grid">
+        <article class="paquete">
+          <h3>Premium · Ecosistema Apple HomeKit</h3>
+          <ul>
+            <li>HomePod Mini y Apple TV 4K</li>
+            <li>Iluminación Philips Hue y sensores Matter</li>
+            <li>Cámaras Eufy con detección inteligente</li>
+            <li>Escenas automatizadas para confort total</li>
+          </ul>
+          <div class="producto-gallery">
+            <img src="img/Homepod.jpg" alt="HomePod Mini" class="producto-imagen">
+            <img src="img/appletv.jpg" alt="Apple TV 4K" class="producto-imagen">
+            <img src="img/phillipshue.jpeg" alt="Luces Philips Hue" class="producto-imagen">
+            <img src="img/eufy.jpg" alt="Cámara Eufy" class="producto-imagen">
+            <img src="img/sensormov.jpeg" alt="Sensor de movimiento" class="producto-imagen">
+            <img src="img/sensorvent.jpeg" alt="Sensor de ventana" class="producto-imagen">
+          </div>
+          <p class="imagen-comentario">Componentes ilustrativos. Configuramos variantes según su preferencia.</p>
+        </article>
+        <article class="paquete">
+          <h3>Smartlife · Escalabilidad costo-efectiva</h3>
+          <ul>
+            <li>Alexa Echo Dot y dispositivos Tuya/Smartlife</li>
+            <li>Iluminación inteligente Alic</li>
+            <li>Cámaras Ezviz con almacenamiento híbrido</li>
+            <li>Sensores Sonoff para puertas y ventanas</li>
+          </ul>
+          <div class="producto-gallery">
+            <img src="img/echodot.jpg" alt="Echo Dot" class="producto-imagen">
+            <img src="img/allicluz.png" alt="Luces Alic" class="producto-imagen">
+            <img src="img/ezviz.jpg" alt="Cámara Ezviz" class="producto-imagen">
+            <img src="img/sensortuya.jpg" alt="Sensor Tuya" class="producto-imagen">
+            <img src="img/sensorventson.jpg" alt="Sensor Sonoff" class="producto-imagen">
+          </div>
+          <p class="imagen-comentario">Componentes ilustrativos. Combinamos marcas compatibles con su integración actual.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="contacto" id="contacto">
+      <div class="section-lead">
+        <span class="eyebrow">Solicitar un proyecto</span>
+        <h2>Cuéntenos qué necesita y armamos la propuesta</h2>
+        <p>Complete el formulario para recibir un diagnóstico inicial sin cargo dentro de las próximas 24 horas hábiles.</p>
+      </div>
+      <form id="contact-form" action="https://formspree.io/f/xrbzqjzk" method="POST">
+        <label for="nombre">Nombre o empresa</label>
+        <input type="text" id="nombre" name="nombre" required>
+
+        <label for="email">Correo electrónico</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="mensaje">Mensaje</label>
+        <textarea id="mensaje" name="mensaje" rows="4" required></textarea>
+
+        <button type="submit" class="btn btn-primary">Enviar mensaje</button>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2024 <span class="highlight-belo">Belo</span><span class="highlight-link">Link</span>. Tecnología conectada al servicio de las personas.</p>
+    <div class="gif-container">
+      <img src="img/dancing-duck.gif" alt="Mascota BeloLink" class="footer-gif">
+    </div>
+    <p>¿Tienes alguna pregunta? Escríbenos a <a href="mailto:Belolink@proton.me">Belolink@proton.me</a></p>
     <ul>
-      <li><a href="index.html">Inicio</a></li>
-      <li><a href="productos.html">Nuestras Soluciones</a></li>
-      <li><a href="casos.html">Casos de Éxito</a></li>
-      <li><a href="info.html">Más Información</a></li>
-      <li><a href="empresas.html">Clientes Corporativos</a></li>
+      <li><a href="privacidad.html">Política de Privacidad</a></li>
     </ul>
-  </nav>
-</header>
-<div class="alert-box" id="alert-box">
-  <strong></strong> Ofrecemos ventas tanto para particulares como para clientes industriales, adaptando nuestras soluciones a las necesidades específicas de cada uno.
-  <span class="close-btn" onclick="closeAlertBox()">✖</span>
-</div>
-<main class="content" id="soluciones">
-  <section class="intro">
-    <h2>Nuestras Soluciones</h2>
-    <p>En <span class="highlight-belo">Belo</span><span class="highlight-link">Link</span>, ofrecemos una gama de soluciones personalizadas para satisfacer las necesidades de nuestros clientes. Nuestro enfoque abarca desde la consultoría y el diseño hasta la instalación y el soporte técnico continuo.</p>
-  </section>
-
-  <section class="consultoria">
-    <h2>Consultoría y Diseño Personalizado</h2>
-    <p>Evaluamos las necesidades específicas de cada cliente para desarrollar soluciones a medida que maximicen la eficiencia y efectividad de nuestros sistemas.</p>
-  </section>
-
-  <section class="instalacion">
-    <h2>Instalación y Configuración</h2>
-    <p>Implementamos sistemas domóticos e IoT de manera eficiente, asegurando un funcionamiento óptimo desde el primer día.</p>
-  </section>
-
-  <section class="soporte">
-    <h2>Soporte Técnico y Mantenimiento</h2>
-    <p>Ofrecemos un servicio de asistencia continua para garantizar la operatividad y seguridad de los sistemas instalados.</p>
-  </section>
-
-  <section class="productos">
-    <h2>Productos Disponibles</h2>
-    <div class="producto">
-      <h3>Sistema de Seguridad</h3>
-      <ul>
-        <li>Cámara exterior</li>
-        <img src="img/Camaraexterior .webp" alt="Cámara exterior" class="producto-imagen" loading="lazy">
-        <p class="imagen-comentario">*Imagen de ejemplo.</p>
-        <li>Cámara interior</li>
-         <img src="img/camarainterior.webp" alt="Cámara interior" class="producto-imagen" loading="lazy">
-         <p class="imagen-comentario">*Imagen de ejemplo.</p>
-        <li>SD Memory</li>
-        <img src="img/sdmemory.jpg" alt="Tarjeta de memoria SD" class="producto-imagen" loading="lazy">
-         <p class="imagen-comentario">*Imagen de ejemplo.</p>
-      </ul>
+    <div class="redes-sociales">
+      <a href="https://www.instagram.com/belolinkdomotica" target="_blank" rel="noopener">
+        <img src="img/instagram-png.png" alt="Instagram">
+      </a>
+      <a href="https://github.com/MMAT15" target="_blank" rel="noopener">
+        <img src="img/github-mark.png" alt="GitHub">
+      </a>
     </div>
-    <div class="producto">
-      <h3>Red Wifi</h3>
-      <p>Instalación de una red wifi Omada administrada, permitiendo agregar cámaras, controles de acceso, sensores y servicios necesarios para optimizar su negocio.</p>
-    </div>
-    <div class="producto">
-      <h3>Equipos de Red</h3>
-      <ul>
-        <li>Rack servidores</li>
-        <img src="img/rack.webp" alt="Rack de servidores" class="producto-imagen" loading="lazy">
-         <p class="imagen-comentario">*Imagen de ejemplo.</p>
-        <li>Router</li>
-        <img src="img/router.webp" alt="Router" class="producto-imagen" loading="lazy">
-         <p class="imagen-comentario">*Imagen de ejemplo.</p>
-        <li>Switch</li>
-        <img src="img/switch.jpg" alt="Switch" class="producto-imagen" loading="lazy">
-         <p class="imagen-comentario">*Imagen de ejemplo.</p>
-        <li>Controlador de red</li>
-        <img src="img/controladorred.jpg" class="producto-imagen" alt="Controlador de red" loading="lazy">
-         <p class="imagen-comentario">*Imagen de ejemplo.</p>
-        <li>Cable de red</li>
-        <img src="img/cablered.jpg" class="producto-imagen" alt="Cable de red" loading="lazy">
-         <p class="imagen-comentario">*Imagen de ejemplo.</p>
-      </ul>
-      <div class="producto">
-        <h3>Infraestructura de Red</h3>
-        <ul>
-          <li>Redes informáticas a medida (Diseño e instalación) </li>
-          <li>VPN site-to-site. Para saber que es una VPN, visitá <a href="https://protonvpn.com/es-es/what-is-a-vpn">¿Qué es una VPN y cómo funciona?</a> </li>
-        </ul>
-      </div>
-    </div>
-    <div class="producto">
-      <h3>Mano de Obra</h3>
-      <p>La mano de obra es el 15% del total de hardware instalado.</p>
-    </div>
-    
-  </section>
-  <section class="desarrollo">
-    <h2>Desarrollo de Aplicaciones</h2>
-    <p>Ofrecemos servicios de desarrollo de aplicaciones móviles y web, diseñadas a medida para satisfacer las necesidades específicas de nuestros clientes.</p>
-  </section>
-  <section class="paquetes">
-    <h2>Paquetes de Ejemplo</h2>
-    <div class="paquete">
-      <h3>Premium - Sistema Homekit de Apple (Paquete pensado para la comodidad del hogar)</h3>
-      <ul>
-        <li>Homepod Mini (Apple)</li>
-        <img src="img/Homepod.jpg" class="producto-imagen" alt="Homepod Mini" loading="lazy">
-         <p class="imagen-comentario">*Imagen de ejemplo.</p>
-        <li>Apple TV 4k (Apple)</li>
-        <img src="img/appletv.jpg" class="producto-imagen" alt="Apple TV 4K" loading="lazy">
-         <p class="imagen-comentario">*Imagen de ejemplo.</p>
-        <li>Luces inteligentes (Phillips Hue)</li>
-        <img src="img/phillipshue.jpeg" class="producto-imagen" alt="Luces inteligentes Phillips Hue" loading="lazy">
-         <p class="imagen-comentario">*Imagen de ejemplo.</p>
-        <li>Cámara (Eufy Security)</li>
+    <button onclick="scrollToTop()" class="back-to-top" type="button">Volver arriba</button>
+  </footer>
 
-<img src="img/eufy.jpg" class="producto-imagen" alt="Cámara Eufy" loading="lazy">
-         <p class="imagen-comentario">*Imagen de ejemplo.</p>
-        <li>Sensores de movimiento INT Y EXT (Phillips Hue)</li>
-        <img src="img/sensormov.jpeg" class="producto-imagen" alt="Sensor de movimiento" loading="lazy">
-         <p class="imagen-comentario">*Imagen de ejemplo.</p>
-        <li>Sensores para ventana (Eve Matter) </li>
-        <img src="img/sensorvent.jpeg" class="producto-imagen" alt="Sensor para ventana" loading="lazy">
-         <p class="imagen-comentario">*Imagen de ejemplo.</p>
-      </ul>
-    </div>
-    <div class="paquete">
-      <h3>Buena relación calidad/precio - Sistema Smartlife (Paquete pensado para hogares grandes o uso industrial)</h3>
-      <ul>
-        <li>Parlante Alexa Echo Dot (Amazon)</li>
-        <img src="img/echodot.jpg" class="producto-imagen" alt="Echo Dot" loading="lazy">
-         <p class="imagen-comentario">*Imagen de ejemplo.</p>
-        <li>Luces inteligentes (Alic)</li>
-        <img src="img/allicluz.png" class="producto-imagen" alt="Luces inteligentes Alic" loading="lazy">
-         <p class="imagen-comentario">*Imagen de ejemplo.</p>
-        <li>Cámaras (Ezviz)</li>
-        <img src="img/ezviz.jpg" class="producto-imagen" alt="Cámara Ezviz" loading="lazy">
-         <p class="imagen-comentario">*Imagen de ejemplo.</p>
-        <li>Sensores de movimiento (Tuya)</li>
-        <img src="img/sensortuya.jpg" class="producto-imagen" alt="Sensor Tuya" loading="lazy">
-         <p class="imagen-comentario">*Imagen de ejemplo.</p>
-        <li>Sensores para ventana (Sonoff)</li>
-        <img src="img/sensorventson.jpg" class="producto-imagen" alt="Sensor Sonoff" loading="lazy">
-         <p class="imagen-comentario">*Imagen de ejemplo.</p>
-      </ul>
-    </div>
-  </section>
-  <section>
-    <h2>Contacto</h2>
-    <p> Para realizar tu pedido, utiliza el siguiente formulario.</p>
-  </section>
-  <section id="contacto">
-    <h2>Envíanos un Mensaje</h2>
-    <form id="contact-form" action="https://formspree.io/f/xrbzqjzk" method="POST">
-      <label for="nombre">Nombre o empresa:</label>
-      <input type="text" id="nombre" name="nombre" required>
-<br> 
-      <label for="email">Correo Electrónico:</label>
-      <input type="email" id="email" name="email" required>
-      <br> 
-      <label for="mensaje">Mensaje:</label>
-      <textarea id="mensaje" name="mensaje" rows="4" required></textarea> 
-     
-      <button type="submit">Enviar</button>
-    </form>
-  </section>
-</main>
-
-<footer>
-  <p>© 2024 <span class="highlight-belo">Belo</span><span class="highlight-link">Link</span>.</p>
-  <div class="gif-container">
-    <img src="img/dancing-duck.gif" alt="Dancing Duck" class="footer-gif" loading="lazy">
-  </div>
-  <p>¿Tienes alguna pregunta? Escribe a <a href="mailto:Belolink@proton.me">Belolink@proton.me</a></p>
-  <ul>
-  <li><a href="privacidad.html">Política de privacidad</a></li>
-    </ul>
-  <div class="redes-sociales">
-    <a href="https://www.instagram.com/belolinkdomotica" target="_blank">
-      <img src="img/instagram-png.png" alt="Instagram" style="width:32px; height:32px;" loading="lazy">
-    </a>
-    <a href="https://github.com/MMAT15" target="_blank">
-      <img src="img/github-mark.png" alt="GitHub" style="width:32px; height:32px;" loading="lazy">
-    </a>
-  <button onclick="scrollToTop()" class="back-to-top">Volver arriba</button>
-</footer>
-
-<script>
-  function changeHeaderText() {
-    const headerTitle = document.getElementById('header-title');
-    const originalHTML = '<span class="highlight-belo">Belo</span><span class="highlight-link">Link</span>';
-    const newHTML = '<span style="color: #ace9ff;">Innovación</span>, <span style="color: #7fcfe7;">Seguridad</span> y <span style="color: #0096c6;">Comodidad</span>';
-
-    headerTitle.innerHTML = newHTML;
-
-    setTimeout(() => {
-      headerTitle.innerHTML = originalHTML;
-    }, 3000); // Cambia de vuelta al HTML original después de 3 segundos
-  }
-
-  function scrollToTop() {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
-  }
-
-  function closeAlertBox() {
-    const alertBox = document.getElementById('alert-box');
-    alertBox.classList.remove('show');
-    sessionStorage.setItem('sales_popup_dismissed','1');
-    setTimeout(() => { alertBox.style.display = 'none'; }, 360);
-  }
-</script>
-<script>
-  // Mostrar el popup como toast no bloqueante y recordar cierre por sesión
-  document.addEventListener('DOMContentLoaded', () => {
-    const alertBox = document.getElementById('alert-box');
-    if (!alertBox) return;
-    const dismissed = sessionStorage.getItem('sales_popup_dismissed') === '1';
-    if (!dismissed) {
-      // ligera demora para que no tape el header inmediatamente
-      setTimeout(() => alertBox.classList.add('show'), 600);
-    } else {
-      alertBox.style.display = 'none';
+  <script>
+    function changeHeaderText() {
+      const headerTitle = document.getElementById('header-title');
+      const original = '<span class="highlight-belo">Belo</span><span class="highlight-link">Link</span>';
+      const altText = '<span style="color:#8ee7ff;">Innovación</span>, <span style="color:#56d4ff;">Seguridad</span> y <span style="color:#22d3ee;">Confort</span>';
+      headerTitle.innerHTML = altText;
+      setTimeout(() => {
+        headerTitle.innerHTML = original;
+      }, 2600);
     }
-  });
-</script>
-  <script src="script.js"></script>
+
+    function closeAlertBox() {
+      const alertBox = document.getElementById('alert-box');
+      alertBox.classList.remove('show');
+      sessionStorage.setItem('sales_popup_dismissed', '1');
+      setTimeout(() => {
+        alertBox.style.display = 'none';
+      }, 320);
+    }
+
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const alertBox = document.getElementById('alert-box');
+      if (!alertBox) return;
+      const dismissed = sessionStorage.getItem('sales_popup_dismissed') === '1';
+      if (!dismissed) {
+        setTimeout(() => alertBox.classList.add('show'), 700);
+      } else {
+        alertBox.style.display = 'none';
+      }
+    });
+  </script>
 </body>
 </html>

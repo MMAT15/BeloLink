@@ -1,121 +1,198 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Clientes corporativos</title>
-
-  <!-- Vinculo a la hoja de estilos CSS -->
-  <link rel="stylesheet" href="styleb.css">
-  <!-- Iconos de FontAwesome -->
-  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <title>Clientes Corporativos | BeloLink</title>
+  <meta name="description" content="Programas corporativos de domótica e IoT. Descuentos por volumen, soporte dedicado y soluciones escalables para empresas e industrias.">
+  <meta name="theme-color" content="#162b6f">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="assistant.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="icon" href="img/nuevologo.PNG" type="image/png">
+  <script src="script.js" defer></script>
+  <script src="assistant.js" defer></script>
 </head>
 <body>
-  
+  <div id="cookie-banner" class="cookie-banner" role="dialog" aria-live="polite">
+    <p>Este sitio utiliza cookies opcionales para mejorar su experiencia. Puede aceptar o rechazar cuando lo prefiera. Consulte la <a href="privacidad.html">Política de Privacidad</a>.</p>
+    <div class="cookie-buttons">
+      <button id="accept-cookies-btn" type="button">Aceptar cookies</button>
+      <button id="reject-cookies-btn" type="button">Rechazar</button>
+    </div>
+  </div>
+
   <header>
     <div class="logo-container">
-      <a href="index.html">
-        <img src="img/nuevologo.PNG" alt="BeloLink Innovations Logo" class="logo" loading="lazy">
+      <a href="index.html" aria-label="Volver al inicio">
+        <img src="img/nuevologo.PNG" alt="Logo BeloLink" class="logo">
       </a>
-      <!-- Texto dorado -->
-      <h1 class="exclusive-gold-text">Clientes Corporativos</h1>
+      <h1 id="header-title" onclick="changeHeaderText()">
+        <span class="highlight-belo">Belo</span><span class="highlight-link">Link</span>
+      </h1>
     </div>
+    <div class="header-right">
+      <button id="theme-toggle" type="button" aria-label="Cambiar tema">🌙</button>
+      <div class="menu-toggle" id="menu-toggle" aria-label="Abrir menú" role="button" tabindex="0">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    </div>
+    <nav id="nav" aria-label="Navegación principal">
+      <ul>
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="productos.html">Nuestras Soluciones</a></li>
+        <li><a href="casos.html">Casos de éxito</a></li>
+        <li><a href="info.html">Más Información</a></li>
+        <li><a href="empresas.html">Clientes Corporativos</a></li>
+      </ul>
+    </nav>
   </header>
 
-  <!-- Botón flotante -->
-  <div class="floating-button" id="floating-button">
-    <span class="menu-text">MENÚ</span>
-  </div>
+  <main class="content">
+    <section class="intro">
+      <div class="hero-copy">
+        <span class="eyebrow">Programas corporativos</span>
+        <h2>Soluciones industriales y empresariales con acompañamiento experto</h2>
+        <p>Desde BeloLink ofrecemos acuerdos especiales para compras de gran volumen y proyectos multi-site. Un solo partner para ingeniería, instalación y soporte.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#contacto">Hablar con ventas</a>
+          <a class="btn btn-ghost" href="casos.html">Ver resultados</a>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <img src="img/energia.jpg" alt="Espacio corporativo con tecnología BeloLink">
+      </div>
+    </section>
 
-  <!-- Menú flotante -->
-  <div class="floating-menu" id="floating-menu">
-    <ul>
-      <li><a href="index.html">Inicio</a></li>
-      <li><a href="productos.html">Nuestras Soluciones</a></li>
-      <li><a href="casos.html">Casos de Éxito</a></li>
-      <li><a href="info.html">Más Información</a></li>
-      <li><a href="empresas.html">Clientes Corporativos</a></li>
-    </ul>
-  </div>
+    <section class="beneficios-corporativos">
+      <div class="section-lead">
+        <span class="eyebrow">Beneficios exclusivos</span>
+        <h2>Ventajas para clientes corporativos</h2>
+        <p>Diseñamos propuestas flexibles que acompañan el crecimiento de su organización.</p>
+      </div>
+      <div class="section-content">
+        <article>
+          <span class="feature-icon" aria-hidden="true"><i class="fa-solid fa-percent"></i></span>
+          <h3>Descuentos por volumen</h3>
+          <p>Escalamos precios según la cantidad de dispositivos y sitios. Optimizamos su inversión desde la primera compra.</p>
+        </article>
+        <article>
+          <span class="feature-icon" aria-hidden="true"><i class="fa-solid fa-user-tie"></i></span>
+          <h3>Atención personalizada</h3>
+          <p>Equipo dedicado de preventa e implementación para entender retos técnicos y ofrecer soluciones a medida.</p>
+        </article>
+        <article>
+          <span class="feature-icon" aria-hidden="true"><i class="fa-solid fa-truck"></i></span>
+          <h3>Envíos prioritarios</h3>
+          <p>Logística ágil y seguimiento constante para garantizar tiempos de despliegue y reposición rápidos.</p>
+        </article>
+      </div>
+    </section>
 
-  <main>
-    <section>
-      <h2>Bienvenido/a a Nuestros <span class="ben-exclusivos">Clientes Corporativos</span></h2>
-      <p>
-        En <span class="highlight-belo">Belo</span><span class="highlight-link">Link</span>, nos enorgullece ofrecer condiciones especiales y servicios exclusivos para empresas y compradores industriales que desean realizar compras de gran volumen. Valoramos profundamente a nuestros clientes corporativos y nos esforzamos por proporcionarles una experiencia de compra excepcional.
-      </p>
+    <section class="servicios-clave">
+      <div class="section-lead">
+        <span class="eyebrow">Cómo trabajamos</span>
+        <h2>Metodología para proyectos empresariales</h2>
+        <p>Nuestro proceso acompaña a su organización desde la planificación hasta la operación diaria.</p>
+      </div>
+      <div class="section-content">
+        <article>
+          <span class="feature-icon" aria-hidden="true"><i class="fa-solid fa-clipboard-list"></i></span>
+          <h3>Assessment inicial</h3>
+          <p>Diagnóstico técnico, relevamiento de infraestructura y definición de objetivos de negocio.</p>
+        </article>
+        <article>
+          <span class="feature-icon" aria-hidden="true"><i class="fa-solid fa-layer-group"></i></span>
+          <h3>Implementación por etapas</h3>
+          <p>Fases claras para minimizar tiempos fuera de servicio y asegurar la continuidad operativa.</p>
+        </article>
+        <article>
+          <span class="feature-icon" aria-hidden="true"><i class="fa-solid fa-life-ring"></i></span>
+          <h3>Soporte dedicado</h3>
+          <p>Planes SLA, monitoreo proactivo y acceso directo a nuestro equipo técnico para resolver incidencias.</p>
+        </article>
+      </div>
     </section>
-    <section>
-      <h2>Beneficios <span class="ben-exclusivos">Exclusivos</span></h2>
-      <ul>
-        <li><strong>Descuentos por Volumen:</strong> Ofrecemos atractivos descuentos en función del volumen de compra. Cuanto mayor sea el pedido, mayores serán los descuentos aplicados.</li>
-        <li><strong>Atención Personalizada:</strong> Como un negocio pequeño, cada cliente es importante para nosotros. Proporcionamos una atención personalizada y directa para satisfacer sus necesidades específicas.</li>
-        <li><strong>Envíos Prioritarios:</strong> Garantizamos envíos prioritarios para todas las compras de gran volumen, asegurando que sus productos lleguen a tiempo.</li>
-      </ul>
+
+    <section class="testimonios">
+      <div class="section-lead">
+        <span class="eyebrow">Lo que dicen nuestros clientes</span>
+        <h2>Confianza basada en resultados</h2>
+        <p>Organizaciones de diversas industrias eligen BeloLink para sus proyectos críticos.</p>
+      </div>
+      <div class="section-content">
+        <article>
+          <h3>Retail nacional</h3>
+          <p>“Automatizamos la gestión energética de 25 tiendas en simultáneo. El consumo se redujo 30% y todo se visualiza desde un único dashboard.”</p>
+        </article>
+        <article>
+          <h3>Industria alimenticia</h3>
+          <p>“La cadena de frío ahora se monitorea en tiempo real. El sistema emite alertas anticipadas y evita pérdidas de stock.”</p>
+        </article>
+        <article>
+          <h3>Sector educativo</h3>
+          <p>“Integración sencilla con los sistemas existentes. Hoy controlamos accesos, iluminación y salas híbridas desde la app.”</p>
+        </article>
+      </div>
     </section>
-    <section>
-      <h2>Descuentos por Volumen</h2>
-      <p>
-        Nuestros clientes corporativos disfrutan de importantes descuentos por volumen. Este beneficio está diseñado para proporcionar un valor añadido a nuestras asociaciones a largo plazo. Contáctenos para recibir una cotización personalizada y descubra cómo podemos apoyar sus necesidades empresariales.
-      </p>
-    </section>
-    <section>
-      <h2>Atención Personalizada</h2>
-      <p>
-        Como un negocio en crecimiento gestionado por dos personas, nos comprometemos a ofrecer un servicio personalizado y directo. Trabajaremos estrechamente con usted para entender sus requisitos y proporcionar soluciones que maximicen el valor de su inversión.
-      </p>
-    </section>
-    <section>
-      <h2>Envíos Prioritarios</h2>
-      <p>
-        Entendemos la importancia de la eficiencia y la puntualidad en las operaciones empresariales. Por ello, garantizamos envíos prioritarios para todos nuestros clientes corporativos, asegurando que sus productos lleguen de manera rápida y segura.
-      </p>
-    </section>
-    <section>
-      <h2>Contacto</h2>
-      <p>
-        Utiliza el siguiente formulario si necesitas obtener más información sobre nuestras condiciones especiales para clientes corporativos o para realizar tu pedido.
-      </p>
-    </section>
-    <section id="contacto">
-      <h2>Envíanos un Mensaje</h2>
+
+    <section class="contacto" id="contacto">
+      <div class="section-lead">
+        <span class="eyebrow">Iniciar conversación</span>
+        <h2>Solicite una propuesta corporativa</h2>
+        <p>Comparta los objetivos de su empresa y coordinaremos una reunión estratégica para definir el alcance.</p>
+      </div>
       <form id="contact-form" action="https://formspree.io/f/xrbzqjzk" method="POST">
-        <label for="nombre">Nombre o Empresa:</label>
+        <label for="nombre">Nombre o empresa</label>
         <input type="text" id="nombre" name="nombre" required>
 
-        <label for="email">Correo Electrónico:</label>
+        <label for="email">Correo electrónico</label>
         <input type="email" id="email" name="email" required>
 
-        <label for="mensaje">Mensaje:</label>
-        <textarea id="mensaje" name="mensaje" rows="4" required></textarea>
+        <label for="mensaje">Mensaje</label>
+        <textarea id="mensaje" name="mensaje" rows="4" required placeholder="Cuéntenos sobre sitios, plazos y requerimientos técnicos"></textarea>
 
-        <button type="submit">Enviar</button>
+        <button type="submit" class="btn btn-primary">Contactar equipo corporativo</button>
       </form>
     </section>
   </main>
 
   <footer>
-    <p>&copy; 2024 <span class="highlight-belo">Belo</span><span class="highlight-link">Link</span>.</p>
+    <p>© 2024 <span class="highlight-belo">Belo</span><span class="highlight-link">Link</span>. Tecnología confiable para organizaciones que lideran.</p>
+    <div class="gif-container">
+      <img src="img/dancing-duck.gif" alt="Mascota BeloLink" class="footer-gif">
+    </div>
+    <p>¿Tienes alguna pregunta? Escríbenos a <a href="mailto:Belolink@proton.me">Belolink@proton.me</a></p>
+    <ul>
+      <li><a href="privacidad.html">Política de Privacidad</a></li>
+    </ul>
+    <div class="redes-sociales">
+      <a href="https://www.instagram.com/belolinkdomotica" target="_blank" rel="noopener">
+        <img src="img/instagram-png.png" alt="Instagram">
+      </a>
+      <a href="https://github.com/MMAT15" target="_blank" rel="noopener">
+        <img src="img/github-mark.png" alt="GitHub">
+      </a>
+    </div>
+    <button onclick="scrollToTop()" class="back-to-top" type="button">Volver arriba</button>
   </footer>
 
   <script>
-    // Botón flotante (abre/cierra menú)
-    document.getElementById('floating-button').addEventListener('click', function() {
-      document.getElementById('floating-menu').classList.toggle('active');
-      this.classList.toggle('active');
-    });
+    function changeHeaderText() {
+      const headerTitle = document.getElementById('header-title');
+      const original = '<span class="highlight-belo">Belo</span><span class="highlight-link">Link</span>';
+      const altText = '<span style="color:#8ee7ff;">Innovación</span>, <span style="color:#56d4ff;">Seguridad</span> y <span style="color:#22d3ee;">Confort</span>';
+      headerTitle.innerHTML = altText;
+      setTimeout(() => {
+        headerTitle.innerHTML = original;
+      }, 2600);
+    }
 
-    // Cerrar el menú al hacer clic fuera
-    document.addEventListener('click', function(event) {
-      const floatingMenu = document.getElementById('floating-menu');
-      const floatingButton = document.getElementById('floating-button');
-      if (!floatingMenu.contains(event.target) && !floatingButton.contains(event.target)) {
-        floatingMenu.classList.remove('active');
-        floatingButton.classList.remove('active');
-      }
-    });
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
   </script>
-  <script src="script.js"></script>
 </body>
 </html>

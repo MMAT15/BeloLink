@@ -1,179 +1,255 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-WGSGHHHYX5"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'G-WGSGHHHYX5');
-  </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Más Información - BeloLink Innovations</title>
-  <meta name="description" content="Todo sobre domótica e IoT: historia, beneficios y aplicaciones prácticas.">
+  <title>Sobre Domótica e IoT | BeloLink</title>
+  <meta name="description" content="Conozca cómo la domótica y el Internet de las Cosas revolucionan la gestión de hogares y empresas. Historia, beneficios, funciones y aplicaciones reales.">
   <meta name="theme-color" content="#162b6f">
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="assistant.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="icon" href="img/nuevologo.PNG" type="image/png">
+  <script src="script.js" defer></script>
+  <script src="assistant.js" defer></script>
 </head>
 <body>
-    <div id="cookie-banner" class="cookie-banner">
-      <p>Este sitio web utiliza cookies para optimizar su experiencia de navegación. El uso de cookies es opcional, y en BeloLink valoramos su privacidad. Para conocer más sobre cómo gestionamos sus datos, consulte nuestra  <a href="privacidad.html">Política de privacidad</a></p>
-      <div class="cookie-buttons">
-        <button id="accept-cookies-btn">Aceptar</button>
-        <button id="reject-cookies-btn">Rechazar</button>
+  <div id="cookie-banner" class="cookie-banner" role="dialog" aria-live="polite">
+    <p>Utilizamos cookies analíticas opcionales para mejorar su experiencia. Puede aceptar o rechazar en cualquier momento. Conozca más en nuestra <a href="privacidad.html">Política de Privacidad</a>.</p>
+    <div class="cookie-buttons">
+      <button id="accept-cookies-btn" type="button">Aceptar cookies</button>
+      <button id="reject-cookies-btn" type="button">Rechazar</button>
+    </div>
+  </div>
+
+  <header>
+    <div class="logo-container">
+      <a href="index.html" aria-label="Volver al inicio">
+        <img src="img/nuevologo.PNG" alt="Logo BeloLink" class="logo">
+      </a>
+      <h1 id="header-title" onclick="changeHeaderText()">
+        <span class="highlight-belo">Belo</span><span class="highlight-link">Link</span>
+      </h1>
+    </div>
+    <div class="header-right">
+      <button id="theme-toggle" type="button" aria-label="Cambiar tema">🌙</button>
+      <div class="menu-toggle" id="menu-toggle" aria-label="Abrir menú" role="button" tabindex="0">
+        <div></div>
+        <div></div>
+        <div></div>
       </div>
     </div>
-<header>
-  <div class="logo-container">
-    <a href="index.html">
-      <img src="img/nuevologo.PNG" alt="BeloLink Innovations Logo" class="logo" loading="lazy">
-    </a>
-    <h1 id="header-title" onclick="changeHeaderText()">
-      <span class="highlight-belo">Belo</span><span class="highlight-link">Link</span>
-    </h1>
-  </div>
-  <div class="menu-toggle" id="menu-toggle" aria-label="Abrir menú" role="button" tabindex="0">
-    <div></div>
-    <div></div>
-    <div></div>
-  </div>
-  <nav id="nav" aria-label="Navegación principal">
+    <nav id="nav" aria-label="Navegación principal">
+      <ul>
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="productos.html">Nuestras Soluciones</a></li>
+        <li><a href="casos.html">Casos de éxito</a></li>
+        <li><a href="info.html">Más Información</a></li>
+        <li><a href="empresas.html">Clientes Corporativos</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="content" id="masinfo">
+    <section class="intro">
+      <div class="hero-copy">
+        <span class="eyebrow">Qué es la domótica</span>
+        <h2>Conectar, automatizar y aprender de cada espacio</h2>
+        <p>La domótica integra sensores, actuadores y software para ofrecer hogares y edificios que responden de forma inteligente. Control de iluminación, clima, seguridad y entretenimiento se coordinan desde un ecosistema central.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="https://youtu.be/-1AVZwuT90U" target="_blank" rel="noopener">Ver video informativo</a>
+          <a class="btn btn-ghost" href="productos.html">Explorar soluciones BeloLink</a>
+        </div>
+        <div class="hero-stats">
+          <div class="hero-stat">
+            <strong>1970</strong>
+            <span>Primeros sistemas domóticos residenciales</span>
+          </div>
+          <div class="hero-stat">
+            <strong>90%</strong>
+            <span>de los dispositivos IoT generan datos accionables</span>
+          </div>
+          <div class="hero-stat">
+            <strong>3x</strong>
+            <span>más eficiencia operativa con automatización integrada</span>
+          </div>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <img src="img/comodidad.jpeg" alt="Panel de control inteligente BeloLink">
+      </div>
+    </section>
+
+    <section class="funciones">
+      <div class="section-lead">
+        <span class="eyebrow">Funciones principales</span>
+        <h2>Áreas que se benefician de la automatización</h2>
+        <p>Combinamos distintos dispositivos para resolver necesidades concretas en hogares, oficinas y entornos industriales.</p>
+      </div>
+      <div class="section-content">
+        <article>
+          <span class="feature-icon" aria-hidden="true"><i class="fa-solid fa-lightbulb"></i></span>
+          <h3>Iluminación adaptativa</h3>
+          <p>Escenas que responden a la luz natural, presencia y horarios. Permite ahorrar energía y mejorar el confort visual.</p>
+        </article>
+        <article>
+          <span class="feature-icon" aria-hidden="true"><i class="fa-solid fa-temperature-half"></i></span>
+          <h3>Climatización inteligente</h3>
+          <p>Termostatos que aprenden rutinas, sensores de humedad y control zonificado para ambientes siempre confortables.</p>
+        </article>
+        <article>
+          <span class="feature-icon" aria-hidden="true"><i class="fa-solid fa-shield"></i></span>
+          <h3>Seguridad y control de accesos</h3>
+          <p>Alarmas, cámaras con analítica y cerraduras inteligentes conectadas a notificaciones en tiempo real.</p>
+        </article>
+        <article>
+          <span class="feature-icon" aria-hidden="true"><i class="fa-solid fa-tv"></i></span>
+          <h3>Entretenimiento y multimedia</h3>
+          <p>Sistemas audiovisuales unificados para crear experiencias inmersivas en hogares y salas corporativas.</p>
+        </article>
+        <article>
+          <span class="feature-icon" aria-hidden="true"><i class="fa-solid fa-droplet"></i></span>
+          <h3>Gestión del agua</h3>
+          <p>Riego automático según condiciones climáticas, sensores de fugas y medidores conectados a la nube.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="historia">
+      <div class="section-lead">
+        <span class="eyebrow">Historia</span>
+        <h2>Evolución de la domótica</h2>
+        <p>La innovación en conectividad y electrónica hizo posible que hoy hablemos de hogares y edificios inteligentes.</p>
+      </div>
+      <div class="section-content">
+        <article>
+          <span class="feature-icon" aria-hidden="true"><i class="fa-solid fa-hourglass-start"></i></span>
+          <h3>1970 - Los inicios</h3>
+          <p>Los primeros sistemas controlaban iluminación y climatización de forma básica. Eran costosos y difíciles de instalar.</p>
+        </article>
+        <article>
+          <span class="feature-icon" aria-hidden="true"><i class="fa-solid fa-microchip"></i></span>
+          <h3>2000 - Democratización</h3>
+          <p>La conectividad Wi-Fi, los smartphones y los asistentes de voz volvieron accesible la automatización residencial.</p>
+        </article>
+        <article>
+          <span class="feature-icon" aria-hidden="true"><i class="fa-solid fa-cloud"></i></span>
+          <h3>Hoy - Ecosistemas abiertos</h3>
+          <p>El Internet de las Cosas permite integrar sensores, AI y servicios cloud. Surgen estándares como Matter para simplificar la interoperabilidad.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="iot">
+      <div class="section-lead">
+        <span class="eyebrow">Internet de las Cosas</span>
+        <h2>Lo que hace posible esta evolución</h2>
+        <p>El IoT conecta dispositivos físicos con plataformas de software, generando información en tiempo real para tomar mejores decisiones.</p>
+      </div>
+      <div class="section-content">
+        <article>
+          <span class="feature-icon" aria-hidden="true"><i class="fa-solid fa-signal"></i></span>
+          <h3>Dispositivos conectados</h3>
+          <p>Sensores, actuadores, wearables y electrodomésticos con conectividad propia o gateways dedicados.</p>
+        </article>
+        <article>
+          <span class="feature-icon" aria-hidden="true"><i class="fa-solid fa-network-wired"></i></span>
+          <h3>Redes y protocolos</h3>
+          <p>Wi-Fi, Zigbee, Z-Wave, Bluetooth, 5G o Ethernet industrial permiten que todo intercambie datos con seguridad.</p>
+        </article>
+        <article>
+          <span class="feature-icon" aria-hidden="true"><i class="fa-solid fa-chart-line"></i></span>
+          <h3>Plataformas de datos</h3>
+          <p>Los datos se almacenan, analizan y visualizan para activar automatizaciones, generar insights y optimizar operaciones.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="beneficios">
+      <div class="section-lead">
+        <span class="eyebrow">Beneficios estratégicos</span>
+        <h2>Por qué apostar por domótica e IoT</h2>
+        <p>Las organizaciones y hogares que incorporan automatización obtienen mejoras medibles.</p>
+      </div>
+      <div class="beneficios-content">
+        <article class="beneficio">
+          <span class="feature-icon" aria-hidden="true"><i class="fa-solid fa-chart-column"></i></span>
+          <h3>Eficiencia energética</h3>
+          <p>Control granular del consumo, detección de desperdicios y dashboards para seguir indicadores en tiempo real.</p>
+        </article>
+        <article class="beneficio">
+          <span class="feature-icon" aria-hidden="true"><i class="fa-solid fa-user-check"></i></span>
+          <h3>Seguridad y bienestar</h3>
+          <p>Alarmas inteligentes, notificaciones automáticas y entornos que se adaptan al bienestar de las personas.</p>
+        </article>
+        <article class="beneficio">
+          <span class="feature-icon" aria-hidden="true"><i class="fa-solid fa-robot"></i></span>
+          <h3>Procesos automatizados</h3>
+          <p>Menos tareas repetitivas, más foco en tareas estratégicas y seguimiento continuo gracias a la analítica.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="aplicaciones-diarias">
+      <div class="section-lead">
+        <span class="eyebrow">Aplicaciones diarias</span>
+        <h2>Casos cotidianos donde la domótica marca la diferencia</h2>
+        <p>La automatización impacta tanto en hogares como en entornos empresariales y de salud.</p>
+      </div>
+      <div class="section-content">
+        <article>
+          <span class="feature-icon" aria-hidden="true"><i class="fa-solid fa-house"></i></span>
+          <h3>Hogares inteligentes</h3>
+          <p>Escenarios personalizados, asistente de voz, monitoreo remoto y control centralizado desde la app.</p>
+        </article>
+        <article>
+          <span class="feature-icon" aria-hidden="true"><i class="fa-solid fa-building"></i></span>
+          <h3>Edificios corporativos</h3>
+          <p>Gestión de salas, climatización bajo demanda, control de acceso y dashboards de facilities.</p>
+        </article>
+        <article>
+          <span class="feature-icon" aria-hidden="true"><i class="fa-solid fa-stethoscope"></i></span>
+          <h3>Salud y bienestar</h3>
+          <p>Wearables, teleasistencia y alarmas conectadas para monitorear pacientes y residentes.</p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2024 <span class="highlight-belo">Belo</span><span class="highlight-link">Link</span>. Compartimos conocimiento para construir espacios inteligentes.</p>
+    <div class="gif-container">
+      <img src="img/dancing-duck.gif" alt="Mascota BeloLink" class="footer-gif">
+    </div>
+    <p>¿Tienes alguna pregunta? Escríbenos a <a href="mailto:Belolink@proton.me">Belolink@proton.me</a></p>
     <ul>
-      <li><a href="index.html">Inicio</a></li>
-      <li><a href="productos.html">Nuestras Soluciones</a></li>
-      <li><a href="casos.html">Casos de Éxito</a></li>
-      <li><a href="info.html">Más Información</a></li>
-      <li><a href="empresas.html">Clientes Corporativos</a></li>
+      <li><a href="privacidad.html">Política de Privacidad</a></li>
     </ul>
-  </nav>
-</header>
-<script src="assistant.js" defer></script>
-
-<main class="content" id="masinfo">
-  <section class="intro">
-    <h2>¿Qué es la Domótica?</h2>
-    <p>La domótica es un conjunto de sistemas avanzados que automatizan las diferentes instalaciones de una vivienda o edificio, proporcionando una gestión inteligente de diversos aspectos como energía, seguridad, bienestar y comunicación. Estos sistemas se integran a través de redes y dispositivos conectados que pueden ser controlados de manera remota mediante teléfonos inteligentes, tabletas u otros dispositivos móviles. <a href="https://youtu.be/-1AVZwuT90U">Video Informativo</a> </p>
-
-   <h2> Funciones Principales de la Domótica </h2>
-      <ul> 
-      <li>	<b>Automatización de Iluminación:</b> Los sistemas de iluminación se pueden programar para encenderse y apagarse automáticamente en función de la hora del día, la cantidad de luz natural o la presencia de personas en una habitación.</li>
-      <li>	<b>Gestión de Climatización:</b> Los sistemas de calefacción y aire acondicionado pueden regularse automáticamente para mantener una temperatura confortable en el hogar, ajustándose a las condiciones climáticas externas y a las preferencias del usuario.</li>
-      <li><b>Seguridad: </b>Incluye sistemas de alarmas, cámaras de vigilancia y sensores de movimiento que se pueden monitorizar en tiempo real desde dispositivos móviles. En caso de una emergencia, el sistema puede enviar alertas inmediatas al propietario y a los servicios de emergencia.</li>
-      <li><b>Entretenimiento:</b> La domótica permite integrar y controlar sistemas de entretenimiento, como televisores, equipos de sonido y otros dispositivos multimedia desde un solo dispositivo.</li>
-      <li><b>Gestión del Agua:</b> Sistemas de riego automatizados aseguran que las plantas y jardines reciban la cantidad adecuada de agua, ajustándose a las condiciones climáticas y al tipo de vegetación.</li>
-        </ul>
-   <h3> Ejemplos de Domótica en el Hogar</h3> 
-<ul>
-      <li><b>Iluminación Inteligente:</b> Un sistema de control de iluminación que ajusta la intensidad de las luces según la luz natural disponible y se apaga automáticamente cuando no es necesario.</li>
-      <li><b>Termostato Inteligente:</b> Un dispositivo que aprende las rutinas del usuario y ajusta la temperatura del hogar para que siempre sea confortable cuando los ocupantes están presentes y eficiente cuando están ausentes.</li>
-  <li><b>Seguridad Integrada:</b> Cámaras y sensores que envían notificaciones al móvil del propietario en caso de detectar movimientos sospechosos o intrusiones.</li> 
-</ul>
-  </section>
-
-  <section class="historia">
-    <h2>Historia de la Domótica</h2>
-    <h3>El principios</h3>
-    <p>La domótica comenzó a desarrollarse en la década de 1970 con la aparición de las primeras tecnologías de automatización para el hogar. En sus inicios, estos sistemas eran básicos y limitados a funciones como el control de iluminación y climatización mediante temporizadores y sensores simples. La tecnología de la época permitía cierta automatización, pero era costosa y compleja de implementar, por lo que estaba al alcance de pocos. Los primeros sistemas requerían una instalación profesional y, a menudo, una reconfiguración significativa del cableado existente en las viviendas, lo que dificultaba su adopción masiva.</p>
-<h3>En la actualidad</h3>
-    <p>El verdadero auge de la domótica ha ocurrido en los últimos años gracias al avance de la tecnología digital y el internet. La proliferación de dispositivos conectados, conocidos como el Internet de las Cosas (IoT), ha revolucionado la forma en que interactuamos con nuestros hogares. Hoy en día, la mayoría de los sistemas domóticos pueden ser controlados y monitorizados de forma remota a través de aplicaciones móviles, lo que ha simplificado enormemente su uso y ha reducido los costos de implementación. Además, el desarrollo de tecnologías inalámbricas como Wi-Fi, Zigbee y Z-Wave ha eliminado la necesidad de complejas instalaciones cableadas, permitiendo que una mayor cantidad de personas accedan a los beneficios de un hogar inteligente. Esta evolución tecnológica ha transformado la domótica de un lujo reservado a unos pocos en una solución accesible para mejorar la calidad de vida en cualquier hogar.</p>
-  </section>
-
-  <section class="iot">
-    <h2>¿Qué es el Internet de las Cosas (IoT)?</h2>
-    <p>El Internet de las Cosas (IoT, por sus siglas en inglés) se refiere a la interconexión digital de objetos cotidianos con internet, permitiendo que estos dispositivos recopilen y compartan datos. Esta tecnología abarca una amplia gama de dispositivos, desde electrodomésticos inteligentes hasta sistemas de seguridad y sensores industriales, transformando la manera en que interactuamos con nuestro entorno y gestionamos diversos aspectos de nuestra vida diaria.<p>
-<h3>En la vida cotidiana</h3>
-    <p> El IoT se ha integrado en numerosos aspectos de la vida cotidiana, mejorando la eficiencia y ofreciendo nuevas capacidades que antes eran impensables. Por ejemplo, en el hogar, los electrodomésticos inteligentes como refrigeradores pueden monitorear su contenido y notificar al usuario cuando ciertos productos están a punto de agotarse. Hornos que pueden ser pre-calentados desde un smartphone y lavadoras que pueden ser controladas y programadas a distancia son también ejemplos de cómo el IoT está revolucionando las tareas domésticas.<p>
-<h3> En la iluminación y temperatura</h3>
-   <p> Además de los electrodomésticos, el IoT también incluye sistemas de iluminación y climatización que se pueden controlar por voz o mediante aplicaciones móviles. Las bombillas inteligentes pueden ajustar su intensidad en función de la luz natural disponible o según las preferencias del usuario. Los termostatos inteligentes, como el Nest, aprenden las rutinas del usuario y ajustan la temperatura del hogar para mejorar el confort y la eficiencia energética.</p>
-<h3> En la seguridad </h3>
-   <p> En el ámbito de la seguridad, los sistemas IoT incluyen cámaras de vigilancia y sensores de movimiento que se pueden monitorizar en tiempo real desde dispositivos móviles. Estos sistemas pueden enviar alertas inmediatas en caso de detectar actividades sospechosas, mejorando significativamente la seguridad del hogar.</p>
-<h3>En la industria</h3>
-   <p> En el sector industrial, los sensores IoT permiten la monitorización continua de equipos y procesos, facilitando el mantenimiento predictivo y optimizando la eficiencia operativa. Por ejemplo, sensores en maquinaria pueden detectar y reportar problemas antes de que causen fallos mayores, lo que reduce el tiempo de inactividad y los costos de reparación.
-</p>
-  </section>
-
-  <section class="beneficios">
-    <h2>Beneficios de la Domótica e IoT</h2>
-    <div class="section-content">
-      <div>
-        <h3>Eficiencia Energética</h3>
-        <p>La automatización permite un uso más eficiente de la energía, reduciendo costos y mejorando la sostenibilidad.</p>
-      </div>
-      <div>
-        <h3>Seguridad Mejorada</h3>
-        <p>Los sistemas de seguridad inteligentes pueden monitorear y controlar el acceso a la propiedad, detectando intrusos y notificando a los usuarios en tiempo real.</p>
-      </div>
-      <div>
-        <h3>Comodidad y Confort</h3>
-        <p>La domótica permite personalizar los ambientes del hogar, ajustando la iluminación, temperatura y otros factores para satisfacer las preferencias individuales.</p>
-      </div>
+    <div class="redes-sociales">
+      <a href="https://www.instagram.com/belolinkdomotica" target="_blank" rel="noopener">
+        <img src="img/instagram-png.png" alt="Instagram">
+      </a>
+      <a href="https://github.com/MMAT15" target="_blank" rel="noopener">
+        <img src="img/github-mark.png" alt="GitHub">
+      </a>
     </div>
-  </section>
+    <button onclick="scrollToTop()" class="back-to-top" type="button">Volver arriba</button>
+  </footer>
 
-  <section class="aplicaciones-diarias">
-    <h2>Aplicaciones Diarias de la Domótica e IoT</h2>
-    <div class="section-content">
-      <div>
-        <h3>Hogar Inteligente</h3>
-        <p>Control de luces, termostatos, electrodomésticos y sistemas de entretenimiento desde un dispositivo móvil.</p>
-      </div>
-      <div>
-        <h3>Seguridad del Hogar</h3>
-        <p>Monitoreo remoto de cámaras de seguridad, sistemas de alarma y sensores de movimiento.</p>
-      </div>
-      <div>
-        <h3>Salud y Bienestar</h3>
-        <p>Dispositivos de monitoreo de salud, como relojes inteligentes y sensores de actividad física.</p>
-      </div>
-    </div>
-  </section>
-</main>
+  <script>
+    function changeHeaderText() {
+      const headerTitle = document.getElementById('header-title');
+      const original = '<span class="highlight-belo">Belo</span><span class="highlight-link">Link</span>';
+      const altText = '<span style="color:#8ee7ff;">Innovación</span>, <span style="color:#56d4ff;">Seguridad</span> y <span style="color:#22d3ee;">Confort</span>';
+      headerTitle.innerHTML = altText;
+      setTimeout(() => {
+        headerTitle.innerHTML = original;
+      }, 2600);
+    }
 
-<footer>
-   <p>© 2024 <span class="highlight-belo">Belo</span><span class="highlight-link">Link</span>.</p>
-  <div class="redes-sociales">
-  </div>
-  <div class="gif-container">
-    <img src="img/dancing-duck.gif" alt="Dancing Duck" class="footer-gif" loading="lazy">
-  </div>
-  <p>¿Tienes alguna pregunta? Escribe a <a href="mailto:Belolink@proton.me">Belolink@proton.me</a></p>
-  <ul>
-   <li><a href="privacidad.html">Política de privacidad</a></li>
-  </ul>
-  <div class="redes-sociales">
-    <a href="https://www.instagram.com/belolinkdomotica" target="_blank">
-      <img src="img/instagram-png.png" alt="Instagram" style="width:32px; height:32px;" loading="lazy">
-    </a>
-    <a href="https://github.com/MMAT15" target="_blank">
-      <img src="img/github-mark.png" alt="GitHub" style="width:32px; height:32px;" loading="lazy">
-    </a>
-  </div>
-  <button onclick="scrollToTop()" class="back-to-top">Volver arriba</button>
-</footer>
-
-<script>
-  function changeHeaderText() {
-    const headerTitle = document.getElementById('header-title');
-    const originalHTML = '<span class="highlight-belo">Belo</span><span class="highlight-link">Link</span>';
-    const newHTML = '<span style="color: #ace9ff;">Innovación</span>, <span style="color: #7fcfe7;">Seguridad</span> y <span style="color: #0096c6;">Comodidad</span>';
-
-    headerTitle.innerHTML = newHTML;
-
-    setTimeout(() => {
-      headerTitle.innerHTML = originalHTML;
-    }, 3000); // Cambia de vuelta al HTML original después de 3 segundos
-  }
-
-  function scrollToTop() {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
-  }
-</script>
-  <script src="script.js"></script>
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  </script>
 </body>
 </html>

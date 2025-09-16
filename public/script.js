@@ -75,6 +75,11 @@ document.addEventListener("DOMContentLoaded", () => {
   };
   ensureThemeToggle();
 
+  const themeToggleBtn = $("#theme-toggle");
+  if (themeToggleBtn) {
+    themeToggleBtn.textContent = document.body.classList.contains('dark') ? '☀️' : '🌙';
+  }
+
   document.addEventListener('click', (e) => {
     if ((e.target)?.id === 'theme-toggle') {
       document.body.classList.toggle('dark');

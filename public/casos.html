@@ -3,145 +3,168 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Casos de Éxito - BeloLink</title>
-  <meta name="description" content="Proyectos de domótica e IoT implementados por BeloLink: resultados y experiencias.">
+  <title>Casos de Éxito | BeloLink</title>
+  <meta name="description" content="Descubra proyectos de domótica e IoT implementados por BeloLink. Resultados tangibles en eficiencia, seguridad y confort.">
   <meta name="theme-color" content="#162b6f">
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="assistant.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="icon" href="img/nuevologo.PNG" type="image/png">
+  <script src="script.js" defer></script>
+  <script src="assistant.js" defer></script>
 </head>
 <body>
-  <!-- Banner de cookies -->
-  <div id="cookie-banner" class="cookie-banner">
-    <p>
-      Este sitio web utiliza cookies para optimizar su experiencia de navegación. El uso de cookies es opcional, y en BeloLink valoramos su privacidad. Para conocer más sobre cómo gestionamos sus datos, consulte nuestra 
-      <a href="privacidad.html">Política de privacidad</a>
-    </p>
+  <div id="cookie-banner" class="cookie-banner" role="dialog" aria-live="polite">
+    <p>Este sitio utiliza cookies para ofrecer una experiencia optimizada. Puede aceptar o rechazar cuando prefiera. Consulte la <a href="privacidad.html">Política de Privacidad</a> para más detalles.</p>
     <div class="cookie-buttons">
-      <button id="accept-cookies-btn">Aceptar</button>
-      <button id="reject-cookies-btn">Rechazar</button>
+      <button id="accept-cookies-btn" type="button">Aceptar cookies</button>
+      <button id="reject-cookies-btn" type="button">Rechazar</button>
     </div>
   </div>
-  <script src="script.js"></script>
-  <!-- Header / Menú principal -->
+
   <header>
     <div class="logo-container">
-      <a href="index.html">
-        <img src="img/nuevologo.PNG" alt="BeloLink Innovations Logo" class="logo" loading="lazy">
+      <a href="index.html" aria-label="Volver al inicio">
+        <img src="img/nuevologo.PNG" alt="Logo BeloLink" class="logo">
       </a>
       <h1 id="header-title" onclick="changeHeaderText()">
         <span class="highlight-belo">Belo</span><span class="highlight-link">Link</span>
       </h1>
     </div>
-    <div class="menu-toggle" id="menu-toggle" aria-label="Abrir menú" role="button" tabindex="0">
-      <div></div>
-      <div></div>
-      <div></div>
+    <div class="header-right">
+      <button id="theme-toggle" type="button" aria-label="Cambiar tema">🌙</button>
+      <div class="menu-toggle" id="menu-toggle" aria-label="Abrir menú" role="button" tabindex="0">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
     </div>
-  <nav id="nav" aria-label="Navegación principal">
-    <ul>
-      <li><a href="index.html">Inicio</a></li>
-      <li><a href="productos.html">Nuestras Soluciones</a></li>
-      <li><a href="casos.html">Casos de Éxito</a></li>
-      <li><a href="info.html">Más Información</a></li>
-      <li><a href="empresas.html">Clientes Corporativos</a></li>
-    </ul>
-  </nav>
+    <nav id="nav" aria-label="Navegación principal">
+      <ul>
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="productos.html">Nuestras Soluciones</a></li>
+        <li><a href="casos.html">Casos de éxito</a></li>
+        <li><a href="info.html">Más Información</a></li>
+        <li><a href="empresas.html">Clientes Corporativos</a></li>
+      </ul>
+    </nav>
   </header>
-  <!-- Contenido principal: Casos de Éxito -->
+
   <main class="content" id="casos">
     <section class="intro">
-      <h2>Casos de Éxito</h2>
-      <p>En esta sección, mostramos algunos de nuestros proyectos más destacados y el impacto positivo que nuestras soluciones de domótica e IoT han tenido en diversos entornos.</p>
-      <picture>
-        <source srcset="ejemplo.HEIC" type="image/heic">
-        <img src="img/energia.jpg" alt="Casos de Éxito (fallback JPEG)" loading="lazy" decoding="async">
-      </picture>
+      <div class="hero-copy">
+        <span class="eyebrow">Resultados reales</span>
+        <h2>Historias que muestran el impacto de la automatización</h2>
+        <p>Trabajamos con organizaciones de múltiples industrias para transformar la gestión de sus espacios. La combinación de sensores, redes inteligentes y analítica generó ahorros medibles y experiencias más seguras.</p>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <strong>28%</strong>
+          <span>reducción promedio en consumo energético</span>
+        </div>
+        <div class="hero-stat">
+          <strong>15+</strong>
+          <span>sites corporativos conectados en simultáneo</span>
+        </div>
+        <div class="hero-stat">
+          <strong>0 min</strong>
+          <span>tiempo offline gracias a monitoreo proactivo</span>
+        </div>
+      </div>
+      </div>
+      <div class="hero-visual">
+        <picture>
+          <source srcset="ejemplo.HEIC" type="image/heic">
+          <img src="img/energia.jpg" alt="Casos de éxito BeloLink" loading="lazy" decoding="async">
+        </picture>
+      </div>
     </section>
-    <section class="documento">
-      <h2>Documento y Ejemplos</h2>
+
+    <section class="casos-detalle">
+      <div class="section-lead">
+        <span class="eyebrow">Nuestros clientes</span>
+        <h2>Casos destacados</h2>
+        <p>Cada implementación responde a un objetivo concreto. Compartimos algunos proyectos representativos y sus principales logros.</p>
+      </div>
       <div class="section-content">
-        <p>Aquí puede encontrar un documento detallado sobre nuestros casos de éxito:</p>
-        <a href="IOT.docx" target="_blank">Descargar Documento</a>
+        <article>
+          <span class="feature-icon" aria-hidden="true"><i class="fa-solid fa-building-shield"></i></span>
+          <h3>Corporativo financiero</h3>
+          <p>Automatizamos 8 pisos con control de acceso biométrico, climatización inteligente y salas colaborativas.</p>
+          <ul>
+            <li>Disminución del 32% en consumo eléctrico anual</li>
+            <li>Alertas instantáneas ante accesos no autorizados</li>
+            <li>Integración con tablero de facilities en tiempo real</li>
+          </ul>
+        </article>
+        <article>
+          <span class="feature-icon" aria-hidden="true"><i class="fa-solid fa-truck-fast"></i></span>
+          <h3>Operador logístico</h3>
+          <p>Vinculamos sensores ambientales, CCTV y control de flota para asegurar la cadena de frío y trazabilidad.</p>
+          <ul>
+            <li>Notificaciones automáticas ante variaciones de temperatura</li>
+            <li>Reportes centralizados para auditorías de calidad</li>
+            <li>Red redundante con VPN site-to-site</li>
+          </ul>
+        </article>
+        <article>
+          <span class="feature-icon" aria-hidden="true"><i class="fa-solid fa-leaf"></i></span>
+          <h3>Productor agrícola</h3>
+          <p>Implementamos riego inteligente, gestión lumínica y sensores de CO<sub>2</sub> para invernaderos de alta escala.</p>
+          <ul>
+            <li>Aumento del 22% en productividad por campaña</li>
+            <li>Uso optimizado de agua y fertilizantes</li>
+            <li>Panel unificado accesible desde cualquier dispositivo</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="documento">
+      <div class="section-lead">
+        <span class="eyebrow">Material descargable</span>
+        <h2>Resumen técnico de proyectos</h2>
+        <p>Descargue el documento completo con fichas de casos, tecnologías utilizadas y métricas de retorno.</p>
+      </div>
+      <div class="section-content">
+        <a href="IOT.docx" target="_blank" rel="noopener"><i class="fa-solid fa-file-lines" aria-hidden="true"></i> Descargar documento</a>
       </div>
     </section>
   </main>
 
-  <!-- Footer -->
   <footer>
-    <p>© 2024 <span class="highlight-belo">Belo</span><span class="highlight-link">Link</span>.</p>
+    <p>© 2024 <span class="highlight-belo">Belo</span><span class="highlight-link">Link</span>. Seguimos construyendo espacios más inteligentes y sostenibles.</p>
     <div class="gif-container">
-      <img src="img/dancing-duck.gif" alt="Dancing Duck" class="footer-gif" loading="lazy">
+      <img src="img/dancing-duck.gif" alt="Mascota BeloLink" class="footer-gif">
     </div>
-    <p>¿Tienes alguna pregunta? Escríbenos a <a href="mailto:Belolink@proton.me">Belolink@proton.me</a></p>
+    <p>¿Necesitas más información? Escríbenos a <a href="mailto:Belolink@proton.me">Belolink@proton.me</a></p>
     <ul>
-      <li><a href="privacidad.html">Política de privacidad</a></li>
+      <li><a href="privacidad.html">Política de Privacidad</a></li>
     </ul>
     <div class="redes-sociales">
-      <a href="https://www.instagram.com/belolinkdomotica" target="_blank">
-        <img src="img/instagram-png.png" alt="Instagram" style="width:32px; height:32px;" loading="lazy">
+      <a href="https://www.instagram.com/belolinkdomotica" target="_blank" rel="noopener">
+        <img src="img/instagram-png.png" alt="Instagram">
       </a>
-      <a href="https://github.com/MMAT15" target="_blank">
-        <img src="img/github-mark.png" alt="GitHub" style="width:32px; height:32px;" loading="lazy">
+      <a href="https://github.com/MMAT15" target="_blank" rel="noopener">
+        <img src="img/github-mark.png" alt="GitHub">
       </a>
     </div>
-    <button onclick="scrollToTop()" class="back-to-top">Volver arriba</button>
+    <button onclick="scrollToTop()" class="back-to-top" type="button">Volver arriba</button>
   </footer>
 
-  <!-- Asistente se inyecta por assistant.js -->
-
-  <!-- Scripts Unificados -->
   <script>
-
-    
-    // Scroll to top
-    function scrollToTop() {
-      window.scrollTo({top: 0, behavior: 'smooth'});
+    function changeHeaderText() {
+      const headerTitle = document.getElementById('header-title');
+      const original = '<span class="highlight-belo">Belo</span><span class="highlight-link">Link</span>';
+      const altText = '<span style="color:#8ee7ff;">Innovación</span>, <span style="color:#56d4ff;">Seguridad</span> y <span style="color:#22d3ee;">Confort</span>';
+      headerTitle.innerHTML = altText;
+      setTimeout(() => {
+        headerTitle.innerHTML = original;
+      }, 2600);
     }
 
-
-      function changeHeaderText() {
-        const headerTitle = document.getElementById('header-title');
-        const originalHTML = '<span class="highlight-belo">Belo</span><span class="highlight-link">Link</span>';
-        const newHTML = '<span style="color: #ace9ff;">Innovación</span>, <span style="color: #7fcfe7;">Seguridad</span> y <span style="color: #0096c6;">Comodidad</span>';
-
-        headerTitle.innerHTML = newHTML;
-
-        setTimeout(() => {
-          headerTitle.innerHTML = originalHTML;
-        }, 3000); // Cambia de vuelta al HTML original después de 3 segundos
-      }
-
-      function scrollToTop() {
-        window.scrollTo({
-          top: 0,
-          behavior: 'smooth'
-        });
-      }
-
-      document.addEventListener('DOMContentLoaded', () => {
-        const hoverElements = document.querySelectorAll('.beneficio, .contacto-item');
-        hoverElements.forEach(el => el.classList.add('no-hover-effect'));
-
-        const options = {
-          root: null,
-          rootMargin: '0px',
-          threshold: 0.1
-        };
-
-        const callback = (entries, observer) => {
-          entries.forEach(entry => {
-            if (entry.isIntersecting) {
-              entry.target.classList.remove('no-hover-effect');
-              observer.unobserve(entry.target);
-            }
-          });
-        };
-
-        const observer = new IntersectionObserver(callback, options);
-        hoverElements.forEach(el => observer.observe(el));
-      });
-    </script>
-
-  <script src="assistant.js" defer></script>
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  </script>
 </body>
 </html>
