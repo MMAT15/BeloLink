@@ -57,7 +57,7 @@
   --gradient-section: linear-gradient(140deg, rgba(14,165,233,0.12), rgba(79,70,229,0.12));
 }
 
-body.dark {
+body {
   --color-heading: #f8fafc;
   --color-text: #dbeafe;
   --color-muted: #9fb3d9;
@@ -206,26 +206,6 @@ header.shrink {
   gap: 18px;
 }
 
-#theme-toggle {
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  background: rgba(255, 255, 255, 0.08);
-  color: #f8fafc;
-  width: 38px;
-  height: 38px;
-  border-radius: 50%;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
-}
-
-#theme-toggle:hover,
-#theme-toggle:focus-visible {
-  transform: scale(1.05);
-  background: rgba(255, 255, 255, 0.18);
-  border-color: rgba(255, 255, 255, 0.35);
-}
 
 .menu-toggle {
   width: 46px;
@@ -674,7 +654,7 @@ main.content section li {
   font-size: 1.2rem;
 }
 
-body.dark .feature-icon {
+.feature-icon {
   background: rgba(148, 224, 255, 0.18);
 }
 
@@ -851,7 +831,7 @@ form button:focus-visible {
   box-shadow: 0 14px 32px rgba(14, 165, 233, 0.25);
 }
 
-body.dark .documento a {
+.documento a {
   background: rgba(14, 165, 233, 0.28);
   color: var(--color-on-accent);
 }
@@ -1149,10 +1129,6 @@ footer ul a:focus-visible {
 @media (max-width: 768px) {
   header {
     padding-inline: clamp(1rem, 6vw, 2rem);
-  }
-
-  #theme-toggle {
-    display: none;
   }
 
   main.content section {

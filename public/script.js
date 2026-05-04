@@ -54,43 +54,11 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // ==========================================
-  // DARK MODE: TOGGLE + PERSISTENCIA
+  // TEMA: oscuro fijo
   // ==========================================
-  const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-  const savedTheme = localStorage.getItem('theme');
-  const initialDark = savedTheme ? savedTheme === 'dark' : systemPrefersDark;
-  if (initialDark) document.body.classList.add('dark');
+  document.body.classList.add('dark');
 
-  // Inserta botón si no existe
-  const ensureThemeToggle = () => {
-    if ($("#theme-toggle")) return;
-    const btn = document.createElement('button');
-    btn.id = 'theme-toggle';
-    btn.type = 'button';
-    btn.setAttribute('aria-label', 'Cambiar tema');
-    btn.textContent = document.body.classList.contains('dark') ? '☀️' : '🌙';
-    const headerRight = $(".header-right");
-    if (headerRight) headerRight.appendChild(btn);
-    else $('header')?.appendChild(btn);
-  };
-  ensureThemeToggle();
-
-  const themeToggleBtn = $("#theme-toggle");
-  if (themeToggleBtn) {
-    themeToggleBtn.textContent = document.body.classList.contains('dark') ? '☀️' : '🌙';
-  }
-
-  document.addEventListener('click', (e) => {
-    if ((e.target)?.id === 'theme-toggle') {
-      document.body.classList.toggle('dark');
-      const isDark = document.body.classList.contains('dark');
-      localStorage.setItem('theme', isDark ? 'dark' : 'light');
-      e.target.textContent = isDark ? '☀️' : '🌙';
-      showToast(isDark ? 'Modo oscuro activado' : 'Modo claro activado');
-    }
-  });
-
-  // ==========================================
+// ==========================================
   // MENÚ: Cerrar al hacer clic fuera + bloquear scroll
   // ==========================================
   const nav = $("#nav");
