@@ -61,8 +61,7 @@
             <button class="assistant-btn" id="bl-support"><span class="icon">📧</span><div><strong>Soporte</strong><br><span>Contactar por email</span></div></button>
             <button class="assistant-btn" id="bl-instagram"><span class="icon">📨</span><div><strong>Instagram</strong><br><span>Enviar DM</span></div></button>
             <button class="assistant-btn" id="bl-top"><span class="icon">⬆️</span><div><strong>Arriba</strong><br><span>Volver al inicio</span></div></button>
-            <button class="assistant-btn" id="bl-theme"><span class="icon">🌓</span><div><strong>Tema</strong><br><span>Claro/Oscuro</span></div></button>
-            <button class="assistant-btn" id="bl-nav"><span class="icon">🧭</span><div><strong>Navegar</strong><br><span>Ir a una página</span></div></button>
+                        <button class="assistant-btn" id="bl-nav"><span class="icon">🧭</span><div><strong>Navegar</strong><br><span>Ir a una página</span></div></button>
             <button class="assistant-btn" id="bl-reminder"><span class="icon">⏰</span><div><strong>Recordatorio</strong><br><span>En 30s (demo)</span></div></button>
           </div>
         </div>
@@ -255,14 +254,6 @@
     const goTop = () => window.scrollTo({top:0, behavior:'smooth'});
     const support = () => { const email = 'Belolink@proton.me'; navigator.clipboard?.writeText(email).then(()=>toast('Email copiado: ' + email)); location.href = 'mailto:' + email; };
     const reminder = () => { toast('Recordatorio en 30 segundos'); setTimeout(()=> toast('⏰ Recordatorio BeloLink'), 30000); };
-    const toggleTheme = () => {
-      document.body.classList.toggle('dark');
-      const isDark = document.body.classList.contains('dark');
-      try { localStorage.setItem('theme', isDark ? 'dark' : 'light'); } catch(_){ }
-      const tbtn = document.getElementById('theme-toggle');
-      if (tbtn) tbtn.textContent = isDark ? '☀️' : '🌙';
-      toast(isDark ? 'Modo oscuro activado' : 'Modo claro activado');
-    };
 
     // Bind
     document.getElementById('bl-light')?.addEventListener('click', toggleLights);
@@ -276,7 +267,6 @@
     document.getElementById('bl-top')?.addEventListener('click', goTop);
     document.getElementById('bl-support')?.addEventListener('click', support);
     document.getElementById('bl-reminder')?.addEventListener('click', reminder);
-    document.getElementById('bl-theme')?.addEventListener('click', toggleTheme);
     const instagramDM = () => { try { window.open('https://ig.me/m/belolinkdomotica', '_blank'); } catch(_){} toast('Abriendo Instagram…'); };
     document.getElementById('bl-instagram')?.addEventListener('click', instagramDM);
 
@@ -287,7 +277,6 @@
       ['temperatura', () => setTemp(temp)], ['clima', () => setTemp(temp)], ['temp', () => setTemp(temp)],
       ['puertas', toggleLocks], ['cerradura', toggleLocks], ['puerta', toggleLocks],
       ['ahorro', toggleEnergy], ['arriba', goTop], ['soporte', support], ['contacto', support],
-      ['tema', toggleTheme], ['oscuro', toggleTheme], ['claro', toggleTheme],
       ['navegar', quickNav], ['nav', quickNav], ['recordatorio', reminder],
       ['instagram', instagramDM], ['ig', instagramDM], ['dm', instagramDM], ['mensaje', instagramDM], ['directo', instagramDM]
     ];

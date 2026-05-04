@@ -17,7 +17,7 @@
 }
 
 /* Modo oscuro */
-body.dark {
+body {
   --background-color: #121212;
   --text-color: #e0e0e0;
   --primary-color: #1f4b8e;
@@ -101,8 +101,6 @@ button:hover, a:hover {
 }
 
 /* Botón de tema */
-#theme-toggle { margin-left: 10px; border: none; background: rgba(255,255,255,0.15); color: #fff; width: 36px; height: 36px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; transition: transform .2s ease, background .2s ease; }
-#theme-toggle:hover { transform: scale(1.05); background: rgba(255,255,255,0.25); }
 
 /* Estilo base para enlaces */
 a {
@@ -202,7 +200,7 @@ main {
   box-shadow: 0 4px 8px var(--shadow-color);
 }
 
-body.dark main { background-color: rgba(30,30,30,0.6); }
+main { background-color: rgba(30,30,30,0.6); }
 
 section {
   margin-bottom: 40px;
