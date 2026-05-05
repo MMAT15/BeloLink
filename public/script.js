@@ -58,37 +58,73 @@ document.addEventListener("DOMContentLoaded", () => {
   // ==========================================
   document.body.classList.add('dark');
 
-// ==========================================
-  // MENÚ: Cerrar al hacer clic fuera + bloquear scroll
+  // ==========================================
+  // MENÚ: drawer móvil accesible
   // ==========================================
   const nav = $("#nav");
   const menuToggle = $("#menu-toggle");
+  let navClose = $("#nav-close");
   if (menuToggle && !menuToggle.hasAttribute('aria-expanded')) menuToggle.setAttribute('aria-expanded','false');
 
   if (nav && menuToggle) {
+    if (!navClose) {
+      navClose = document.createElement('button');
+      navClose.className = 'nav-close';
+      navClose.id = 'nav-close';
+      navClose.type = 'button';
+      navClose.setAttribute('aria-label', 'Cerrar menú');
+      navClose.innerHTML = '<span aria-hidden="true">&times;</span><span>Cerrar</span>';
+      nav.prepend(navClose);
+    }
+
+    const setNavOpen = (open, returnFocus = false) => {
+      nav.classList.toggle('active', open);
+      menuToggle.classList.toggle('active', open);
+      document.body.classList.toggle('no-scroll', open);
+      document.body.classList.toggle('nav-open', open);
+      menuToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      menuToggle.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
+      if (!open && returnFocus) menuToggle.focus();
+    };
+
+    menuToggle.addEventListener('click', () => {
+      setNavOpen(!nav.classList.contains('active'));
+    });
+
+    if (menuToggle.tagName.toLowerCase() !== 'button') {
+      menuToggle.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          menuToggle.click();
+        }
+      });
+    }
+
+    navClose?.addEventListener('click', () => {
+      setNavOpen(false, true);
+    });
+
+    $$('a', nav).forEach((link) => {
+      link.addEventListener('click', () => {
+        setNavOpen(false);
+      });
+    });
+
     document.addEventListener("click", ({ target }) => {
-      if (!nav.contains(target) && !menuToggle.contains(target)) {
-        nav.classList.remove("active");
-        menuToggle.classList.remove("active");
-        document.body.classList.remove('no-scroll', 'nav-open');
-        menuToggle.setAttribute('aria-expanded','false');
+      if (nav.classList.contains('active') && !nav.contains(target) && !menuToggle.contains(target)) {
+        setNavOpen(false);
       }
     });
 
-    menuToggle.addEventListener('click', () => {
-      const expanded = menuToggle.classList.toggle('active');
-      document.body.classList.toggle('no-scroll', expanded);
-      document.body.classList.toggle('nav-open', expanded);
-      nav.classList.toggle('active', expanded);
-      menuToggle.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && nav.classList.contains('active')) {
+        setNavOpen(false, true);
+      }
     });
 
     window.addEventListener('resize', () => {
       if (window.innerWidth >= 992 && nav.classList.contains('active')) {
-        nav.classList.remove('active');
-        menuToggle.classList.remove('active');
-        document.body.classList.remove('no-scroll', 'nav-open');
-        menuToggle.setAttribute('aria-expanded', 'false');
+        setNavOpen(false);
       }
     });
   }
@@ -159,18 +195,6 @@ document.addEventListener("DOMContentLoaded", () => {
   };
   document.addEventListener('scroll', applyShrink, { passive: true });
   applyShrink();
-
-  // ==========================================
-  // ACCESIBILIDAD: teclado para menú hamburguesa
-  // ==========================================
-  if (menuToggle) {
-    menuToggle.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        menuToggle.click();
-      }
-    });
-  }
 
   // ==========================================
   // ENLACES ACTIVOS EN NAV
