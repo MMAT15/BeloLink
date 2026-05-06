@@ -67,6 +67,16 @@ document.addEventListener("DOMContentLoaded", () => {
   if (menuToggle && !menuToggle.hasAttribute('aria-expanded')) menuToggle.setAttribute('aria-expanded','false');
 
   if (nav && menuToggle) {
+    $$(':scope > div', menuToggle).forEach((bar) => bar.classList.add('menu-toggle-bar'));
+
+    const applyMobileNavVisuals = () => {
+      const isMobileNav = window.innerWidth < 992;
+      nav.style.background = isMobileNav ? 'linear-gradient(160deg, #041126 0%, #0b2146 100%)' : '';
+      nav.style.minHeight = isMobileNav ? '100dvh' : '';
+      nav.style.borderLeft = isMobileNav ? '1px solid rgba(125, 211, 252, 0.2)' : '';
+    };
+    applyMobileNavVisuals();
+
     if (!navClose) {
       navClose = document.createElement('button');
       navClose.className = 'nav-close';
@@ -123,6 +133,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     window.addEventListener('resize', () => {
+      applyMobileNavVisuals();
       if (window.innerWidth >= 992 && nav.classList.contains('active')) {
         setNavOpen(false);
       }
