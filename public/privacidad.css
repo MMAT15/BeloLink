@@ -43,6 +43,10 @@ body {
   line-height: 1.6;
   width: 100%;
 }
+
+body.no-scroll {
+  overflow: hidden;
+}
 /* Evita desplazamiento horizontal accidental en móviles */
 html, body { max-width: 100%; overflow-x: hidden; }
 img, video { max-width: 100%; height: auto; }
@@ -117,6 +121,7 @@ a:hover {
    FLOATING BUTTON
    ========================================================= */
 .floating-button {
+  border: 0;
   position: fixed;
   bottom: 20px;
   right: 20px;
@@ -153,12 +158,35 @@ a:hover {
   opacity: 0;
   transition: opacity 0.3s ease, visibility 0.3s;
   visibility: hidden;
+  z-index: 99999;
+  width: min(320px, calc(100vw - 32px));
 }
 
 .floating-menu.active {
-  display: block;
+  display: flex;
+  flex-direction: column;
   opacity: 1;
   visibility: visible;
+}
+
+.floating-menu-close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: calc(100% - 20px);
+  min-height: 42px;
+  margin: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 999px;
+  background-color: rgba(255, 255, 255, 0.12);
+  color: var(--white);
+  font-weight: 700;
+}
+
+.floating-menu-close span:first-child {
+  font-size: 1.25rem;
+  line-height: 1;
 }
 
 .floating-menu ul {
@@ -405,21 +433,31 @@ footer p {
     font-size: 1rem;
   }
 
- .floating-menu {
-  position: fixed;                   /* Fijar el menú a la ventana */
-  top: auto;                         /* Quita 'top' si está declarado en otro lado */
-  bottom: 0;                         /* Anclar al fondo */
-  left: 50%;
-  transform: translateX(-50%);
-  border-radius: 5px 5px 0 0;
-  width: 100%;
-  box-shadow: none;
-  z-index: 99999;                    /* Asegura que esté encima */
-}
+  .floating-menu {
+    inset: auto 0 0 0;
+    width: 100%;
+    border-radius: 14px 14px 0 0;
+    box-shadow: 0 -12px 30px rgba(0, 0, 0, 0.35);
+    padding-bottom: max(10px, env(safe-area-inset-bottom));
+  }
 
-.floating-menu ul {
-  display: flex;
-  justify-content: space-around;
+  .floating-menu ul {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .floating-menu ul li {
+    padding: 0;
+  }
+
+  .floating-menu ul li a {
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    text-align: center;
+  }
 }
 
 @media (max-width: 480px) {
@@ -445,11 +483,11 @@ footer p {
 
   .floating-menu ul {
     flex-direction: column;
-    align-items: center;
+    display: flex;
   }
 
   .floating-menu ul li {
     margin: 10px 0;
+    width: 100%;
   }
-}
 }

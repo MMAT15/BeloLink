@@ -11,8 +11,8 @@
   <div id="cookie-banner" class="cookie-banner">
     <p>Este sitio web utiliza cookies para optimizar su experiencia de navegación y para iniciar sesión. Al aceptar las cookies, usted acepta nuestra política de privacidad, que incluye el uso de cookies para almacenar información de inicio de sesión y preferencias a través de **localStorage**. Si no está de acuerdo, puede rechazar las cookies, pero algunas funcionalidades del sitio podrían no funcionar correctamente. Para más detalles, consulte nuestra <a href="privacidad.html">Política de privacidad</a>.</p>
     <div class="cookie-buttons">
-      <button id="accept-cookies-btn">Aceptar</button>
-      <button id="reject-cookies-btn">Rechazar</button>
+      <button id="accept-cookies-btn" type="button">Aceptar</button>
+      <button id="reject-cookies-btn" type="button">Rechazar</button>
     </div>
   </div>
   <script src="script.js"></script>
@@ -21,10 +21,14 @@
   <header>
     <h1>Política de Privacidad🔒</h1>
   </header>
-  <div class="floating-button" id="floating-button">
+  <button class="floating-button" id="floating-button" type="button" aria-label="Abrir menú" aria-controls="floating-menu" aria-expanded="false">
     <span class="menu-text">MENÚ</span>
-  </div>
-  <div class="floating-menu" id="floating-menu">
+  </button>
+  <div class="floating-menu" id="floating-menu" aria-label="Navegación principal">
+    <button class="floating-menu-close" id="floating-menu-close" type="button" aria-label="Cerrar menú">
+      <span aria-hidden="true">&times;</span>
+      <span>Cerrar</span>
+    </button>
     <ul>
       <li><a href="index.html">Inicio</a></li>
       <li><a href="productos.html">Nuestras Soluciones</a></li>
@@ -67,17 +71,42 @@
   </footer>
 
   <script>
-    document.getElementById('floating-button').addEventListener('click', function() {
-      document.getElementById('floating-menu').classList.toggle('active');
-      this.classList.toggle('active');
+    const floatingMenu = document.getElementById('floating-menu');
+    const floatingButton = document.getElementById('floating-button');
+    const floatingMenuClose = document.getElementById('floating-menu-close');
+
+    function setFloatingMenu(open, returnFocus = false) {
+      floatingMenu.classList.toggle('active', open);
+      floatingButton.classList.toggle('active', open);
+      floatingButton.setAttribute('aria-expanded', open ? 'true' : 'false');
+      floatingButton.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
+      document.body.classList.toggle('no-scroll', open);
+      if (!open && returnFocus) floatingButton.focus();
+    }
+
+    floatingButton.addEventListener('click', function() {
+      setFloatingMenu(!floatingMenu.classList.contains('active'));
+    });
+
+    floatingMenuClose.addEventListener('click', function() {
+      setFloatingMenu(false, true);
+    });
+
+    floatingMenu.querySelectorAll('a').forEach(function(link) {
+      link.addEventListener('click', function() {
+        setFloatingMenu(false);
+      });
     });
 
     document.addEventListener('click', function(event) {
-      const floatingMenu = document.getElementById('floating-menu');
-      const floatingButton = document.getElementById('floating-button');
-      if (!floatingMenu.contains(event.target) && !floatingButton.contains(event.target)) {
-        floatingMenu.classList.remove('active');
-        floatingButton.classList.remove('active');
+      if (floatingMenu.classList.contains('active') && !floatingMenu.contains(event.target) && !floatingButton.contains(event.target)) {
+        setFloatingMenu(false);
+      }
+    });
+
+    document.addEventListener('keydown', function(event) {
+      if (event.key === 'Escape' && floatingMenu.classList.contains('active')) {
+        setFloatingMenu(false, true);
       }
     });
 
