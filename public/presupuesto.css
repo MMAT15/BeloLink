@@ -32,6 +32,21 @@ body {
   overflow-x: hidden;
 }
 
+html,
+body {
+  max-width: 100%;
+}
+
+img,
+video {
+  max-width: 100%;
+  height: auto;
+}
+
+body.no-scroll {
+  overflow: hidden;
+}
+
 h1, h2, h3 {
   font-weight: bold;
 }
@@ -109,6 +124,7 @@ nav ul li a:hover {
    FLOATING BUTTON
 ========================================================= */
 .floating-button {
+  border: 0;
   position: fixed;
   bottom: 20px;
   right: 20px;
@@ -141,10 +157,26 @@ nav ul li a:hover {
   overflow: hidden;
   display: none;
   z-index: 9999;
+  width: min(320px, calc(100vw - 32px));
 }
 
 .floating-menu.active {
-  display: block;
+  display: flex;
+  flex-direction: column;
+}
+
+.floating-menu-close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 42px;
+  margin: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 999px;
+  background-color: rgba(255, 255, 255, 0.12);
+  color: var(--white);
+  font-weight: 700;
 }
 
 .floating-menu ul {
@@ -348,4 +380,96 @@ footer a:hover {
 
 .redes-sociales img:hover {
   transform: scale(1.2);
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+@media (max-width: 768px) {
+  header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 14px;
+    text-align: center;
+  }
+
+  .logo-container {
+    justify-content: center;
+  }
+
+  nav ul {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  nav ul li {
+    margin-left: 0;
+  }
+
+  .form-container {
+    width: min(100% - 24px, 420px);
+    padding: 22px;
+  }
+
+  .product-list {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 14px;
+  }
+
+  .cart {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .cart table {
+    min-width: 560px;
+  }
+
+  .cart-buttons {
+    flex-wrap: wrap;
+  }
+
+  .cart-buttons button {
+    flex: 1 1 160px;
+  }
+
+  .floating-button {
+    bottom: max(16px, env(safe-area-inset-bottom));
+    right: 16px;
+  }
+
+  .floating-menu {
+    inset: auto 0 0 0;
+    width: 100%;
+    border-radius: 14px 14px 0 0;
+    padding-bottom: max(10px, env(safe-area-inset-bottom));
+  }
+
+  .floating-menu ul li {
+    padding: 0;
+  }
+
+  .floating-menu ul li a {
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 16px;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  header h1 {
+    font-size: 1.35rem;
+  }
+
+  .product-card img {
+    height: 120px;
+  }
+
+  .cart-summary {
+    font-size: 1rem;
+  }
 }
